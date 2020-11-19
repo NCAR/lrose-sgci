@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-content-wrapper">
+    <main class="main-content">
+        <div class="container-fluid">
+            <h1>Rainfall Estimation</h1>
+
+            <a href="url">Learn more </a> | <a href="url">Help </a>
+            <!-- Adding a list of "Hello" greetings -->
+            <div class="card">
+                <div class="card-header">
+                    Convert Level II Data to CfRadial (RadxConvert)
+                </div>
+                <div class="card-body">
+                	Step 1 <br>
+                	<a href="url">Choose data source </a> <br>
+                	Step 2 <br>
+                	Set up parameter file <br>
+                	<a href="url">Download template </a> <br>
+                	<a href="url">Upload your parameter file </a> <br>
+
+
+                    <!-- <select id="greeting-select"></select>  -->
+                    <button id="run-button" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+
+             <div class="card">
+                <div class="card-header">
+                    Map Rate to Surface (RadxRate)
+                </div>
+                <div class="card-body">
+                	Step 1 <br>
+                	<a href="url">Choose data source </a> <br>
+                	Step 2 <br>
+                	Set up parameter file <br>
+                	<a href="url">Download template </a> <br>
+                	<a href="url">Upload your parameter file </a> <br>
+
+
+                    <!-- <select id="greeting-select"></select>  -->
+                    <button id="run-button" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Compute Something (RadxQpe)
+                </div>
+                <div class="card-body">
+                	Step 1 <br>
+                	<a href="url">Choose data source </a> <br>
+                	Step 2 <br>
+                	Set up parameter file <br>
+                	<a href="url">Download template </a> <br>
+                	<a href="url">Upload your parameter file </a> <br>
+                	Output Data - NetCDF Cartesian rate data - view using (CIDD)
+
+
+                    <!-- <select id="greeting-select"></select>  -->
+                    <button id="run-button" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Compute Rainfall Accumulation (RateAccum)
+                </div>
+                <div class="card-body">
+                	Step 1 <br>
+                	<a href="url">Choose data source </a> <br>
+                	Step 2 <br>
+                	Set up parameter file <br>
+                	<a href="url">Download template </a> <br>
+                	<a href="url">Upload your parameter file </a> <br>
+                	Output Data - NetCDF Cartesian accum data - view using (CIDD)
+
+                    <!-- <select id="greeting-select"></select>  -->
+                    <button id="run-button" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+            <!-- -->
+
+            <button id="run-button" class="btn btn-secondary">Exit</button>
+
+            <!-- Displaying a list of recent experiments -->
+            <div class="card">
+                <div class="card-header">
+                    Experiments
+                </div>
+                <div class="card-body">
+                    <button id="refresh-button" class="btn btn-secondary">Refresh</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Application</th>
+                                <th scope="col">Creation Time</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Output</th>
+                            </tr>
+                        </thead>
+                        <tbody id="experiment-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- -->
+
+        </div>
+    </main>
+</div>
+{% endblock content %}
