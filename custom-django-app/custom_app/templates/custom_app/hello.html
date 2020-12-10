@@ -1,7 +1,60 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+<div>
+<ul style="
+    /* Center the content */
+    align-items: center;
+    display: flex;
+    justify-content: center;
+
+    /* Reset styles */
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+">
+    <li style="
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 20px;
+        width: 20px;
+
+        /* Active dot */
+        background-color: rgba(0, 0, 0, .3);
+
+        /* Inactive dot */
+        background-color: transparent;
+        border: 1px solid rgba(0, 0, 0, .3);
+
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 4px;
+    " />
+</div>
+
+<!-- -->
+ <!--   <div style="height:512px;position:relative;transform-style:preserve-3d;transition:transform 1s ease 0s">
+        <div style="backface-visibility:hidden;height:100%;left:0;opacity:1;overflow:scroll;position:absolute;top:0;width:100%"> 
+            <div style="align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;padding:8px">
+                <ul style="align-items:center;display:flex;justify-content:center;list-style-type:none;margin:0;padding:0">
+                    <li style="background-color:rgba(0,0,0,.3);border:none;border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
+                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
+                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
+                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
+                </ul>
+            </div>
+  <!--      </div>
+    </div> 
+-->
+
+    <!-- -->
+
+
 <div class="main-content-wrapper">
     <main class="main-content">
+
+<!-- add navigation dots here -->
+
+
         <div class="container-fluid">
             <h1>Rainfall Estimation</h1>
 
@@ -73,7 +126,7 @@
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
                 	<a href="url">Upload your parameter file </a> <br>
-                	Output Data - NetCDF Cartesian accum data - view using (CIDD)
+                	Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
 
                     <!-- <select id="greeting-select"></select>  -->
                     <button id="run-button" class="btn btn-primary">Run</button>
@@ -111,3 +164,70 @@
     </main>
 </div>
 {% endblock content %}
+
+{% block scripts %}
+
+<script src="{% static 'django_airavata_api/dist/airavata-api.js' %}"></script>
+
+<script>
+
+    const { models, services, session, utils } = AiravataAPI;
+
+    const appInterfaceId = 
+    "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947";
+
+    function loadExperiments() {
+        return services.ExperimentSearchService.list({
+            limit: 5,
+            [models.ExperimentSearchFields.USER_NAME.name]:
+                session.Session.username,
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: appInterfaceId
+        }).then(data => {
+            $("#experiment-list").empty();
+            data.results.forEach((exp, index) => {
+                $("#experiment-list").append(
+                    `<tr>
+                            <td>${exp.name}</td>
+                            <td>${exp.executionId}</td>
+                            <td>${exp.creationTime}</td>
+                            <td>${exp.experimentStatus.name}</td>
+                            <td id="output_${index}"></td>
+                        </tr>`
+                );
+                // If experiment has finished, load full details, then parse the stdout file
+                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                    services.FullExperimentService.retrieve({
+                        lookup: exp.experimentId
+                    })
+                        .then(fullDetails => {
+                            const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Echo-STDOUT"
+                            ).value;
+                            const stdoutDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === stdoutDataProductId
+                            );
+                            if (
+                                stdoutDataProduct &&
+                                stdoutDataProduct.downloadURL
+                            ) {
+                                return fetch(stdoutDataProduct.downloadURL, {
+                                    credentials: "same-origin"
+                                }).then(result => result.text());
+                            }
+                        })
+                        .then(text => {
+                            $(`#output_${index}`).text(text);
+                        });
+                }
+            });
+        });
+    }
+
+    loadExperiments();
+    $("#refresh-button").click(loadExperiments);
+
+    </script>
+
+{% endblock scripts %}
+
+
