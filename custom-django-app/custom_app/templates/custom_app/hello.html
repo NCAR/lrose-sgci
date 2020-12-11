@@ -158,7 +158,34 @@
                     </table>
                 </div>
             </div>
-            <!-- -->
+            <!-- begin My Storage-->
+
+<div class="card">
+<div class="card-header">
+Choose data source
+</div>
+<div class="card-body">        
+<div id="user-storage"/>
+
+  </div>
+
+  <script>
+    // provide data for initializing api's session.Session
+    window.AiravataPortalSessionData = {"username": "brenda92", "airavataInternalUserId": "brenda92@lrose", "isGatewayAdmin": true};
+  </script>
+  <script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
+  <script type="text/javascript" src="/static/common/dist/js/app.faa7ad7b.js" ></script>
+  
+    <script type="text/javascript" src="/static/common/dist/js/notices.398e45d2.js" ></script>
+  
+  
+<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.e45ba37b.js" ></script>
+<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.18aeeebe.js" ></script>
+<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script>
+</div>
+</div>
+
+<!-- end My Storage  -->
 
         </div>
     </main>
@@ -225,6 +252,38 @@
 
     loadExperiments();
     $("#refresh-button").click(loadExperiments);
+
+    $("#run-button").click(e => {
+        const greeting = "something"; // $("#greeting-select").val();
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
+
+        const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+        .then(([appInterface, workspacePrefs, queues]) => {
+            const experiment = appInterface.createExperiment();
+            experiment.experimentName = "workflow " + greeting;
+            experiment.projectId = workspacePrefs.most_recent_project_id;
+            const cloudQueue = queues.find(q => q.queueName === queueName);
+            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+            // Copy the selected greeting to the value of the first input
+            experiment.experimentInputs[0].value = greeting;
+
+            return services.ExperimentService.create({data: experiment});
+        }).then(exp => {
+            return services.ExperimentService.launch({lookup: exp.experimentId});
+        })
+    });
 
     </script>
 
