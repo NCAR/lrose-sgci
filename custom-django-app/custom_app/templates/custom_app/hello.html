@@ -255,6 +255,9 @@ Choose data source
 
     $("#run-button").click(e => {
         const greeting = "something"; // $("#greeting-select").val();
+        const start_time = "\"2020 09 29 12 00 00\"";
+        const end_time = "\"2020 09 29 12 10 00\"";
+        const radar_name = "KFTG";
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
 
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
@@ -277,7 +280,9 @@ Choose data source
             experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
             experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
             // Copy the selected greeting to the value of the first input
-            experiment.experimentInputs[0].value = greeting;
+            experiment.experimentInputs[0].value = start_time;
+            experiment.experimentInputs[1].value = end_time;
+            experiment.experimentInputs[2].value = radar_name;
 
             return services.ExperimentService.create({data: experiment});
         }).then(exp => {
