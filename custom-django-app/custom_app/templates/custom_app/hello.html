@@ -227,9 +227,13 @@ Choose data source
                         lookup: exp.experimentId
                     })
                         .then(fullDetails => {
+                            console.log('here 1');
                             const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Echo-STDOUT"
-                            ).value;
+                                o => o.name === "Standard-Out"
+                            ).value;  // TODO: getting an error here ... 
+                            // here 1
+// url:491 Uncaught (in promise) TypeError: Cannot read property 'value' of undefined
+//    at url:491
                             const stdoutDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === stdoutDataProductId
                             );
@@ -237,6 +241,7 @@ Choose data source
                                 stdoutDataProduct &&
                                 stdoutDataProduct.downloadURL
                             ) {
+                                console.log('here 2');
                                 return fetch(stdoutDataProduct.downloadURL, {
                                     credentials: "same-origin"
                                 }).then(result => result.text());
