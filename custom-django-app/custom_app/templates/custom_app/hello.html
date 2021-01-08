@@ -66,7 +66,8 @@
                 </div>
                 <div class="card-body">
                 	Step 1 <br>
-                	<a href="url">Choose data source </a> <br>
+                	<a href="#choose-data-source">Choose data source </a> <br>
+
                 	Step 2 <br>
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
@@ -77,6 +78,29 @@
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>
+
+                        <!-- Displaying a list of recent experiments -->
+            <div class="card">
+                <div class="card-header">
+                    User Storage
+                </div>
+                <div class="card-body">
+                    <!-- button id="refresh-button" class="btn btn-secondary">Refresh</button -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Created Time</th>
+                                <th scope="col">Mime Type</th>
+                                <th scope="col">Size</th>                                             
+                            </tr>
+                        </thead>
+                        <tbody id="storage-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- begin My Storage-->
 
              <div class="card">
                 <div class="card-header">
@@ -200,8 +224,35 @@ Choose data source
 
     const { models, services, session, utils } = AiravataAPI;
 
+
+
+// https://gateway.lrose.net/api/user-storage/~/garbage_dump/
+    function chooseDataSource(path) {
+        return services.UserStoragePathService.get({
+            path,
+        }).then(data => {
+            $("#storage-list").empty();
+            data.files.forEach((item, index) => {
+
+              console.log(item); 
+
+                $("#storage-list").append(
+                    `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.createdTime}</td>
+                            <td>${item.mimeType}</td>
+                            <td>${item.size}</td>
+                        </tr>`
+                );
+            });
+        });    
+    };
+
+    chooseDataSource();
+    $("#choose-data-source").click(chooseDataSource("~/garbage_dump"));   
+
     const appInterfaceId = 
-    "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947";
+      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
 
     function loadExperiments() {
         return services.ExperimentSearchService.list({
