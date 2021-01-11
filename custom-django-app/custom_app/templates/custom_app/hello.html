@@ -65,13 +65,35 @@
                     Convert Level II Data to CfRadial (RadxConvert)
                 </div>
                 <div class="card-body">
-                	Step 1 <br>
-                	<a href="#choose-data-source">Choose data source </a> <br>
+                	Step 1: Choose data source <br> 
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    <th scope="col">Default</th>
+                    <th scope="col"></th>
+                    </tr>
+                    <tr>
+                	<th> default/raw/data </th>
+                    <th><a href="#choose-data-source">Change data source </a> </th>
+                    </tr>
+                    </thead>
+                    </table>
 
-                	Step 2 <br>
-                	Set up parameter file <br>
-                	<a href="url">Download template </a> <br>
-                	<a href="url">Upload your parameter file </a> <br>
+                	Step 2: Setup parameter file <br>
+                    <table class="table">
+                    <thead>
+                    <tr>
+                	<th scope="col">Default</th>
+                    <th scope="col"></th>
+                    </tr>
+                    <tr>
+                    <th> parameter/file.params</th>
+
+                	<th><a href="url">Change parameter file </a> </th>
+                    <!-- <a href="url">Upload your parameter file </a> </th> -->
+                            </tr>
+                        </thead>
+                    </table>
 
 
                     <!-- <select id="greeting-select"></select>  -->
@@ -79,23 +101,26 @@
                 </div>
             </div>
 
-                        <!-- Displaying a list of recent experiments -->
+           <!-- Displaying a list of recent experiments -->
             <div class="card">
                 <div class="card-header">
-                    User Storage
+                    Previous Conversions
                 </div>
                 <div class="card-body">
-                    <!-- button id="refresh-button" class="btn btn-secondary">Refresh</button -->
+                    <button id="conversion-refresh-button" class="btn btn-secondary">Refresh</button>
                     <table class="table">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">dataProductURI</th>
-                                <th scope="col">Mime Type</th>
-                                <th scope="col">Size</th>                                             
+                                <!-- <th scope="col">Application</th>
+                                <th scope="col">Creation Time</th>
+                            -->
+                                <th scope="col">Status</th>
+                                <th scope="col">Log</th>
+                                <th scope="col">Continue</th>
                             </tr>
                         </thead>
-                        <tbody id="storage-list">
+                        <tbody id="experiment-list-conversion">
                         </tbody>
                     </table>
                 </div>
@@ -107,9 +132,9 @@
                     Compute Beam Blockage (RadxBeamBlock)
                 </div>
                 <div class="card-body">
-                    Step 1 <br>
+                    
                     <a href="url">Choose data source </a> <br>
-                    Step 2 <br>
+                    
                     Set up parameter file <br>
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
@@ -126,9 +151,9 @@
                     Map Rate to Surface (RadxRate)
                 </div>
                 <div class="card-body">
-                	Step 1 <br>
+                	
                 	<a href="url">Choose data source </a> <br>
-                	Step 2 <br>
+                	
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
                 	<a href="url">Upload your parameter file </a> <br>
@@ -144,9 +169,9 @@
                     Compute Something (RadxQpe)
                 </div>
                 <div class="card-body">
-                	Step 1 <br>
+                	
                 	<a href="url">Choose data source </a> <br>
-                	Step 2 <br>
+                	
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
                 	<a href="url">Upload your parameter file </a> <br>
@@ -163,9 +188,9 @@
                     Compute Rainfall Accumulation (RateAccum)
                 </div>
                 <div class="card-body">
-                	Step 1 <br>
+                	
                 	<a href="url">Choose data source </a> <br>
-                	Step 2 <br>
+                	
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
                 	<a href="url">Upload your parameter file </a> <br>
@@ -197,6 +222,29 @@
                             </tr>
                         </thead>
                         <tbody id="experiment-list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- begin My Storage-->
+
+            <!-- Displaying a list of recent experiments -->
+            <div class="card">
+                <div class="card-header">
+                    User Storage
+                </div>
+                <div class="card-body">
+                    <!-- button id="refresh-button" class="btn btn-secondary">Refresh</button -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">dataProductURI</th>
+                                <th scope="col">Mime Type</th>
+                                <th scope="col">Size</th>                                             
+                            </tr>
+                        </thead>
+                        <tbody id="storage-list">
                         </tbody>
                     </table>
                 </div>
@@ -331,6 +379,64 @@ Choose data source
 
     loadExperiments();
     $("#refresh-button").click(loadExperiments);
+
+    function loadRadxConversionExperiments() {
+        return services.ExperimentSearchService.list({
+            limit: 5,
+            [models.ExperimentSearchFields.USER_NAME.name]:
+                session.Session.username,
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: appInterfaceId
+        }).then(data => {
+            $("#experiment-list-conversion").empty();
+            data.results.forEach((exp, index) => {
+                $("#experiment-list-conversion").append(
+                    `<tr>
+                            <td>${exp.name}</td>
+                            <td>${exp.experimentStatus.name}</td>
+                            <td id="log_${index}">
+                            <a href="url">view log file </a> </td>
+                            <td id="continue_${index}">
+                            <a href="url">continue next step </a> </td>
+                        </tr>`
+                );
+                // TODO: the url for continue needs to have the experimentId 
+                //       the url would be the next step card, 
+                // If experiment has finished, load full details, then parse the stdout file
+                if (false) { // exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                    services.FullExperimentService.retrieve({
+                        lookup: exp.experimentId
+                    })
+                        .then(fullDetails => {
+                            console.log('here 1');
+                            const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Standard-Out"
+                            ).value;  // TODO: getting an error here ... 
+                            // here 1
+// url:491 Uncaught (in promise) TypeError: Cannot read property 'value' of undefined
+//    at url:491
+                            const stdoutDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === stdoutDataProductId
+                            );
+                            if (
+                                stdoutDataProduct &&
+                                stdoutDataProduct.downloadURL
+                            ) {
+                                console.log('here 2');
+                                return fetch(stdoutDataProduct.downloadURL, {
+                                    credentials: "same-origin"
+                                }).then(result => result.text());
+                            }
+                        })
+                        .then(text => {
+                            $(`#output_${index}`).text(text);
+                        });
+                }
+            });
+        });
+    }    
+
+    loadRadxConversionExperiments();
+    $("#conversion-refresh-button").click(loadRadxConversionExperiments);
 
     $("#run-radxconvert-button").click(e => {
         const step = "RadxConvert"; // $("#greeting-select").val();
