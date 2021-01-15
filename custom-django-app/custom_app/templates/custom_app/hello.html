@@ -429,16 +429,29 @@ Choose data source
                         //        //}).then(result => result.text());
                         //    }
                         //})
+                        //.then(fullDetails => {
+                        //    console.log('here 111');
+                        //    const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                        //        o => o.name === "Output-Dir"
+                        //    ).value; 
+                        //    if (
+                        //        outdirDataProductId 
+                        //    ) {
+                        //        console.log('here 112');
+                        //        $(`#outdir_${index}`).text(outdirDataProductId);
+                        //        //return fetch(stdoutDataProduct.downloadURL, {
+                        //        //    credentials: "same-origin"
+                        //        //}).then(result => result.text());
+                        //    }
+                        //})
                         .then(fullDetails => {
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Output-Dir"
-                            ).value; 
+                            console.log('here 1111');
+                            const processDirName = fullDetails.experiment.processes[0].processId; 
                             if (
-                                outdirDataProductId 
+                                processDirName 
                             ) {
-                                console.log('here 112');
-                                $(`#outdir_${index}`).text(outdirDataProductId);
+                                console.log('here 1112');
+                                $(`#outdir_${index}`).text(processDirName);
                                 //return fetch(stdoutDataProduct.downloadURL, {
                                 //    credentials: "same-origin"
                                 //}).then(result => result.text());
@@ -447,6 +460,7 @@ Choose data source
                         .then(text => {
                             //$(`#continue_${index}`).text(text);
                             $(`#continue_${index}`).click(function() {
+                                alert(exp.processes.processId);
                                 alert(exp.experimentId);
                             })
                         });
