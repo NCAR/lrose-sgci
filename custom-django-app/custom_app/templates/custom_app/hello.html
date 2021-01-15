@@ -116,6 +116,8 @@
                                 <th scope="col">Creation Time</th>
                             -->
                                 <th scope="col">Status</th>
+                                <th scope="col">Creation Time</th>
+                                <th scope="col">OutDir</th>
                                 <th scope="col">Log</th>
                                 <th scope="col">Continue</th>
                             </tr>
@@ -393,6 +395,8 @@ Choose data source
                     `<tr>
                             <td>${exp.name}</td>
                             <td>${exp.experimentStatus.name}</td>
+                            <td>${exp.creationTime}</td>
+                            <td id="outdir_${index}"></td>
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="continue_${index}">
@@ -402,38 +406,56 @@ Choose data source
                 // TODO: the url for continue needs to have the experimentId 
                 //       the url would be the next step card, 
                 // If experiment has finished, load full details, then parse the stdout file
-                if (false) { // exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
                         lookup: exp.experimentId
                     })
+                        //.then(fullDetails => {
+                        //    console.log('here 11');
+                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
+                        //        o => o.name === "Output-Dir"
+                        //    ).value;  
+                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
+                        //        dp => dp.productUri === stdoutDataProductId
+                        //    );
+                        //    if (
+                        //        stdoutDataProduct &&
+                        //        stdoutDataProduct.downloadURL
+                        //    ) {
+                        //        console.log('here 12');
+                        //        return stdoutDataProductId.name;
+                        //        //return fetch(stdoutDataProduct.downloadURL, {
+                        //        //    credentials: "same-origin"
+                        //        //}).then(result => result.text());
+                        //    }
+                        //})
                         .then(fullDetails => {
-                            console.log('here 1');
-                            const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Standard-Out"
-                            ).value;  // TODO: getting an error here ... 
-                            // here 1
-// url:491 Uncaught (in promise) TypeError: Cannot read property 'value' of undefined
-//    at url:491
-                            const stdoutDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === stdoutDataProductId
-                            );
+                            console.log('here 111');
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Output-Dir"
+                            ).value; 
                             if (
-                                stdoutDataProduct &&
-                                stdoutDataProduct.downloadURL
+                                outdirDataProductId 
                             ) {
-                                console.log('here 2');
-                                return fetch(stdoutDataProduct.downloadURL, {
-                                    credentials: "same-origin"
-                                }).then(result => result.text());
+                                console.log('here 112');
+                                $(`#outdir_${index}`).text(outdirDataProductId);
+                                //return fetch(stdoutDataProduct.downloadURL, {
+                                //    credentials: "same-origin"
+                                //}).then(result => result.text());
                             }
                         })
                         .then(text => {
-                            $(`#output_${index}`).text(text);
+                            //$(`#continue_${index}`).text(text);
+                            $(`#continue_${index}`).click(function() {
+                                alert(exp.experimentId);
+                            })
                         });
                 }
             });
         });
     }    
+
+    //$("#continue_*").click(???)
 
     loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
@@ -468,8 +490,8 @@ Choose data source
             experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
             experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
             // Copy the selected greeting to the value of the first input
-            experiment.experimentInputs[0].value = data_file_uri;
-            experiment.experimentInputs[1].value = param_file_uri;
+            experiment.experimentInputs[0].value = data_file_uri;  // TODO: this needs to be a list; comma separated list
+            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
             //experiment.experimentInputs[2].value = radar_name;
 
             return services.ExperimentService.create({data: experiment});
@@ -478,6 +500,45 @@ Choose data source
         })
     });
 
+    $("#run-stage2-button").click(e => {
+        const step = "stage2"; // $("#greeting-select").val();
+        //const data_file_uri = "\"2020 09 29 12 00 00\"";
+        //const param_file_uri = "\"2020 09 29 12 10 00\"";
+        const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+        //const radar_name = "KFTG";
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
+// TODO: get the id of the RadxConvert_display application
+        //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+        .then(([appInterface, workspacePrefs, queues]) => {
+            const experiment = appInterface.createExperiment();
+            experiment.experimentName = "precip " + step;
+            experiment.projectId = workspacePrefs.most_recent_project_id;
+            const cloudQueue = queues.find(q => q.queueName === queueName);
+            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+            // Copy the selected greeting to the value of the first input
+            experiment.experimentInputs[0].value = data_file_uri;  // TODO: this needs to be a list; comma separated list
+            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
+            //experiment.experimentInputs[2].value = radar_name;
+
+            return services.ExperimentService.create({data: experiment});
+        }).then(exp => {
+            return services.ExperimentService.launch({lookup: exp.experimentId});
+        })
+    });
 
     $("#run-button").click(e => {
         const greeting = "something"; // $("#greeting-select").val();
