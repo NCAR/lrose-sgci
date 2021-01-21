@@ -117,7 +117,7 @@
                                 <th scope="col">Creation Time</th>
                                 <th scope="col">OutDir</th>
                                 <th scope="col">Log</th>
-                                <th scope="col">Continue</th>
+                                <th scope="col">Next Stage</th>
                             </tr>
                         </thead>
                         <tbody id="experiment-list-conversion">
@@ -402,6 +402,10 @@ Choose data source
     $("#refresh-button").click(loadExperiments);
 
     function populateStage2(processDirName) {
+        alert(processDirName);
+    }
+
+    function populateStage2Full(processDirName) {
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
         // then when "Run" is clicked, send the processDirName as argument.
@@ -444,9 +448,21 @@ Choose data source
         })
     };
 
+    function some_function(processDirName) {
+        return new Promise(function(resolve, reject) {
+            let x = 0;
+
+            if (x == 0) {
+               resolve(alert(processDirName));
+            } else {
+               reject(alert("It broke"));
+           }
+        });
+    };
+
     function loadRadxConversionExperiments() {
         return services.ExperimentSearchService.list({
-            limit: 5,
+            limit: 7,
             [models.ExperimentSearchFields.USER_NAME.name]:
                 session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
@@ -462,9 +478,16 @@ Choose data source
                             <td id="outdir_${index}"></td>
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
-                            <td id="continue_${index}">
-                            <a href="#stage2">continue next step </a> </td>
+                            <td>
+                            <a href="#stage2" id="continue_${index}">Continue</button>
+                             </td>
                         </tr>`
+
+                        // <a href="#stage2">continue next step </a>
+
+                        // <a rel="nofollow" href="http"
+                        //    <a rel="${exp.processDirName}" href="#stage2">continue next step </a> </td>
+
                 );
                 // TODO: the url for continue needs to have the experimentId 
                 //       the url would be the next step card, 
@@ -515,12 +538,18 @@ Choose data source
                             ) {
                                 console.log('here 1112');
                                 $(`#outdir_${index}`).text(processDirName);
-                                //$(`#continue_${index}`).click(populateStage2(processDirName));
+                                $(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                                //$(`#continue_${index}`).click(some_function(processDirName)
+                                //    .then(
+                                //        function(value) {alert("here1");},
+                                //        function(error) {alert("here_error");}
+                                //        ));
                                 //return fetch(stdoutDataProduct.downloadURL, {
                                 //    credentials: "same-origin"
                                 //}).then(result => result.text());
                             }
                         });
+                        // .catch(alert("Problem fetching previous experiments")); 
                         //.then(text => {
                         //    //$(`#continue_${index}`).text(text);
                         //    $(`#continue_${index}`).click(function() {
