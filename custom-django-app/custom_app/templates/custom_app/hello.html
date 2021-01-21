@@ -112,9 +112,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <!-- <th scope="col">Application</th>
-                                <th scope="col">Creation Time</th>
-                            -->
+                                <th scope="col">Application</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
                                 <th scope="col">OutDir</th>
@@ -129,7 +127,7 @@
             </div>
             <!-- begin My Storage-->
 
-            <div class="card">
+            <div class="card" id="stage2">
                 <div class="card-header">
                     Compute Beam Blockage (RadxBeamBlock)
                 </div>
@@ -240,13 +238,24 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">Name</th>
+                                <th scope="col">Directory</th>
+                                <th scope="col">URL</th>
+                                <th scope="col">Size</th>                                             
+                            </tr>
+                        </thead>
+                        <tbody id="storage-dir-list">
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">File</th>
                                 <th scope="col">dataProductURI</th>
                                 <th scope="col">Mime Type</th>
                                 <th scope="col">Size</th>                                             
                             </tr>
                         </thead>
-                        <tbody id="storage-list">
+                        <tbody id="storage-file-list">
                         </tbody>
                     </table>
                 </div>
@@ -266,7 +275,7 @@ Choose data source
     // provide data for initializing api's session.Session
     window.AiravataPortalSessionData = {"username": "brenda92", "airavataInternalUserId": "brenda92@lrose", "isGatewayAdmin": true};
   </script>
-  <script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
+  <!-- script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
   <script type="text/javascript" src="/static/common/dist/js/app.faa7ad7b.js" ></script>
   
     <script type="text/javascript" src="/static/common/dist/js/notices.398e45d2.js" ></script>
@@ -274,7 +283,7 @@ Choose data source
   
 <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.e45ba37b.js" ></script>
 <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.18aeeebe.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script>
+<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script-->
 </div>
 </div>
 
@@ -300,12 +309,19 @@ Choose data source
         return services.UserStoragePathService.get({
             path,
         }).then(data => {
-            $("#storage-list").empty();
+            $("#storage-dir-list").empty();
+            data.directories.forEach((item, index) => {
+                $("#storage-dir-list").append(
+                    `<tr>
+                            <td>${item.name}</td>
+                            <td>${item.url}</td>
+                            <td>${item.size}</td>
+                        </tr>`
+                );
+            });
+            $("#storage-file-list").empty();
             data.files.forEach((item, index) => {
-
-              console.log(item); 
-
-                $("#storage-list").append(
+                $("#storage-file-list").append(
                     `<tr>
                             <td>${item.name}</td>
                             <td>${item.dataProductURI}</td>
@@ -320,19 +336,22 @@ Choose data source
 
     chooseDataSource();
     // $("#choose-data-source").click(chooseDataSource("~/garbage_dump")); 
-    $("#choose-data-source").click(chooseDataSource("~/test_data_hawkeye"));   
+    $("#choose-data-source").click(chooseDataSource("~/"));   
 
-    //const appInterfaceId = 
-    //  "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
-    const appInterfaceId = 
-      "RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
+    const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
+//      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
+    const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
+
+    const stage1AppInterfaceId = "RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
+
+
 
     function loadExperiments() {
         return services.ExperimentSearchService.list({
             limit: 5,
             [models.ExperimentSearchFields.USER_NAME.name]:
                 session.Session.username,
-            [models.ExperimentSearchFields.APPLICATION_ID.name]: appInterfaceId
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage2AppInterfaceId
         }).then(data => {
             $("#experiment-list").empty();
             data.results.forEach((exp, index) => {
@@ -382,25 +401,69 @@ Choose data source
     loadExperiments();
     $("#refresh-button").click(loadExperiments);
 
+    function populateStage2(processDirName) {
+        // TODO: populate the inputs to the next stage with the info from the processDirName,
+        // or maybe the experiementID??
+        // then when "Run" is clicked, send the processDirName as argument.
+        const step = "stage2"; // $("#greeting-select").val();
+        //const data_file_uri = "\"2020 09 29 12 00 00\"";
+        //const param_file_uri = "\"2020 09 29 12 10 00\"";
+        const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+        //const radar_name = "KFTG";
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
+// TODO: get the id of the RadxConvert_display application
+        //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+        .then(([appInterface, workspacePrefs, queues]) => {
+            const experiment = appInterface.createExperiment();
+            experiment.experimentName = "precip " + step;
+            experiment.projectId = workspacePrefs.most_recent_project_id;
+            const cloudQueue = queues.find(q => q.queueName === queueName);
+            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+            // Copy the selected greeting to the value of the first input
+            experiment.experimentInputs[0].value = processDirName;  // TODO: this needs to be a list; comma separated list
+            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
+            //experiment.experimentInputs[2].value = radar_name;
+
+            return services.ExperimentService.create({data: experiment});
+        }).then(exp => {
+            return services.ExperimentService.launch({lookup: exp.experimentId});
+        })
+    };
+
     function loadRadxConversionExperiments() {
         return services.ExperimentSearchService.list({
             limit: 5,
             [models.ExperimentSearchFields.USER_NAME.name]:
                 session.Session.username,
-            [models.ExperimentSearchFields.APPLICATION_ID.name]: appInterfaceId
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
         }).then(data => {
             $("#experiment-list-conversion").empty();
             data.results.forEach((exp, index) => {
                 $("#experiment-list-conversion").append(
                     `<tr>
                             <td>${exp.name}</td>
+                            <td>${exp.executionId}</td>
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
                             <td id="outdir_${index}"></td>
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="continue_${index}">
-                            <a href="url">continue next step </a> </td>
+                            <a href="#stage2">continue next step </a> </td>
                         </tr>`
                 );
                 // TODO: the url for continue needs to have the experimentId 
@@ -452,18 +515,19 @@ Choose data source
                             ) {
                                 console.log('here 1112');
                                 $(`#outdir_${index}`).text(processDirName);
+                                //$(`#continue_${index}`).click(populateStage2(processDirName));
                                 //return fetch(stdoutDataProduct.downloadURL, {
                                 //    credentials: "same-origin"
                                 //}).then(result => result.text());
                             }
-                        })
-                        .then(text => {
-                            //$(`#continue_${index}`).text(text);
-                            $(`#continue_${index}`).click(function() {
-                                alert(exp.processes.processId);
-                                alert(exp.experimentId);
-                            })
                         });
+                        //.then(text => {
+                        //    //$(`#continue_${index}`).text(text);
+                        //    $(`#continue_${index}`).click(function() {
+                        ////       alert(exp.processes.processId);
+                        //        alert(exp.experimentId);
+                        //    })
+                        //});
                 }
             });
         });
@@ -481,7 +545,7 @@ Choose data source
         const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
         //const radar_name = "KFTG";
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage1AppInterfaceId});
 // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
@@ -514,6 +578,8 @@ Choose data source
         })
     });
 
+
+
     $("#run-stage2-button").click(e => {
         const step = "stage2"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
@@ -521,10 +587,10 @@ Choose data source
         const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
         //const radar_name = "KFTG";
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
 // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const appDeploymentId = "lrose-vc.jetstream-cloud.org_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
         const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
 
         const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
@@ -559,7 +625,7 @@ Choose data source
         const start_time = "\"2020 09 29 12 00 00\"";
         const end_time = "\"2020 09 29 12 10 00\"";
         const radar_name = "KFTG";
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: appInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage1AppInterfaceId});
 
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
