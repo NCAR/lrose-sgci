@@ -127,7 +127,7 @@
             </div>
             <!-- begin My Storage-->
 
-            <div class="card" id="stage2">
+            <div class="card" id="stage2optional">
                 <div class="card-header">
                     Compute Beam Blockage (RadxBeamBlock)
                 </div>
@@ -146,11 +146,46 @@
                 </div>
             </div>            
 
-             <div class="card">
+             <div class="card" id="stage2">
                 <div class="card-header">
                     Map Rate to Surface (RadxRate)
                 </div>
                 <div class="card-body">
+
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    <th scope="col">Default</th>
+                    <th scope="col"></th>
+                    </tr>
+                    <tr>
+                    <th> default/raw/data </th>
+                    <th><a href="#choose-data-source">Change data source </a> </th>
+                    </tr>
+                    </thead>
+                    <tbody id="data-source-stage2">
+                    </tbody>
+                    </table>
+
+                    Step 2: Setup parameter file <br>
+                    <table class="table">
+                    <thead>
+                    <tr>
+                    <th scope="col">Default</th>
+                    <th scope="col"></th>
+                    </tr>
+                    <tr>
+                    <th> parameter/file.params</th>
+
+                    <th><a href="url">Change parameter file </a> </th>
+                    <!-- <a href="url">Upload your parameter file </a> </th> -->
+                    </tr>
+                    </thead>
+                    <tbody id="parameter-file-stage2">
+                    </tbody>                        
+                    </table>
+
+                    <!--
                 	
                 	<a href="url">Choose data source </a> <br>
                 	
@@ -159,8 +194,8 @@
                 	<a href="url">Upload your parameter file </a> <br>
 
 
-                    <!-- <select id="greeting-select"></select>  -->
-                    <button id="run-button" class="btn btn-primary">Run</button>
+                     -->
+                    <button id="run-button-stage2" class="btn btn-primary">Run</button>
                 </div>
             </div>
 
@@ -403,9 +438,23 @@ Choose data source
 
     function populateStage2(processDirName) {
         alert(processDirName);
+        //parameter-file-stage2 
+        //     data-source-stage2
+        // update the Run button to use the processDirName  
+                            if (
+                                processDirName 
+                            ) {
+
+                                $("#run-button-stage2").click(function() { 
+                                    runStage2(processDirName);
+                                });                                
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            }
+
     }
 
-    function populateStage2Full(processDirName) {
+    function runStage2(processDirName) {
+        console.log('entering runStage2');
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
         // then when "Run" is clicked, send the processDirName as argument.
@@ -538,15 +587,10 @@ Choose data source
                             ) {
                                 console.log('here 1112');
                                 $(`#outdir_${index}`).text(processDirName);
-                                $(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                                //$(`#continue_${index}`).click(some_function(processDirName)
-                                //    .then(
-                                //        function(value) {alert("here1");},
-                                //        function(error) {alert("here_error");}
-                                //        ));
-                                //return fetch(stdoutDataProduct.downloadURL, {
-                                //    credentials: "same-origin"
-                                //}).then(result => result.text());
+                                $(`#continue_${index}`).on("click", function() { 
+                                    populateStage2(processDirName);
+                                });                                
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
                         });
                         // .catch(alert("Problem fetching previous experiments")); 
