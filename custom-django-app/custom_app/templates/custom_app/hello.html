@@ -65,7 +65,9 @@
                     Convert Level II Data to CfRadial (RadxConvert)
                 </div>
                 <div class="card-body">
-                	Step 1: Choose data source <br> 
+                	Step 1: 
+                    <a id="choose-data-source" href="#">Choose data source </a>
+                    <br> 
                     <table class="table">
                     <thead>
                     <tr>
@@ -74,12 +76,15 @@
                     </tr>
                     <tr>
                 	<th> default/raw/data </th>
-                    <th><a href="#choose-data-source">Change data source </a> </th>
+                    <th> </th>
                     </tr>
                     </thead>
+                    <tbody id="data-source-list">
+                    </tbody>
                     </table>
 
-                	Step 2: Setup parameter file <br>
+                	Step 2: 
+                    <a id="setup-parameter-file" href="#">Setup parameter file </a><br>
                     <table class="table">
                     <thead>
                     <tr>
@@ -89,7 +94,7 @@
                     <tr>
                     <th> parameter/file.params</th>
 
-                	<th><a href="url">Change parameter file </a> </th>
+                	<th> </th>
                     <!-- <a href="url">Upload your parameter file </a> </th> -->
                             </tr>
                         </thead>
@@ -340,7 +345,7 @@ Choose data source
 
 
 // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
-    function chooseDataSource(path) {
+    function chooseDataSourceFile(path) {
         return services.UserStoragePathService.get({
             path,
         }).then(data => {
@@ -369,10 +374,40 @@ Choose data source
         });    
     };
 
-    chooseDataSource();
-    // $("#choose-data-source").click(chooseDataSource("~/garbage_dump")); 
-    $("#choose-data-source").click(chooseDataSource("~/"));   
+    function chooseDataSourceDate() {
+        console.log("inside chooseDataSource");
+                $("#data-source-list").append(
+                    `<tr>
+                            <td><form>
+                                 <label for="fname">Start date/time</label>
+                                 <input type="text" id="fname" name="fname"><br>
+                                 <label for="lname">End data/time</label>
+                                 <input type="text" id="lname" name="lname"><br>
+                                 <label for="lname">Radar</label>
+                                 <input type="text" id="radar-name" name="lname">
+                            </form></td>
+                            <td>radar</td>
+                        </tr>`
+                );
+    };
 
+     function chooseDataSource() {
+        console.log("inside chooseDataSource");
+                $("#data-source-list").prepend(
+                    `<tr>
+<td>Default</td> <td> <a id="by-radar" href="#"> By Radar </a></td> <td> File </td>
+                        </tr>`
+                );
+    };   
+
+
+
+    // chooseDataSource();
+    // $("#choose-data-source").click(chooseDataSource("~/garbage_dump")); 
+    //$("#choose-data-source").click(function() {chooseDataSource(); return false;});  
+    $(document).ready(function() {
+       $("#choose-data-source").click(function() {chooseDataSource()});  
+    });
     const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
 //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
     const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
