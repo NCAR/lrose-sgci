@@ -52,9 +52,9 @@
 <div class="main-content-wrapper">
     <main class="main-content">
 
-<!-- add navigation dots here -->
+<!-- add navigation dots here: use Scrollspy from bootstrap -->
 
-
+<!-- class comes from bootstrap -->
         <div class="container-fluid">
             <h1>Rainfall Estimation</h1>
 
@@ -65,44 +65,78 @@
                     Convert Level II Data to CfRadial (RadxConvert)
                 </div>
                 <div class="card-body">
-                	Step 1: 
-                    <a id="choose-data-source" href="#">Choose data source </a>
+                	Step 1: Choose data source
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
+<br>
+<!--
+<div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" name="optradio">File
+  </label>
+</div>
+<div class="form-check-inline">
+  <label class="form-check-label">
+    <input type="radio" class="form-check-input" name="optradio">Radar
+  </label>
+</div>
+-->
+<div class="input-group mt-3 mb-3">
+  <div class="input-group-prepend">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+      Data Sources
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
+      <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
+      <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
+    </div>
+  </div>
+  <input type="text" class="form-control" uri="888" source="tutorial" id ="stage1-file" placeholder="data/directory">
+</div>
+
+<!--
+  <div class="form-group">
+    <label for="email"></label>
+    <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-file" uri="888">
+  </div>
+-->
+  <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
+
                     <br> 
                     <table class="table">
                     <thead>
                     <tr>
-                    <th scope="col">Default</th>
                     <th scope="col"></th>
-                    </tr>
-                    <tr>
-                	<th> default/raw/data </th>
-                    <th> </th>
+                    <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody id="data-source-list">
                     </tbody>
                     </table>
 
-                	Step 2: 
-                    <a id="setup-parameter-file" href="#">Setup parameter file </a><br>
+                	Step 2: Setup parameter file
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                    <br>
+  <div class="form-group">
+    <label for="email"></label>
+    <input type="email" class="form-control" value="rainfall/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+  </div>
                     <table class="table">
                     <thead>
                     <tr>
-                	<th scope="col">Default</th>
+                	<th scope="col"></th>
                     <th scope="col"></th>
                     </tr>
-                    <tr>
-                    <th> parameter/file.params</th>
-
-                	<th> </th>
                     <!-- <a href="url">Upload your parameter file </a> </th> -->
-                            </tr>
-                        </thead>
+                    </thead>
+                    <tbody id="parameter-file-list">
+                    </tbody>
                     </table>
 
 
                     <!-- <select id="greeting-select"></select>  -->
                     <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
+                    <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
                 </div>
             </div>
 
@@ -132,6 +166,7 @@
             </div>
             <!-- begin My Storage-->
 
+<!--
             <div class="card" id="stage2optional">
                 <div class="card-header">
                     Compute Beam Blockage (RadxBeamBlock)
@@ -144,12 +179,10 @@
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
                     Output Data - NetCDF Cartesian rate data - view using (CIDD)
-
-
-                    <!-- <select id="greeting-select"></select>  -->
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
-            </div>            
+            </div>   
+            -->         
 
              <div class="card" id="stage2">
                 <div class="card-header">
@@ -342,7 +375,7 @@ Choose data source
 
     const { models, services, session, utils } = AiravataAPI;
 
-
+    stage1_input_uri = "something wonderful";
 
 // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
     function chooseDataSourceFile(path) {
@@ -393,14 +426,36 @@ Choose data source
 
      function chooseDataSource() {
         console.log("inside chooseDataSource");
-                $("#data-source-list").prepend(
-                    `<tr>
-<td>Default</td> <td> <a id="by-radar" href="#"> By Radar </a></td> <td> File </td>
-                        </tr>`
+                $("#data-source-list").empty();
+                $("#data-source-list").append(
+                    ` 
+  <input type="radio" id="stage1-default" name="gender" value="default">
+  <label for="default">Default</label><br>
+  <input type="radio" id="stage1-radar" name="gender" value="radar">
+  <label for="radar">Radar</label><br>
+  <input type="radio" id="stage1-file" name="file" value="file">
+  <label for="other">File</label><br><br>
+                   `
+            
                 );
+                  //  `<tr><td> <a id="by-default" href="#">Default </a></td> </tr>
+                  //   <tr><td> <a id="by-radar" href="#"> By Radar </a></td> </tr>
+                  //   <tr><td> <a id="by-file" href="#">File </a></td></tr>`
     };   
 
+    function chooseParameterFile() {
+        console.log("inside chooseParameterFile");
+                $("#parameter-file-list").empty();
+                $("#parameter-file-list").append(
+                    `<tr><td> <a id="by-default" href="#set-stage1-input-default">Default </a></td> </tr>
+                     <tr><td> <a id="by-file" href="#">File </a></td></tr>`
+                );
+    }; 
 
+    function printArgs() {
+        stage1_input_uri = "beautiful";
+        console.log(stage1_input_uri);
+    };
 
     // chooseDataSource();
     // $("#choose-data-source").click(chooseDataSource("~/garbage_dump")); 
@@ -408,6 +463,37 @@ Choose data source
     $(document).ready(function() {
        $("#choose-data-source").click(function() {chooseDataSource()});  
     });
+    $(document).ready(function() {
+       $("#setup-parameter-file").click(function() {chooseParameterFile()});  
+    });
+    $(document).ready(function() {
+       $("#set-stage1-input-default").click(function() {printArgs()});  
+    });
+
+    const default_stage1_data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+    const default_stage1_param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+
+    function setStage1Tutorial() {
+       $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
+       $("#stage1-file").attr("source", "tutorial"); 
+       $("#stage1-param-file").val("rainfall/basic/params/RadxConvert.new");  
+       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+       // $(`#stage1-file`).attr("uri")
+    };
+ 
+    $(document).ready(function() {setStage1Tutorial()});
+    //
+     //  $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
+     //  //$("#stage1-file").attr("uri", default_stage1_data_file_uri); 
+     //  $("#stage1-param-file").val("rainfall/basic/params/RadxConvert.new");  
+     //  //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+     //  // $(`#stage1-file`).attr("uri")
+    //});
+
+    $(document).ready(function() {
+       $("#stage1-file-tutorial").click(function() {setStage1Tutorial()});  
+    });
+
     const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
 //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
     const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
@@ -646,14 +732,27 @@ Choose data source
     loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
 
+    $("#test-variable-button").click(e => {
+        console.log("value of paramter is ");
+        console.log($(`#stage1-file`).val());
+        console.log($(`#stage1-file`).attr("uri"));
+    });
+
     $("#run-radxconvert-button").click(e => {
         const step = "RadxConvert"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
         //const param_file_uri = "\"2020 09 29 12 10 00\"";
-        const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
-        const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+        const data_file_source = $(`#stage1-file`).attr("source");
+        const data_file_uri = $(`#stage1-file`).attr("uri");
+        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = $(`#stage1-param-file`).attr("uri")
+        // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
         //const radar_name = "KFTG";
+        // We need the app interface to be the same, so we can retrieve all related experiements;
+        // We will need to send different parameters based on the data_file_source
+
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage1AppInterfaceId});
+
 // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
@@ -676,8 +775,10 @@ Choose data source
             experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
             experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
             // Copy the selected greeting to the value of the first input
-            experiment.experimentInputs[0].value = data_file_uri;  // TODO: this needs to be a list; comma separated list
-            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
+            // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+            experiment.experimentInputs[0].value = data_file_source;    
+            //experiment.experimentInputs[1].value = param_file_uri;  // TODO: this needs to be a list; comma separated list
+            //experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
             //experiment.experimentInputs[2].value = radar_name;
 
             return services.ExperimentService.create({data: experiment});
