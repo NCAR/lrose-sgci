@@ -68,18 +68,7 @@
                 	Step 1: Choose data source
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
 <br>
-<!--
-<div class="form-check-inline">
-  <label class="form-check-label">
-    <input type="radio" class="form-check-input" name="optradio">File
-  </label>
-</div>
-<div class="form-check-inline">
-  <label class="form-check-label">
-    <input type="radio" class="form-check-input" name="optradio">Radar
-  </label>
-</div>
--->
+
 <div class="input-group mt-3 mb-3">
   <div class="input-group-prepend">
     <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
@@ -119,7 +108,7 @@
                     <br>
   <div class="form-group">
     <label for="email"></label>
-    <input type="email" class="form-control" value="rainfall/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+    <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
   </div>
                     <table class="table">
                     <thead>
@@ -189,39 +178,32 @@
                     Map Rate to Surface (RadxRate)
                 </div>
                 <div class="card-body">
+                    Step 1: Choose data source
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
+<br>
 
-                    <table class="table">
-                    <thead>
-                    <tr>
-                    <th scope="col">Default</th>
-                    <th scope="col"></th>
-                    </tr>
-                    <tr>
-                    <th> default/raw/data </th>
-                    <th><a href="#choose-data-source">Change data source </a> </th>
-                    </tr>
-                    </thead>
-                    <tbody id="data-source-stage2">
-                    </tbody>
-                    </table>
+<div class="input-group mt-3 mb-3">
+  <div class="input-group-prepend">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+      Data Sources
+    </button>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" id="stage2-file-filedir" href="#">File or Directory</a>
+      <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
+    </div>
+  </div>
+  <input type="text" class="form-control" uri="888" source="tutorial" id ="stage2-file" placeholder="data/directory">
+</div>
 
-                    Step 2: Setup parameter file <br>
-                    <table class="table">
-                    <thead>
-                    <tr>
-                    <th scope="col">Default</th>
-                    <th scope="col"></th>
-                    </tr>
-                    <tr>
-                    <th> parameter/file.params</th>
 
-                    <th><a href="url">Change parameter file </a> </th>
-                    <!-- <a href="url">Upload your parameter file </a> </th> -->
-                    </tr>
-                    </thead>
-                    <tbody id="parameter-file-stage2">
-                    </tbody>                        
-                    </table>
+                    Step 2: Setup parameter file
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                    <br>
+  <div class="form-group">
+    <label for="email"></label>
+    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage2-param-file" uri="888">
+  </div>
+
 
                     <!--
                 	
@@ -474,9 +456,17 @@ Choose data source
     const default_stage1_param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
 
     function setStage1Tutorial() {
-       $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
+       $("#stage1-file").val("tutorial/basic/raw/RCWF/20170602/20170602001300.raw");  
        $("#stage1-file").attr("source", "tutorial"); 
-       $("#stage1-param-file").val("rainfall/basic/params/RadxConvert.new");  
+       $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
+       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+       // $(`#stage1-file`).attr("uri")
+    };
+
+    function setStage2Tutorial() {
+       $("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+       $("#stage2-file").attr("source", "tutorial"); 
+       $("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
     };
@@ -493,6 +483,9 @@ Choose data source
     $(document).ready(function() {
        $("#stage1-file-tutorial").click(function() {setStage1Tutorial()});  
     });
+    $(document).ready(function() {
+       $("#stage2-file-tutorial").click(function() {setStage2Tutorial()});  
+    });    
 
     const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
 //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
