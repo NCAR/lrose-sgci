@@ -80,13 +80,23 @@
       <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
     </div>
   </div>
-  <input type="text" class="form-control" uri="888" source="tutorial" id ="stage1-file" placeholder="data/directory">
+  <input type="text" class="form-control" uri="888" source=1 id ="stage1-file" placeholder="data/directory">
+  <input type="text" class="form-control" uri="888" source=2 id ="stage1-radar-name" placeholder="radar name, e.g. KFTG">
+  <div class="input-group-prepend" id="stage1-start-time-label">
+      <span class="input-group-text">start time</span>
+  </div>
+  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage1-start-time" placeholder="start date time">
+  <div class="input-group-prepend" id="stage1-end-time-label">
+      <span class="input-group-text">stop time</span>
+  </div>  
+  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage1-end-time" placeholder="end date time"> 
+
 </div>
 
 <!--
   <div class="form-group">
     <label for="email"></label>
-    <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-file" uri="888">
+    <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-param-file" uri="888">
   </div>
 -->
   <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
@@ -192,7 +202,7 @@
       <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
     </div>
   </div>
-  <input type="text" class="form-control" uri="888" source="tutorial" id ="stage2-file" placeholder="data/directory">
+  <input type="text" class="form-control" uri="888" source=1 id ="stage2-file" placeholder="data/directory">
 </div>
 
 
@@ -358,6 +368,9 @@ Choose data source
     const { models, services, session, utils } = AiravataAPI;
 
     stage1_input_uri = "something wonderful";
+    const TUTORIAL_ENUM = 1;
+    const RADAR_ENUM = 2;
+    const FILEDIR_ENUM = 3;
 
 // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
     function chooseDataSourceFile(path) {
@@ -456,16 +469,36 @@ Choose data source
     const default_stage1_param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
 
     function setStage1Tutorial() {
+       $("#stage1-file").show();  
+       $("#stage1-radar-name").hide();  
+       $("#stage1-start-time").hide();  
+       $("#stage1-end-time").hide(); 
+       $("#stage1-start-time-label").hide();  
+       $("#stage1-end-time-label").hide();
        $("#stage1-file").val("tutorial/basic/raw/RCWF/20170602/20170602001300.raw");  
-       $("#stage1-file").attr("source", "tutorial"); 
+       $("#stage1-file").attr("source", TUTORIAL_ENUM); 
        $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
     };
 
+    // if selecting Radar as input source, then change to start/end time & radar name
+    // also switch the default parameter file to the NEXRAD form 
+    function setStage1Radar() {
+        // TODO: change the input boxes to time and radar name
+       $("#stage1-file").hide();  
+       $("#stage1-file").attr("source", RADAR_ENUM); 
+       $("#stage1-radar-name").show();  
+       $("#stage1-start-time").show();  
+       $("#stage1-end-time").show();  
+       $("#stage1-start-time-label").show();  
+       $("#stage1-end-time-label").show();
+       $("#stage1-param-file").val("default/params/RadxConvert.nexrad");  
+    };
+
     function setStage2Tutorial() {
        $("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
-       $("#stage2-file").attr("source", "tutorial"); 
+       $("#stage2-file").attr("source", TUTORIAL_ENUM); 
        $("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
@@ -481,7 +514,8 @@ Choose data source
     //});
 
     $(document).ready(function() {
-       $("#stage1-file-tutorial").click(function() {setStage1Tutorial()});  
+       $("#stage1-file-tutorial").click(function() {setStage1Tutorial()}); 
+       $("#stage1-file-radar").click(function()    {setStage1Radar()});  
     });
     $(document).ready(function() {
        $("#stage2-file-tutorial").click(function() {setStage2Tutorial()});  
@@ -736,6 +770,13 @@ Choose data source
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
         //const param_file_uri = "\"2020 09 29 12 10 00\"";
         const data_file_source = $(`#stage1-file`).attr("source");
+        const radar_name = $(`#stage1-radar-name`).val();
+        const start_time = $(`#stage1-start-time`).val();
+        const end_time = $(`#stage1-end-time`).val();   
+        console.log("data_file_source: " + data_file_source); 
+        console.log("radar name: " + radar_name); 
+        console.log("start time: " + start_time); 
+        console.log("end time: " + end_time);                     
         const data_file_uri = $(`#stage1-file`).attr("uri");
         // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = $(`#stage1-param-file`).attr("uri")
@@ -770,9 +811,11 @@ Choose data source
             // Copy the selected greeting to the value of the first input
             // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
             experiment.experimentInputs[0].value = data_file_source;    
-            //experiment.experimentInputs[1].value = param_file_uri;  // TODO: this needs to be a list; comma separated list
-            //experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-            //experiment.experimentInputs[2].value = radar_name;
+            experiment.experimentInputs[1].value = radar_name;  
+            experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
+            experiment.experimentInputs[3].value = end_time;
+//            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+
 
             return services.ExperimentService.create({data: experiment});
         }).then(exp => {
