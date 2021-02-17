@@ -138,6 +138,42 @@
                     <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
                 </div>
             </div>
+<!--
+            <div class="card">
+
+                <div id="demo" class="carousel slide" data-ride="carousel">
+
+  <-- Indicators
+  
+  <ul class="carousel-indicators">
+    <li data-target="#demo" data-slide-to="0" class="active"></li>
+    <li data-target="#demo" data-slide-to="1"></li>
+    <li data-target="#demo" data-slide-to="2"></li>
+  </ul>
+  
+  <-- The slideshow 
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
+    </div>
+    <div class="carousel-item">
+      <img src="ny.jpg" alt="New York" width="1100" height="500">
+    </div>
+  </div>
+  
+  <-- Left and right controls 
+  <a class="carousel-control-prev" href="#demo" data-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </a>
+  <a class="carousel-control-next" href="#demo" data-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </a>
+</div>
+
+           </div> <-- card for carousel -->
 
            <!-- Displaying a list of recent experiments -->
             <div class="card">
@@ -155,6 +191,7 @@
                                 <th scope="col">Creation Time</th>
                                 <th scope="col">OutDir</th>
                                 <th scope="col">Log</th>
+                                <th scope="col">Images</th>
                                 <th scope="col">Next Stage</th>
                             </tr>
                         </thead>
@@ -575,6 +612,7 @@ Choose data source
                         })
                         .then(text => {
                             $(`#output_${index}`).text(text);
+                            // $('#ItemPreview').attr('src', `data:image/png;base64,${yourByteArrayAsBase64}`);
                         });
                 }
             });
@@ -675,6 +713,8 @@ Choose data source
                             <td id="outdir_${index}"></td>
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
+                            <td id="image3_${index}">
+                              <img id="image_${index}" src="" alt="Gucci" width="50" height="50"> </td>
                             <td>
                             <a href="#stage2" id="continue_${index}">Continue</button>
                              </td>
@@ -712,21 +752,6 @@ Choose data source
                         //        //}).then(result => result.text());
                         //    }
                         //})
-                        //.then(fullDetails => {
-                        //    console.log('here 111');
-                        //    const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                        //        o => o.name === "Output-Dir"
-                        //    ).value; 
-                        //    if (
-                        //        outdirDataProductId 
-                        //    ) {
-                        //        console.log('here 112');
-                        //        $(`#outdir_${index}`).text(outdirDataProductId);
-                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                        //        //    credentials: "same-origin"
-                        //        //}).then(result => result.text());
-                        //    }
-                        //})
                         .then(fullDetails => {
                             console.log('here 1111');
                             const processDirName = fullDetails.experiment.processes[0].processId; 
@@ -740,7 +765,52 @@ Choose data source
                                 });                                
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
+                            console.log('here 111');
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Images" // TODO: what is the name of the image dir?
+                            ).value; 
+                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
+                            const imageArray = outdirDataProductId.split(',');
+                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
+                            const outdirDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === firstOne
+                            );
+                            if (
+                                outdirDataProduct &&
+                                outdirDataProduct.downloadURL
+                            ) {
+                                console.log("index=" + index + " here ... Have downloadURL");
+                                console.log(outdirDataProduct.downloadURL);
+                                $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
+                        
+                        //        return stdoutDataProductId.name;
+                                //return fetch(outdirDataProduct.downloadURL, {
+                                //    credentials: "same-origin"
+                                //}).then(result => result.text());   
+                            }
+//                        })
+//                        .then(text => {
+//                                console.log('here 112');
+//                                //console.log(text);
+//                        //        $(`#outdir_${index}`).text(outdirDataProductId);
+//                                const testOutputProductId = "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1";
+ //                               //const imgsrc = "data:image/png;base64," + text; // btoa(String.fromCharCode.apply(null, text);
+ //                               if (text) {
+//
+//                                  console.log("index=" + index + " if (text) is true, setting the image src");
+//
+//                                  //$(`#image_${index}`).attr('src', text); // .show();
+//                                } else {
+//                                    console.log("if (text) is false");
+//                                }
+//                        //        //return fetch(stdoutDataProduct.downloadURL, {
+//                        //        //    credentials: "same-origin"
+//                        //        //}).then(result => result.text());
                         });
+                        //})
+                        //.then(fullDetails => {
+
+                        //});
                         // .catch(alert("Problem fetching previous experiments")); 
                         //.then(text => {
                         //    //$(`#continue_${index}`).text(text);
