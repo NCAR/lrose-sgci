@@ -71,7 +71,8 @@
 
 <div class="input-group mt-3 mb-3">
   <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" 
+      data-toggle="dropdown">
       Data Sources
     </button>
     <div class="dropdown-menu">
@@ -186,7 +187,7 @@
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
-                                <th scope="col">Application</th>
+                                <!-- <th scope="col">Application</th> -->
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
                                 <th scope="col">OutDir</th>
@@ -231,7 +232,8 @@
 
 <div class="input-group mt-3 mb-3">
   <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown">
+    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
+      id="stage2-source" data-toggle="dropdown">
       Data Sources
     </button>
     <div class="dropdown-menu">
@@ -240,8 +242,16 @@
     </div>
   </div>
   <input type="text" class="form-control" uri="888" source=1 id ="stage2-file" placeholder="data/directory">
+  <input type="text" class="form-control" uri="888" source=2 id ="stage2-radar-name" placeholder="radar name, e.g. KFTG">
+  <div class="input-group-prepend" id="stage2-start-time-label">
+      <span class="input-group-text">start time</span>
+  </div>
+  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage2-start-time" placeholder="start date time">
+  <div class="input-group-prepend" id="stage2-end-time-label">
+      <span class="input-group-text">stop time</span>
+  </div>  
+  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage2-end-time" placeholder="end date time"> 
 </div>
-
 
                     Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
@@ -505,7 +515,27 @@ Choose data source
     const default_stage1_data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
     const default_stage1_param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
 
+    const tutorial_start_date = "2017-06-02T00:12";
+    const tutorial_end_date = "2017-06-02T00:14";
+
     function setStage1Tutorial() {
+        // TODO: change the "Data Sources" to be "Tutorial"; set attr("source") on stage1 "Data Sources" button NOT the stage1-file id.
+        // TODO: make the radar, start, end times non-editable when tutorial is the data source.
+       $("#stage1-file").hide();  
+       $("#stage1-source").attr("source", TUTORIAL_ENUM);
+       $("#stage1-source").text("Tutorial"); 
+       $("#stage1-radar-name").show();
+       $("#stage1-radar-name").val("RCWF");    
+       $("#stage1-start-time").show();  
+       $("#stage1-start-time").val(tutorial_start_date);
+       $("#stage1-end-time").show();  
+       $("#stage1-end-time").val(tutorial_end_date);
+       $("#stage1-start-time-label").show();  
+       $("#stage1-end-time-label").show();
+       $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
+    }
+
+    function setStage1File() {
        $("#stage1-file").show();  
        $("#stage1-radar-name").hide();  
        $("#stage1-start-time").hide();  
@@ -513,7 +543,8 @@ Choose data source
        $("#stage1-start-time-label").hide();  
        $("#stage1-end-time-label").hide();
        $("#stage1-file").val("tutorial/basic/raw/RCWF/20170602/20170602001300.raw");  
-       $("#stage1-file").attr("source", TUTORIAL_ENUM); 
+       $("#stage1-source").attr("source", FILEDIR_ENUM); 
+       $("#stage1-source").text("File/Directory"); 
        $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
@@ -524,7 +555,8 @@ Choose data source
     function setStage1Radar() {
         // TODO: change the input boxes to time and radar name
        $("#stage1-file").hide();  
-       $("#stage1-file").attr("source", RADAR_ENUM); 
+       $("#stage1-source").attr("source", RADAR_ENUM); 
+       $("#stage1-source").text("Radar"); 
        $("#stage1-radar-name").show();  
        $("#stage1-start-time").show();  
        $("#stage1-end-time").show();  
@@ -534,14 +566,28 @@ Choose data source
     };
 
     function setStage2Tutorial() {
-       $("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
-       $("#stage2-file").attr("source", TUTORIAL_ENUM); 
+       $("#stage2-file").hide();  
+       $("#stage2-source").attr("source", TUTORIAL_ENUM); 
+       $("#stage2-source").text("Tutorial"); 
+       $("#stage2-radar-name").show();
+       $("#stage2-radar-name").val("RCWF");    
+       $("#stage2-start-time").show();  
+       $("#stage2-start-time").val(tutorial_start_date);
+       $("#stage2-end-time").show();  
+       $("#stage2-end-time").val(tutorial_end_date);
+       $("#stage2-start-time-label").show();  
+       $("#stage2-end-time-label").show();
        $("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+
+       //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+       //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+       //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
     };
  
     $(document).ready(function() {setStage1Tutorial()});
+    $(document).ready(function() {setStage2Tutorial()});
     //
      //  $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
      //  //$("#stage1-file").attr("uri", default_stage1_data_file_uri); 
@@ -568,7 +614,7 @@ Choose data source
 
     function loadExperiments() {
         return services.ExperimentSearchService.list({
-            limit: 5,
+            limit: 3,
             [models.ExperimentSearchFields.USER_NAME.name]:
                 session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage2AppInterfaceId
@@ -593,10 +639,7 @@ Choose data source
                             console.log('here 1');
                             const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "Standard-Out"
-                            ).value;  // TODO: getting an error here ... 
-                            // here 1
-// url:491 Uncaught (in promise) TypeError: Cannot read property 'value' of undefined
-//    at url:491
+                            ).value;  
                             const stdoutDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === stdoutDataProductId
                             );
@@ -622,15 +665,17 @@ Choose data source
     loadExperiments();
     $("#refresh-button").click(loadExperiments);
 
-    function populateStage2(processDirName) {
+    function populateStage2(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
         //parameter-file-stage2 
         //     data-source-stage2
         // update the Run button to use the processDirName  
                             if (
-                                processDirName 
+                                processDirName
                             ) {
-
+                                // get the input parameters from the previous PROCESS_DIR
+                                
+                                // populate the input parameters
                                 $("#run-button-stage2").click(function() { 
                                     runStage2(processDirName);
                                 });                                
@@ -639,6 +684,9 @@ Choose data source
 
     }
 
+// TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
+// But, if the data or time or radar changes, then we need to grab the new input parameters
+// Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
     function runStage2(processDirName) {
         console.log('entering runStage2');
         // TODO: populate the inputs to the next stage with the info from the processDirName,
@@ -648,8 +696,13 @@ Choose data source
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
         //const param_file_uri = "\"2020 09 29 12 10 00\"";
         const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
-        const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+        // const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
         //const radar_name = "KFTG";
+
+        const data_file_source = $(`#stage2-source`).attr("source");
+        const param_file_uri = $(`#stage2-param-file`).attr("uri")
+        //const radar_name = $(`#stage1-radar-name`).val();
+
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
 // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
@@ -673,8 +726,11 @@ Choose data source
             experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
             experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
             // Copy the selected greeting to the value of the first input
-            experiment.experimentInputs[0].value = processDirName;  // TODO: this needs to be a list; comma separated list
-            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
+            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
+            console.log("processDirName " + processDirName);
+            experiment.experimentInputs[0].value = data_file_source;
+            experiment.experimentInputs[1].value = processDirName;  
+            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
             //experiment.experimentInputs[2].value = radar_name;
 
             return services.ExperimentService.create({data: experiment});
@@ -697,7 +753,7 @@ Choose data source
 
     function loadRadxConversionExperiments() {
         return services.ExperimentSearchService.list({
-            limit: 7,
+            limit: 3,
             [models.ExperimentSearchFields.USER_NAME.name]:
                 session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
@@ -707,14 +763,14 @@ Choose data source
                 $("#experiment-list-conversion").append(
                     `<tr>
                             <td>${exp.name}</td>
-                            <td>${exp.executionId}</td>
+                            <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
                             <td id="outdir_${index}"></td>
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="image3_${index}">
-                              <img id="image_${index}" src="" alt="Gucci" width="50" height="50"> </td>
+                              <img id="image_${index}" src="" alt="Gucci" width="100" height="100"> </td>
                             <td>
                             <a href="#stage2" id="continue_${index}">Continue</button>
                              </td>
@@ -754,14 +810,22 @@ Choose data source
                         //})
                         .then(fullDetails => {
                             console.log('here 1111');
+                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "input_parameters"
+                            ).value;  
+                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === inputParametersDataProductId
+                            );
+
                             const processDirName = fullDetails.experiment.processes[0].processId; 
                             if (
-                                processDirName 
+                                processDirName &&
+                                inputParametersDataProduct.downloadURL  
                             ) {
                                 console.log('here 1112');
                                 $(`#outdir_${index}`).text(processDirName);
                                 $(`#continue_${index}`).on("click", function() { 
-                                    populateStage2(processDirName);
+                                    populateStage2(processDirName, inputParametersDataProduct.downloadURL);
                                 });                                
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
@@ -839,7 +903,7 @@ Choose data source
         const step = "RadxConvert"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
         //const param_file_uri = "\"2020 09 29 12 10 00\"";
-        const data_file_source = $(`#stage1-file`).attr("source");
+        const data_file_source = $(`#stage1-source`).attr("source");
         const radar_name = $(`#stage1-radar-name`).val();
         const start_time = $(`#stage1-start-time`).val();
         const end_time = $(`#stage1-end-time`).val();   
@@ -924,7 +988,7 @@ Choose data source
             experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
             experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
             experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // Copy the selected greeting to the value of the first input
+            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
             experiment.experimentInputs[0].value = data_file_uri;  // TODO: this needs to be a list; comma separated list
             experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
             //experiment.experimentInputs[2].value = radar_name;
