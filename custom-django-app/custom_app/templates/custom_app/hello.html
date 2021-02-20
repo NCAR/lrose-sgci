@@ -220,7 +220,7 @@
                 </div>
             </div>   
             -->         
-
+<!-- begin RadxRate -->
              <div class="card" id="stage2">
                 <div class="card-header">
                     Map Rate to Surface (RadxRate)
@@ -276,68 +276,208 @@
                 </div>
             </div>
 
+            <!-- Displaying a list of recent experiments -->
+            <div class="card">
+                <div class="card-header">
+                    Previous Stage2 Experiments
+                </div>
+                <div class="card-body">
+                    <button id="rate-refresh-button" class="btn btn-secondary">Refresh</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Creation Time</th>
+                                <th scope="col">OutDir</th>
+                                <th scope="col">Log</th>
+                                <th scope="col">Images</th>
+                                <th scope="col">Next Stage</th>
+                            </tr>
+                        </thead>
+                        <tbody id="experiment-list-rate">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+<!-- end RadxRate -->
+
+<!-- begin RadxQpe -->
+             <div class="card" id="stage3">
+                <div class="card-header">
+                    Compute Something (RadxQpe)
+                </div>
+                <div class="card-body">
+                    Step 1: Choose data source
+                <br>
+
+                <div class="input-group mt-3 mb-3">
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
+                      id="stage3-source" data-toggle="dropdown">
+                      Data Sources
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" id="stage3-file-filedir" href="#">File or Directory</a>
+                      <a class="dropdown-item" id="stage3-file-tutorial" href="#">Tutorial</a>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control" uri="888" source=1 id ="stage3-file" placeholder="data/directory">
+                  <input type="text" class="form-control" uri="888" source=2 id ="stage3-radar-name" placeholder="radar name, e.g. KFTG">
+                  <div class="input-group-prepend" id="stage3-start-time-label">
+                      <span class="input-group-text">start time</span>
+                  </div>
+                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage3-start-time" placeholder="start date time">
+                  <div class="input-group-prepend" id="stage3-end-time-label">
+                      <span class="input-group-text">stop time</span>
+                  </div>  
+                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage3-end-time" placeholder="end date time"> 
+                </div>
+
+                    Step 2: Setup parameter file
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                    <br>
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage3-param-file" uri="888">
+                  </div>
+
+
+                    <!--
+                    
+                    <a href="url">Choose data source </a> <br>
+                    
+                    Set up parameter file <br>
+                    <a href="url">Download template </a> <br>
+                    <a href="url">Upload your parameter file </a> <br>
+
+
+                     -->
+                    <button id="run-button-stage3" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+<!-- old code -----
             <div class="card">
                 <div class="card-header">
                     Compute Something (RadxQpe)
                 </div>
                 <div class="card-body">
-                	
-                	<a href="url">Choose data source </a> <br>
-                	
-                	Set up parameter file <br>
-                	<a href="url">Download template </a> <br>
-                	<a href="url">Upload your parameter file </a> <br>
-                	Output Data - NetCDF Cartesian rate data - view using (CIDD)
+                    
+                    <a href="url">Choose data source </a> <br>
+                    
+                    Set up parameter file <br>
+                    <a href="url">Download template </a> <br>
+                    <a href="url">Upload your parameter file </a> <br>
+                    Output Data - NetCDF Cartesian rate data - view using (CIDD)
 
-
-                    <!-- <select id="greeting-select"></select>  -->
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>
+      end old code  -->
 
+            <!-- Displaying a list of recent experiments -->
+            <div class="card">
+                <div class="card-header">
+                    Previous Stage3 Experiments
+                </div>
+                <div class="card-body">
+                    <button id="qpe-refresh-button" class="btn btn-secondary">Refresh</button>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Creation Time</th>
+                                <th scope="col">OutDir</th>
+                                <th scope="col">Log</th>
+                                <th scope="col">Images</th>
+                            </tr>
+                        </thead>
+                        <tbody id="experiment-list-qpe">
+                        </tbody>
+                    </table>
+                </div>
+            </div>      
+<!-- end RadxQpe -->
+
+<!-- begin RateAccum -->
+
+             <div class="card" id="stage4">
+                <div class="card-header">
+                    Compute Rainfall Accumulation (RateAccum)
+                </div>
+                <div class="card-body">
+                    Step 1: Choose data source
+                <br>
+
+                <div class="input-group mt-3 mb-3">
+                  <div class="input-group-prepend">
+                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
+                      id="stage4-source" data-toggle="dropdown">
+                      Data Sources
+                    </button>
+                    <div class="dropdown-menu">
+                      <a class="dropdown-item" id="stage4-file-filedir" href="#">File or Directory</a>
+                      <a class="dropdown-item" id="stage4-file-tutorial" href="#">Tutorial</a>
+                    </div>
+                  </div>
+                  <input type="text" class="form-control" uri="888" source=1 id ="stage4-file" placeholder="data/directory">
+                  <input type="text" class="form-control" uri="888" source=2 id ="stage4-radar-name" placeholder="radar name, e.g. KFTG">
+                  <div class="input-group-prepend" id="stage4-start-time-label">
+                      <span class="input-group-text">start time</span>
+                  </div>
+                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage4-start-time" placeholder="start date time">
+                  <div class="input-group-prepend" id="stage4-end-time-label">
+                      <span class="input-group-text">stop time</span>
+                  </div>  
+                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage4-end-time" placeholder="end date time"> 
+                </div>
+
+                    Step 2: Setup parameter file
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                    <br>
+                  <div class="form-group">
+                    <label for="email"></label>
+                    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
+                  </div>
+
+
+                    <!--
+                    
+                    <a href="url">Choose data source </a> <br>
+                    
+                    Set up parameter file <br>
+                    <a href="url">Download template </a> <br>
+                    <a href="url">Upload your parameter file </a> <br>
+
+
+                     -->
+                    <button id="run-button-stage4" class="btn btn-primary">Run</button>
+                </div>
+            </div>
+<!-- old code ...
             <div class="card">
                 <div class="card-header">
                     Compute Rainfall Accumulation (RateAccum)
                 </div>
                 <div class="card-body">
-                	
-                	<a href="url">Choose data source </a> <br>
-                	
-                	Set up parameter file <br>
-                	<a href="url">Download template </a> <br>
-                	<a href="url">Upload your parameter file </a> <br>
-                	Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
+                    
+                    <a href="url">Choose data source </a> <br>
+                    
+                    Set up parameter file <br>
+                    <a href="url">Download template </a> <br>
+                    <a href="url">Upload your parameter file </a> <br>
+                    Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
 
-                    <!-- <select id="greeting-select"></select>  -->
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>
-            <!-- -->
+            end old code -->
+<!-- end RateAccum -->
 
             <button id="run-button" class="btn btn-secondary">Exit</button>
 
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Experiments
-                </div>
-                <div class="card-body">
-                    <button id="refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Application</th>
-                                <th scope="col">Creation Time</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Output</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             <!-- begin My Storage-->
 
             <!-- Displaying a list of recent experiments -->
@@ -585,6 +725,27 @@ Choose data source
        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
        // $(`#stage1-file`).attr("uri")
     };
+
+    function setStageTutorial(stage, param_file) {
+       $(`#stage${stage}-file`).hide();  
+       $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM); 
+       $(`#stage${stage}-source`).text("Tutorial"); 
+       $(`#stage${stage}-radar-name`).show();
+       $(`#stage${stage}-radar-name`).val("RCWF");    
+       $(`#stage${stage}-start-time`).show();  
+       $(`#stage${stage}-start-time`).val(tutorial_start_date);
+       $(`#stage${stage}-end-time`).show();  
+       $(`#stage${stage}-end-time`).val(tutorial_end_date);
+       $(`#stage${stage}-start-time-label`).show();  
+       $(`#stage${stage}-end-time-label`).show();
+       $(`#stage${stage}-param-file`).val(param_file); // "tutorial/basic/params/RadxRate.new");  
+
+       //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+       //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+       //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+       // $(`#stage1-file`).attr("uri")
+    };
  
     $(document).ready(function() {setStage1Tutorial()});
     $(document).ready(function() {setStage2Tutorial()});
@@ -606,9 +767,12 @@ Choose data source
 
     const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
 //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
-    const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
+
 
     const stage1AppInterfaceId = "RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
+    const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
+    const stage3AppInterfaceId = "precip_stage3_5f6aee08-4c60-4592-ab52-23b467aa31c6";
+    const stage4AppInterfaceId = "precip_stage4_";
 
 
 
@@ -683,8 +847,32 @@ Choose data source
                             }
 
     }
+    function populateStage3(processDirName, inputParametersDownloadURL) {
+        alert(processDirName);
+        //parameter-file-stage2 
+        //     data-source-stage2
+        // update the Run button to use the processDirName  
+                            if (
+                                processDirName
+                            ) {
+                                const stage = 3;
+                                const param_file = "windy day";
+                                const step = "stage3";
+                                const data_file_source = 1;
+                                const param_file_uri = "";
+                                // get the input parameters from the previous PROCESS_DIR
+                                console.log("calling setStageTutorial");
+                                setStageTutorial(stage, param_file);
+                                // populate the input parameters
+                                $("#run-button-stage3").click(function() { 
+                                    runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
+                                    //runStage3(processDirName);
+                                });                                
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            }
 
-// TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
+    }
+
 // But, if the data or time or radar changes, then we need to grab the new input parameters
 // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
     function runStage2(processDirName) {
@@ -706,6 +894,59 @@ Choose data source
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
 // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+        .then(([appInterface, workspacePrefs, queues]) => {
+            const experiment = appInterface.createExperiment();
+            experiment.experimentName = "precip " + step;
+            experiment.projectId = workspacePrefs.most_recent_project_id;
+            const cloudQueue = queues.find(q => q.queueName === queueName);
+            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+            // Copy the selected greeting to the value of the first input
+            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
+            console.log("processDirName " + processDirName);
+            experiment.experimentInputs[0].value = data_file_source;
+            experiment.experimentInputs[1].value = processDirName;  
+            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+            //experiment.experimentInputs[2].value = radar_name;
+
+            return services.ExperimentService.create({data: experiment});
+        }).then(exp => {
+            return services.ExperimentService.launch({lookup: exp.experimentId});
+        })
+    };
+
+// TODO: maybe this could be a function ...
+// args processDirName, step = "stage2", data_file_source, param_file_uri, stageXAppInterfaceId 
+// TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
+    function runStage(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
+        console.log("entering runStage " + step);
+        // TODO: populate the inputs to the next stage with the info from the processDirName,
+        // or maybe the experiementID??
+        // then when "Run" is clicked, send the processDirName as argument.
+        //const step = "stage2"; // $("#greeting-select").val();
+        //const data_file_uri = "\"2020 09 29 12 00 00\"";
+        //const param_file_uri = "\"2020 09 29 12 10 00\"";
+        const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        // const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+        //const radar_name = "KFTG";
+        // these are args ...
+        //const data_file_source = $(`#stage2-source`).attr("source");
+        //const param_file_uri = $(`#stage2-param-file`).attr("uri")
+        //const radar_name = $(`#stage1-radar-name`).val();
+
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stageXAppInterfaceId});
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
         const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
 
@@ -888,10 +1129,114 @@ Choose data source
         });
     }    
 
+    // TODO: args stage2AppInterfaceId, experiment-list
+    // stage = 2, 
+    function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
+        return services.ExperimentSearchService.list({
+            limit: 3,
+            [models.ExperimentSearchFields.USER_NAME.name]:
+                session.Session.username,
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: stageAppInterfaceId
+        }).then(data => {
+            const nextStage = stage + 1;
+            $(experimentList).empty();
+            data.results.forEach((exp, index) => {
+                $(experimentList).append(
+                    `<tr>
+                            <td>${exp.name}</td>
+                            <!-- <td>${exp.executionId}</td> -->
+                            <td>${exp.experimentStatus.name}</td>
+                            <td>${exp.creationTime}</td>
+                            <td id="outdir_${stage}_${index}"></td>
+                            <td id="log_${stage}_${index}">
+                            <a href="url">view log file </a> </td>
+                            <td id="image3_${index}">
+                              <img id="image_${stage}_${index}" src="" alt="Gucci" width="100" height="100"> </td>
+                            <td>
+                            <a href="#stage${nextStage}" id="continue_${stage}_${index}">Continue</button>
+                             </td>
+                        </tr>`
+
+                );
+                // TODO: the url for continue needs to have the experimentId 
+                //       the url would be the next step card, 
+                // If experiment has finished, load full details, then parse the stdout file
+                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                    services.FullExperimentService.retrieve({
+                        lookup: exp.experimentId
+                    })
+                        //.then(fullDetails => {
+                        //    console.log('here 11');
+                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
+                        //        o => o.name === "Output-Dir"
+                        //    ).value;  
+                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
+                        //        dp => dp.productUri === stdoutDataProductId
+                        //    );
+                        //    if (
+                        //        stdoutDataProduct &&
+                        //        stdoutDataProduct.downloadURL
+                        //    ) {
+                        //        console.log('here 12');
+                        //        return stdoutDataProductId.name;
+                        //        //return fetch(stdoutDataProduct.downloadURL, {
+                        //        //    credentials: "same-origin"
+                        //        //}).then(result => result.text());
+                        //    }
+                        //})
+                        .then(fullDetails => {
+                            console.log('here 1111');
+                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "input_parameters"
+                            ).value;  
+                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === inputParametersDataProductId
+                            );
+
+                            const processDirName = fullDetails.experiment.processes[0].processId; 
+                            if (
+                                processDirName // &&
+                                // inputParametersDataProduct.downloadURL  
+                            ) {
+                                console.log('here 1112');
+                                $(`#outdir_${stage}_${index}`).text(processDirName);
+                                $(`#continue_${stage}_${index}`).on("click", function() { 
+                                    populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
+                                });                                
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            }
+                            console.log('here 111');
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Images" // TODO: what is the name of the image dir?
+                            ).value; 
+                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
+                            const imageArray = outdirDataProductId.split(',');
+                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
+                            const outdirDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === firstOne
+                            );
+                            if (
+                                outdirDataProduct &&
+                                outdirDataProduct.downloadURL
+                            ) {
+                                console.log("index=" + index + " here ... Have downloadURL");
+                                console.log(outdirDataProduct.downloadURL);
+                                $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL); 
+                            }
+                        });
+                }
+            });
+        });
+    }    
+
     //$("#continue_*").click(???)
 
     loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
+    //loadStageExperiments();
+    $("#rate-refresh-button").click(loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate"));
+    //loadStageExperiments();
+    $("#qpe-refresh-button").click(loadStageExperiments(3, stage3AppInterfaceId, "#experiment-list-qpe"));
 
     $("#test-variable-button").click(e => {
         console.log("value of paramter is ");
@@ -958,7 +1303,7 @@ Choose data source
     });
 
 
-
+// TODO: this may not be used???
     $("#run-stage2-button").click(e => {
         const step = "stage2"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
