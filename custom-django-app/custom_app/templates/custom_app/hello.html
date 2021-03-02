@@ -137,6 +137,21 @@
                     <!-- <select id="greeting-select"></select>  -->
                     <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
                     <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
+
+<!-- for status and image
+                        <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">Status</th>
+                                <th scope="col">Result</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stage1-status">
+                        </tbody>
+                    </table>
+
+-->
+
                 </div>
             </div>
 <!--
@@ -1011,7 +1026,9 @@ Choose data source
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="image3_${index}">
+                            <a href="https://gateway.lrose.net/workspace/experiments/${exp.experimentId}"> 
                               <img id="image_${index}" src="" alt="Gucci" width="100" height="100"> </td>
+                            </a>
                             <td>
                             <a href="#stage2" id="continue_${index}">Continue</button>
                              </td>
@@ -1141,6 +1158,8 @@ Choose data source
             const nextStage = stage + 1;
             $(experimentList).empty();
             data.results.forEach((exp, index) => {
+                // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
+                // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
                 $(experimentList).append(
                     `<tr>
                             <td>${exp.name}</td>
@@ -1151,7 +1170,10 @@ Choose data source
                             <td id="log_${stage}_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="image3_${index}">
-                              <img id="image_${stage}_${index}" src="" alt="Gucci" width="100" height="100"> </td>
+                            <a href="https://gateway.lrose.net/workspace/experiments/${exp.experimentId}"> 
+                              <img id="image_${stage}_${index}" src="" alt="Gucci" width="100" height="100"> 
+                            </a>
+                            </td>
                             <td>
                             <a href="#stage${nextStage}" id="continue_${stage}_${index}">Continue</button>
                              </td>
@@ -1215,6 +1237,8 @@ Choose data source
                             const outdirDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === firstOne
                             );
+                            // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
+                            // https://gateway.lrose.net/workspace/experiments/
                             if (
                                 outdirDataProduct &&
                                 outdirDataProduct.downloadURL
@@ -1222,6 +1246,8 @@ Choose data source
                                 console.log("index=" + index + " here ... Have downloadURL");
                                 console.log(outdirDataProduct.downloadURL);
                                 $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL); 
+                                // also make a link to the experiment results 
+                                //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
                             }
                         });
                 }
