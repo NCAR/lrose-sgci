@@ -205,7 +205,7 @@
                                 <!-- <th scope="col">Application</th> -->
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
-                                <th scope="col">OutDir</th>
+                                <!-- <th scope="col">OutDir</th> -->
                                 <th scope="col">Log</th>
                                 <th scope="col">Images</th>
                                 <th scope="col">Next Stage</th>
@@ -304,7 +304,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
-                                <th scope="col">OutDir</th>
+                                <!-- <th scope="col">OutDir</th> -->
                                 <th scope="col">Log</th>
                                 <th scope="col">Images</th>
                                 <th scope="col">Next Stage</th>
@@ -404,7 +404,7 @@
                                 <th scope="col">Name</th>
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
-                                <th scope="col">OutDir</th>
+                                <!-- <th scope="col">OutDir</th> -->
                                 <th scope="col">Log</th>
                                 <th scope="col">Images</th>
                             </tr>
@@ -841,8 +841,8 @@ Choose data source
         });
     }
 
-    loadExperiments();
-    $("#refresh-button").click(loadExperiments);
+    //loadExperiments();
+    //$("#refresh-button").click(loadExperiments);
 
     function populateStage2(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
@@ -1022,7 +1022,7 @@ Choose data source
                             <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
-                            <td id="outdir_${index}"></td>
+                            <!-- <td id="outdir_${index}"></td> -->
                             <td id="log_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="image3_${index}">
@@ -1081,7 +1081,7 @@ Choose data source
                                 inputParametersDataProduct.downloadURL  
                             ) {
                                 console.log('here 1112');
-                                $(`#outdir_${index}`).text(processDirName);
+                                //$(`#outdir_${index}`).text(processDirName);
                                 $(`#continue_${index}`).on("click", function() { 
                                     populateStage2(processDirName, inputParametersDataProduct.downloadURL);
                                 });                                
@@ -1155,6 +1155,7 @@ Choose data source
                 session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stageAppInterfaceId
         }).then(data => {
+            console.log("inside loadStageExperiments; stage =" + stage);
             const nextStage = stage + 1;
             $(experimentList).empty();
             data.results.forEach((exp, index) => {
@@ -1166,7 +1167,7 @@ Choose data source
                             <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
-                            <td id="outdir_${stage}_${index}"></td>
+                            <!-- <td id="outdir_${stage}_${index}"></td> -->
                             <td id="log_${stage}_${index}">
                             <a href="url">view log file </a> </td>
                             <td id="image3_${index}">
@@ -1221,7 +1222,7 @@ Choose data source
                                 // inputParametersDataProduct.downloadURL  
                             ) {
                                 console.log('here 1112');
-                                $(`#outdir_${stage}_${index}`).text(processDirName);
+                                //$(`#outdir_${stage}_${index}`).text(processDirName);
                                 $(`#continue_${stage}_${index}`).on("click", function() { 
                                     populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
                                 });                                
@@ -1257,12 +1258,12 @@ Choose data source
 
     //$("#continue_*").click(???)
 
-    loadRadxConversionExperiments();
+    //loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
     //loadStageExperiments();
-    $("#rate-refresh-button").click(loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate"));
+    $("#rate-refresh-button").click(function () {loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate")});
     //loadStageExperiments();
-    $("#qpe-refresh-button").click(loadStageExperiments(3, stage3AppInterfaceId, "#experiment-list-qpe"));
+    $("#qpe-refresh-button").click(function () {loadStageExperiments(3, stage3AppInterfaceId, "#experiment-list-qpe")});
 
     $("#test-variable-button").click(e => {
         console.log("value of paramter is ");
