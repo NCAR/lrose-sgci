@@ -11,5 +11,7 @@ setuptools.setup(
     entry_points="""
 [airavata.djangoapp]
 custom_app = custom_app.apps:CustomAppConfig
+[airavata.output_view_providers]
+hawkeye-ppi-viewer = custom_app.output_views:GaussianEigenvaluesViewProvider
 """,
 )
