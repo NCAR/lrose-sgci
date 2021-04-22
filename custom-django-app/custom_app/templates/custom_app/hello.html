@@ -1,136 +1,179 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block content %}
-<div>
-<ul style="
-    /* Center the content */
-    align-items: center;
-    display: flex;
-    justify-content: center;
-
-    /* Reset styles */
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-">
-    <li style="
+{% extends 'base.html' %} {% load static %} {% block content %}
+<style>
+    .active {
+        background-color: #4CAF50;
+        /* Add an active/current color */
+    }
+    
+    .dontMove {
+        position: relative;
+        left: 100px;
+        z-index: 1;
+    }
+    
+    .circle {
         /* Rounded border */
         border-radius: 9999px;
-        height: 20px;
-        width: 20px;
-
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
         /* Active dot */
-        background-color: rgba(0, 0, 0, .3);
-
+        /*background-color: rgba(0, 0, 0, .3);*/
         /* Inactive dot */
-        background-color: transparent;
         border: 1px solid rgba(0, 0, 0, .3);
-
         /* OPTIONAL: Spacing between dots */
-        margin: 0 4px;
-    " />
-</div>
-
-<!-- -->
- <!--   <div style="height:512px;position:relative;transform-style:preserve-3d;transition:transform 1s ease 0s">
-        <div style="backface-visibility:hidden;height:100%;left:0;opacity:1;overflow:scroll;position:absolute;top:0;width:100%"> 
-            <div style="align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;padding:8px">
-                <ul style="align-items:center;display:flex;justify-content:center;list-style-type:none;margin:0;padding:0">
-                    <li style="background-color:rgba(0,0,0,.3);border:none;border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
-                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
-                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
-                    <li style="border:1px solid rgba(0,0,0,.3);border-radius:9999px;cursor:pointer;height:12px;margin:0 4px;width:12px"></li>
-                </ul>
-            </div>
-  <!--      </div>
-    </div> 
--->
-
-    <!-- -->
-
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    
+    .rectangle {
+        width: 210px;
+        height: 6px;
+        background: #C4C4C4;
+    }
+    
+    .check {
+        position: absolute;
+        left: 18.75%;
+        right: 18.75%;
+        top: 28.12%;
+        bottom: 27.76%;
+        /* Gray 6 */
+        background: #F2F2F2;
+        z-index: 1;
+    }
+    
+    aside {
+        width: 10%;
+        padding-left: 15px;
+        margin-left: 15px;
+        float: right;
+        font-style: italic;
+        background-color: lightgray;
+    }
+    
+    .info {
+        position: absolute;
+        width: 302px;
+        height: 440.37px;
+        left: 1094px;
+        top: 602.63px;
+        background: #FFFFFF;
+        border: 1px solid #B9B9B9;
+        box-sizing: border-box;
+        border-radius: 12px;
+    }
+</style>
 
 <div class="main-content-wrapper">
     <main class="main-content">
 
-<!-- add navigation dots here: use Scrollspy from bootstrap -->
+        <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
-<!-- class comes from bootstrap -->
+        <!-- class comes from bootstrap -->
         <div class="container-fluid">
-            <h1>Rainfall Estimation</h1>
-
-            <a href="url">Learn more </a> | <a href="url">Help </a>
-            <!-- Adding a list of "Hello" greetings -->
+            <div style="text-align: center">
+                <h1 id="first">Rainfall Estimation</h1>
+                <a href="url">Learn more </a> | <a href="url">Help </a>
+            </div>
+            <div style="text-align: center; margin: 30px">
+                <!-- Creating the navigation bar with circles -->
+                <nav style="position:relative; left: -30px">
+                    <ul style="list-style-type: none; overflow: hidden; display: inline">
+                        <li class="rectangle" style="left: 194px; top: 26px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                    </ul>
+                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#second" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+            <!-- Adding an aside tag to hold the information and logs buttons -->
+            <aside style="display: block;">
+                <p>This should be beside the DIV?</p>
+            </aside>
             <div class="card">
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-header">
                     Convert Level II Data to CfRadial (RadxConvert)
                 </div>
                 <div class="card-body">
-                	Step 1: Choose data source
+                    Step 1: Choose data source
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
-<br>
+                    <br>
 
-<div class="input-group mt-3 mb-3">
-  <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" 
-      data-toggle="dropdown">
+                    <div class="input-group mt-3 mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
       Data Sources
     </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
-      <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
-      <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
-    </div>
-  </div>
-  <input type="text" class="form-control" uri="888" source=1 id ="stage1-file" placeholder="data/directory">
-  <input type="text" class="form-control" uri="888" source=2 id ="stage1-radar-name" placeholder="radar name, e.g. KFTG">
-  <div class="input-group-prepend" id="stage1-start-time-label">
-      <span class="input-group-text">start time</span>
-  </div>
-  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage1-start-time" placeholder="start date time">
-  <div class="input-group-prepend" id="stage1-end-time-label">
-      <span class="input-group-text">stop time</span>
-  </div>  
-  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage1-end-time" placeholder="end date time"> 
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
+                                <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
+                                <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" uri="888" source=1 id="stage1-file" placeholder="data/directory">
+                        <input type="text" class="form-control" uri="888" source=2 id="stage1-radar-name" placeholder="radar name, e.g. KFTG">
+                        <div class="input-group-prepend" id="stage1-start-time-label">
+                            <span class="input-group-text">start time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                        <div class="input-group-prepend" id="stage1-end-time-label">
+                            <span class="input-group-text">stop time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
 
-</div>
+                    </div>
 
-<!--
+
+                    <!--
   <div class="form-group">
     <label for="email"></label>
     <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-param-file" uri="888">
   </div>
 -->
-  <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
+                    <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
 
-                    <br> 
+                    <br>
                     <table class="table">
-                    <thead>
-                    <tr>
-                    <th scope="col"></th>
-                    <th scope="col"></th>
-                    </tr>
-                    </thead>
-                    <tbody id="data-source-list">
-                    </tbody>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="data-source-list">
+                        </tbody>
                     </table>
 
-                	Step 2: Setup parameter file
+                    Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
                     <br>
-  <div class="form-group">
-    <label for="email"></label>
-    <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
-  </div>
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
                     <table class="table">
-                    <thead>
-                    <tr>
-                	<th scope="col"></th>
-                    <th scope="col"></th>
-                    </tr>
-                    <!-- <a href="url">Upload your parameter file </a> </th> -->
-                    </thead>
-                    <tbody id="parameter-file-list">
-                    </tbody>
+                        <thead>
+                            <tr>
+                                <th scope="col"></th>
+                                <th scope="col"></th>
+                            </tr>
+                            <!-- <a href="url">Upload your parameter file </a> </th> -->
+                        </thead>
+                        <tbody id="parameter-file-list">
+                        </tbody>
                     </table>
 
 
@@ -138,7 +181,7 @@
                     <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
                     <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
 
-<!-- for status and image
+                    <!-- for status and image
                         <table class="table">
                         <thead>
                             <tr>
@@ -149,16 +192,14 @@
                         <tbody id="stage1-status">
                         </tbody>
                     </table>
-
 -->
 
                 </div>
             </div>
-<!--
+
+            <!--
             <div class="card">
-
                 <div id="demo" class="carousel slide" data-ride="carousel">
-
   <-- Indicators
   
   <ul class="carousel-indicators">
@@ -188,10 +229,9 @@
     <span class="carousel-control-next-icon"></span>
   </a>
 </div>
-
            </div> <-- card for carousel -->
 
-           <!-- Displaying a list of recent experiments -->
+            <!-- Displaying a list of recent experiments -->
             <div class="card">
                 <div class="card-header">
                     Previous Conversions
@@ -218,7 +258,7 @@
             </div>
             <!-- begin My Storage-->
 
-<!--
+            <!--
             <div class="card" id="stage2optional">
                 <div class="card-header">
                     Compute Beam Blockage (RadxBeamBlock)
@@ -234,47 +274,73 @@
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>   
-            -->         
-<!-- begin RadxRate -->
-             <div class="card" id="stage2">
+            -->
+            <div style="text-align: center">
+                <h1 id="second">Rainfall Estimation</h1>
+                <a href="url">Learn more </a> | <a href="url">Help </a>
+            </div>
+            <div style="text-align: center; margin: 30px">
+                <!-- Creating the navigation bar with circles -->
+                <nav style="position:relative; left: -30px">
+                    <ul style="list-style-type: none; overflow: hidden; display: inline">
+                        <li class="rectangle" style="background-color: #4CAF50;left: 194px; top: 26px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                    </ul>
+                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+            <aside style="display: block;">
+                <p>This should be beside the DIV?</p>
+            </aside>
+            <!-- begin RadxRate -->
+            <div class="card" id="stage2">
                 <div class="card-header">
                     Map Rate to Surface (RadxRate)
                 </div>
                 <div class="card-body">
                     Step 1: Choose data source
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
-<br>
+                    <br>
 
-<div class="input-group mt-3 mb-3">
-  <div class="input-group-prepend">
-    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
-      id="stage2-source" data-toggle="dropdown">
+                    <div class="input-group mt-3 mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage2-source" data-toggle="dropdown">
       Data Sources
     </button>
-    <div class="dropdown-menu">
-      <a class="dropdown-item" id="stage2-file-filedir" href="#">File or Directory</a>
-      <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
-    </div>
-  </div>
-  <input type="text" class="form-control" uri="888" source=1 id ="stage2-file" placeholder="data/directory">
-  <input type="text" class="form-control" uri="888" source=2 id ="stage2-radar-name" placeholder="radar name, e.g. KFTG">
-  <div class="input-group-prepend" id="stage2-start-time-label">
-      <span class="input-group-text">start time</span>
-  </div>
-  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage2-start-time" placeholder="start date time">
-  <div class="input-group-prepend" id="stage2-end-time-label">
-      <span class="input-group-text">stop time</span>
-  </div>  
-  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage2-end-time" placeholder="end date time"> 
-</div>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" id="stage2-file-filedir" href="#">File or Directory</a>
+                                <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" uri="888" source=1 id="stage2-file" placeholder="data/directory">
+                        <input type="text" class="form-control" uri="888" source=2 id="stage2-radar-name" placeholder="radar name, e.g. KFTG">
+                        <div class="input-group-prepend" id="stage2-start-time-label">
+                            <span class="input-group-text">start time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-start-time" placeholder="start date time">
+                        <div class="input-group-prepend" id="stage2-end-time-label">
+                            <span class="input-group-text">stop time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-end-time" placeholder="end date time">
+                    </div>
 
                     Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
                     <br>
-  <div class="form-group">
-    <label for="email"></label>
-    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage2-param-file" uri="888">
-  </div>
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage2-param-file" uri="888">
+                    </div>
 
 
                     <!--
@@ -284,8 +350,6 @@
                 	Set up parameter file <br>
                 	<a href="url">Download template </a> <br>
                 	<a href="url">Upload your parameter file </a> <br>
-
-
                      -->
                     <button id="run-button-stage2" class="btn btn-primary">Run</button>
                 </div>
@@ -316,47 +380,72 @@
                 </div>
             </div>
 
-<!-- end RadxRate -->
-
-<!-- begin RadxQpe -->
-             <div class="card" id="stage3">
+            <!-- end RadxRate -->
+            <div style="text-align: center">
+                <h1 id="third">Rainfall Estimation</h1>
+                <a href="url">Learn more </a> | <a href="url">Help </a>
+            </div>
+            <div style="text-align: center; margin: 30px">
+                <!-- Creating the navigation bar with circles -->
+                <nav style="position:relative; left: -30px">
+                    <ul style="list-style-type: none; overflow: hidden; display: inline">
+                        <li class="rectangle" style="background-color: #4CAF50; left: 194px; top: 26px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                    </ul>
+                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+            <aside style="display: block;">
+                <p>This should be beside the DIV?</p>
+            </aside>
+            <!-- begin RadxQpe -->
+            <div class="card" id="stage3">
                 <div class="card-header">
                     Compute Something (RadxQpe)
                 </div>
                 <div class="card-body">
                     Step 1: Choose data source
-                <br>
+                    <br>
 
-                <div class="input-group mt-3 mb-3">
-                  <div class="input-group-prepend">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
-                      id="stage3-source" data-toggle="dropdown">
+                    <div class="input-group mt-3 mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage3-source" data-toggle="dropdown">
                       Data Sources
                     </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" id="stage3-file-filedir" href="#">File or Directory</a>
-                      <a class="dropdown-item" id="stage3-file-tutorial" href="#">Tutorial</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" id="stage3-file-filedir" href="#">File or Directory</a>
+                                <a class="dropdown-item" id="stage3-file-tutorial" href="#">Tutorial</a>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" uri="888" source=1 id="stage3-file" placeholder="data/directory">
+                        <input type="text" class="form-control" uri="888" source=2 id="stage3-radar-name" placeholder="radar name, e.g. KFTG">
+                        <div class="input-group-prepend" id="stage3-start-time-label">
+                            <span class="input-group-text">start time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-start-time" placeholder="start date time">
+                        <div class="input-group-prepend" id="stage3-end-time-label">
+                            <span class="input-group-text">stop time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-end-time" placeholder="end date time">
                     </div>
-                  </div>
-                  <input type="text" class="form-control" uri="888" source=1 id ="stage3-file" placeholder="data/directory">
-                  <input type="text" class="form-control" uri="888" source=2 id ="stage3-radar-name" placeholder="radar name, e.g. KFTG">
-                  <div class="input-group-prepend" id="stage3-start-time-label">
-                      <span class="input-group-text">start time</span>
-                  </div>
-                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage3-start-time" placeholder="start date time">
-                  <div class="input-group-prepend" id="stage3-end-time-label">
-                      <span class="input-group-text">stop time</span>
-                  </div>  
-                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage3-end-time" placeholder="end date time"> 
-                </div>
 
                     Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
                     <br>
-                  <div class="form-group">
-                    <label for="email"></label>
-                    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage3-param-file" uri="888">
-                  </div>
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage3-param-file" uri="888">
+                    </div>
 
 
                     <!--
@@ -366,13 +455,11 @@
                     Set up parameter file <br>
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
-
-
                      -->
                     <button id="run-button-stage3" class="btn btn-primary">Run</button>
                 </div>
             </div>
-<!-- old code -----
+            <!-- old code -----
             <div class="card">
                 <div class="card-header">
                     Compute Something (RadxQpe)
@@ -385,7 +472,6 @@
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
                     Output Data - NetCDF Cartesian rate data - view using (CIDD)
-
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>
@@ -413,49 +499,74 @@
                         </tbody>
                     </table>
                 </div>
-            </div>      
-<!-- end RadxQpe -->
+            </div>
+            <!-- end RadxQpe -->
+            <div style="text-align: center">
+                <h1 id="fourth">Rainfall Estimation</h1>
+                <a href="url">Learn more </a> | <a href="url">Help </a>
+            </div>
+            <div style="text-align: center; margin: 30px">
+                <!-- Creating the navigation bar with circles -->
+                <nav style="position:relative; left: -30px">
+                    <ul style="list-style-type: none; overflow: hidden; display: inline">
+                        <li class="rectangle" style="background-color: #4CAF50; left: 194px; top: 26px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
+                        <li class="rectangle" style="background-color: #4CAF50; left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                    </ul>
+                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                        <a href="#fourth" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        </a>
+                    </ul>
+                </nav>
+            </div>
+            <aside style="display: block;">
+                <p>This should be beside the DIV?</p>
+            </aside>
+            <!-- begin RateAccum -->
 
-<!-- begin RateAccum -->
-
-             <div class="card" id="stage4">
+            <div class="card" id="stage4">
                 <div class="card-header">
                     Compute Rainfall Accumulation (RateAccum)
                 </div>
                 <div class="card-body">
                     Step 1: Choose data source
-                <br>
+                    <br>
 
-                <div class="input-group mt-3 mb-3">
-                  <div class="input-group-prepend">
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle" 
-                      id="stage4-source" data-toggle="dropdown">
+                    <div class="input-group mt-3 mb-3">
+                        <div class="input-group-prepend">
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage4-source" data-toggle="dropdown">
                       Data Sources
                     </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" id="stage4-file-filedir" href="#">File or Directory</a>
-                      <a class="dropdown-item" id="stage4-file-tutorial" href="#">Tutorial</a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" id="stage4-file-filedir" href="#">File or Directory</a>
+                                <a class="dropdown-item" id="stage4-file-tutorial" href="#">Tutorial</a>
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" uri="888" source=1 id="stage4-file" placeholder="data/directory">
+                        <input type="text" class="form-control" uri="888" source=2 id="stage4-radar-name" placeholder="radar name, e.g. KFTG">
+                        <div class="input-group-prepend" id="stage4-start-time-label">
+                            <span class="input-group-text">start time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-start-time" placeholder="start date time">
+                        <div class="input-group-prepend" id="stage4-end-time-label">
+                            <span class="input-group-text">stop time</span>
+                        </div>
+                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
                     </div>
-                  </div>
-                  <input type="text" class="form-control" uri="888" source=1 id ="stage4-file" placeholder="data/directory">
-                  <input type="text" class="form-control" uri="888" source=2 id ="stage4-radar-name" placeholder="radar name, e.g. KFTG">
-                  <div class="input-group-prepend" id="stage4-start-time-label">
-                      <span class="input-group-text">start time</span>
-                  </div>
-                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage4-start-time" placeholder="start date time">
-                  <div class="input-group-prepend" id="stage4-end-time-label">
-                      <span class="input-group-text">stop time</span>
-                  </div>  
-                  <input type="datetime-local" class="form-control" uri="888" source=2 id ="stage4-end-time" placeholder="end date time"> 
-                </div>
 
                     Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
                     <br>
-                  <div class="form-group">
-                    <label for="email"></label>
-                    <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
-                  </div>
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
+                    </div>
 
 
                     <!--
@@ -465,13 +576,11 @@
                     Set up parameter file <br>
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
-
-
                      -->
                     <button id="run-button-stage4" class="btn btn-primary">Run</button>
                 </div>
             </div>
-<!-- old code ...
+            <!-- old code ...
             <div class="card">
                 <div class="card-header">
                     Compute Rainfall Accumulation (RateAccum)
@@ -484,12 +593,11 @@
                     <a href="url">Download template </a> <br>
                     <a href="url">Upload your parameter file </a> <br>
                     Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
-
                     <button id="run-button" class="btn btn-primary">Run</button>
                 </div>
             </div>
             end old code -->
-<!-- end RateAccum -->
+            <!-- end RateAccum -->
 
             <button id="run-button" class="btn btn-secondary">Exit</button>
 
@@ -507,7 +615,7 @@
                             <tr>
                                 <th scope="col">Directory</th>
                                 <th scope="col">URL</th>
-                                <th scope="col">Size</th>                                             
+                                <th scope="col">Size</th>
                             </tr>
                         </thead>
                         <tbody id="storage-dir-list">
@@ -519,7 +627,7 @@
                                 <th scope="col">File</th>
                                 <th scope="col">dataProductURI</th>
                                 <th scope="col">Mime Type</th>
-                                <th scope="col">Size</th>                                             
+                                <th scope="col">Size</th>
                             </tr>
                         </thead>
                         <tbody id="storage-file-list">
@@ -529,20 +637,24 @@
             </div>
             <!-- begin My Storage-->
 
-<div class="card">
-<div class="card-header">
-Choose data source
-</div>
-<div class="card-body">        
-<div id="user-storage"/>
+            <div class="card">
+                <div class="card-header">
+                    Choose data source
+                </div>
+                <div class="card-body">
+                    <div id="user-storage" />
 
-  </div>
+                </div>
 
-  <script>
-    // provide data for initializing api's session.Session
-    window.AiravataPortalSessionData = {"username": "brenda92", "airavataInternalUserId": "brenda92@lrose", "isGatewayAdmin": true};
-  </script>
-  <!-- script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
+                <script>
+                    // provide data for initializing api's session.Session
+                    window.AiravataPortalSessionData = {
+                        "username": "brenda92",
+                        "airavataInternalUserId": "brenda92@lrose",
+                        "isGatewayAdmin": true
+                    };
+                </script>
+                <!-- script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
   <script type="text/javascript" src="/static/common/dist/js/app.faa7ad7b.js" ></script>
   
     <script type="text/javascript" src="/static/common/dist/js/notices.398e45d2.js" ></script>
@@ -551,30 +663,32 @@ Choose data source
 <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.e45ba37b.js" ></script>
 <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.18aeeebe.js" ></script>
 <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script-->
-</div>
-</div>
-
-<!-- end My Storage  -->
-
+            </div>
         </div>
-    </main>
-</div>
-{% endblock content %}
 
-{% block scripts %}
+        <!-- end My Storage  -->
+
+</div>
+</main>
+</div>
+{% endblock content %} {% block scripts %}
 
 <script src="{% static 'django_airavata_api/dist/airavata-api.js' %}"></script>
 
 <script>
-
-    const { models, services, session, utils } = AiravataAPI;
+    const {
+        models,
+        services,
+        session,
+        utils
+    } = AiravataAPI;
 
     stage1_input_uri = "something wonderful";
     const TUTORIAL_ENUM = 1;
     const RADAR_ENUM = 2;
     const FILEDIR_ENUM = 3;
 
-// https://gateway.lrose.net/api/user-storage/~/garbage_dump/
+    // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
     function chooseDataSourceFile(path) {
         return services.UserStoragePathService.get({
             path,
@@ -595,19 +709,18 @@ Choose data source
                     `<tr>
                             <td>${item.name}</td>
                             <td>${item.dataProductURI}</td>
-
                             <td>${item.mimeType}</td>
                             <td>${item.size}</td>
                         </tr>`
                 );
             });
-        });    
+        });
     };
 
     function chooseDataSourceDate() {
         console.log("inside chooseDataSource");
-                $("#data-source-list").append(
-                    `<tr>
+        $("#data-source-list").append(
+            `<tr>
                             <td><form>
                                  <label for="fname">Start date/time</label>
                                  <input type="text" id="fname" name="fname"><br>
@@ -618,14 +731,14 @@ Choose data source
                             </form></td>
                             <td>radar</td>
                         </tr>`
-                );
+        );
     };
 
-     function chooseDataSource() {
+    function chooseDataSource() {
         console.log("inside chooseDataSource");
-                $("#data-source-list").empty();
-                $("#data-source-list").append(
-                    ` 
+        $("#data-source-list").empty();
+        $("#data-source-list").append(
+            ` 
   <input type="radio" id="stage1-default" name="gender" value="default">
   <label for="default">Default</label><br>
   <input type="radio" id="stage1-radar" name="gender" value="radar">
@@ -633,21 +746,21 @@ Choose data source
   <input type="radio" id="stage1-file" name="file" value="file">
   <label for="other">File</label><br><br>
                    `
-            
-                );
-                  //  `<tr><td> <a id="by-default" href="#">Default </a></td> </tr>
-                  //   <tr><td> <a id="by-radar" href="#"> By Radar </a></td> </tr>
-                  //   <tr><td> <a id="by-file" href="#">File </a></td></tr>`
-    };   
+
+        );
+        //  `<tr><td> <a id="by-default" href="#">Default </a></td> </tr>
+        //   <tr><td> <a id="by-radar" href="#"> By Radar </a></td> </tr>
+        //   <tr><td> <a id="by-file" href="#">File </a></td></tr>`
+    };
 
     function chooseParameterFile() {
         console.log("inside chooseParameterFile");
-                $("#parameter-file-list").empty();
-                $("#parameter-file-list").append(
-                    `<tr><td> <a id="by-default" href="#set-stage1-input-default">Default </a></td> </tr>
+        $("#parameter-file-list").empty();
+        $("#parameter-file-list").append(
+            `<tr><td> <a id="by-default" href="#set-stage1-input-default">Default </a></td> </tr>
                      <tr><td> <a id="by-file" href="#">File </a></td></tr>`
-                );
-    }; 
+        );
+    };
 
     function printArgs() {
         stage1_input_uri = "beautiful";
@@ -658,13 +771,19 @@ Choose data source
     // $("#choose-data-source").click(chooseDataSource("~/garbage_dump")); 
     //$("#choose-data-source").click(function() {chooseDataSource(); return false;});  
     $(document).ready(function() {
-       $("#choose-data-source").click(function() {chooseDataSource()});  
+        $("#choose-data-source").click(function() {
+            chooseDataSource()
+        });
     });
     $(document).ready(function() {
-       $("#setup-parameter-file").click(function() {chooseParameterFile()});  
+        $("#setup-parameter-file").click(function() {
+            chooseParameterFile()
+        });
     });
     $(document).ready(function() {
-       $("#set-stage1-input-default").click(function() {printArgs()});  
+        $("#set-stage1-input-default").click(function() {
+            printArgs()
+        });
     });
 
     const default_stage1_data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
@@ -676,112 +795,122 @@ Choose data source
     function setStage1Tutorial() {
         // TODO: change the "Data Sources" to be "Tutorial"; set attr("source") on stage1 "Data Sources" button NOT the stage1-file id.
         // TODO: make the radar, start, end times non-editable when tutorial is the data source.
-       $("#stage1-file").hide();  
-       $("#stage1-source").attr("source", TUTORIAL_ENUM);
-       $("#stage1-source").text("Tutorial"); 
-       $("#stage1-radar-name").show();
-       $("#stage1-radar-name").val("RCWF");    
-       $("#stage1-start-time").show();  
-       $("#stage1-start-time").val(tutorial_start_date);
-       $("#stage1-end-time").show();  
-       $("#stage1-end-time").val(tutorial_end_date);
-       $("#stage1-start-time-label").show();  
-       $("#stage1-end-time-label").show();
-       $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
+        $("#stage1-file").hide();
+        $("#stage1-source").attr("source", TUTORIAL_ENUM);
+        $("#stage1-source").text("Tutorial");
+        $("#stage1-radar-name").show();
+        $("#stage1-radar-name").val("RCWF");
+        $("#stage1-start-time").show();
+        $("#stage1-start-time").val(tutorial_start_date);
+        $("#stage1-end-time").show();
+        $("#stage1-end-time").val(tutorial_end_date);
+        $("#stage1-start-time-label").show();
+        $("#stage1-end-time-label").show();
+        $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
     }
 
     function setStage1File() {
-       $("#stage1-file").show();  
-       $("#stage1-radar-name").hide();  
-       $("#stage1-start-time").hide();  
-       $("#stage1-end-time").hide(); 
-       $("#stage1-start-time-label").hide();  
-       $("#stage1-end-time-label").hide();
-       $("#stage1-file").val("tutorial/basic/raw/RCWF/20170602/20170602001300.raw");  
-       $("#stage1-source").attr("source", FILEDIR_ENUM); 
-       $("#stage1-source").text("File/Directory"); 
-       $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");  
-       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
-       // $(`#stage1-file`).attr("uri")
+        $("#stage1-file").show();
+        $("#stage1-radar-name").hide();
+        $("#stage1-start-time").hide();
+        $("#stage1-end-time").hide();
+        $("#stage1-start-time-label").hide();
+        $("#stage1-end-time-label").hide();
+        $("#stage1-file").val("tutorial/basic/raw/RCWF/20170602/20170602001300.raw");
+        $("#stage1-source").attr("source", FILEDIR_ENUM);
+        $("#stage1-source").text("File/Directory");
+        $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
+        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+        // $(`#stage1-file`).attr("uri")
     };
 
     // if selecting Radar as input source, then change to start/end time & radar name
     // also switch the default parameter file to the NEXRAD form 
     function setStage1Radar() {
         // TODO: change the input boxes to time and radar name
-       $("#stage1-file").hide();  
-       $("#stage1-source").attr("source", RADAR_ENUM); 
-       $("#stage1-source").text("Radar"); 
-       $("#stage1-radar-name").show();  
-       $("#stage1-start-time").show();  
-       $("#stage1-end-time").show();  
-       $("#stage1-start-time-label").show();  
-       $("#stage1-end-time-label").show();
-       $("#stage1-param-file").val("default/params/RadxConvert.nexrad");  
+        $("#stage1-file").hide();
+        $("#stage1-source").attr("source", RADAR_ENUM);
+        $("#stage1-source").text("Radar");
+        $("#stage1-radar-name").show();
+        $("#stage1-start-time").show();
+        $("#stage1-end-time").show();
+        $("#stage1-start-time-label").show();
+        $("#stage1-end-time-label").show();
+        $("#stage1-param-file").val("default/params/RadxConvert.nexrad");
     };
 
     function setStage2Tutorial() {
-       $("#stage2-file").hide();  
-       $("#stage2-source").attr("source", TUTORIAL_ENUM); 
-       $("#stage2-source").text("Tutorial"); 
-       $("#stage2-radar-name").show();
-       $("#stage2-radar-name").val("RCWF");    
-       $("#stage2-start-time").show();  
-       $("#stage2-start-time").val(tutorial_start_date);
-       $("#stage2-end-time").show();  
-       $("#stage2-end-time").val(tutorial_end_date);
-       $("#stage2-start-time-label").show();  
-       $("#stage2-end-time-label").show();
-       $("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+        $("#stage2-file").hide();
+        $("#stage2-source").attr("source", TUTORIAL_ENUM);
+        $("#stage2-source").text("Tutorial");
+        $("#stage2-radar-name").show();
+        $("#stage2-radar-name").val("RCWF");
+        $("#stage2-start-time").show();
+        $("#stage2-start-time").val(tutorial_start_date);
+        $("#stage2-end-time").show();
+        $("#stage2-end-time").val(tutorial_end_date);
+        $("#stage2-start-time-label").show();
+        $("#stage2-end-time-label").show();
+        $("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");
 
-       //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
-       //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
-       //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
-       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
-       // $(`#stage1-file`).attr("uri")
+        //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+        //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+        //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+        // $(`#stage1-file`).attr("uri")
     };
 
     function setStageTutorial(stage, param_file) {
-       $(`#stage${stage}-file`).hide();  
-       $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM); 
-       $(`#stage${stage}-source`).text("Tutorial"); 
-       $(`#stage${stage}-radar-name`).show();
-       $(`#stage${stage}-radar-name`).val("RCWF");    
-       $(`#stage${stage}-start-time`).show();  
-       $(`#stage${stage}-start-time`).val(tutorial_start_date);
-       $(`#stage${stage}-end-time`).show();  
-       $(`#stage${stage}-end-time`).val(tutorial_end_date);
-       $(`#stage${stage}-start-time-label`).show();  
-       $(`#stage${stage}-end-time-label`).show();
-       $(`#stage${stage}-param-file`).val(param_file); // "tutorial/basic/params/RadxRate.new");  
+        $(`#stage${stage}-file`).hide();
+        $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
+        $(`#stage${stage}-source`).text("Tutorial");
+        $(`#stage${stage}-radar-name`).show();
+        $(`#stage${stage}-radar-name`).val("RCWF");
+        $(`#stage${stage}-start-time`).show();
+        $(`#stage${stage}-start-time`).val(tutorial_start_date);
+        $(`#stage${stage}-end-time`).show();
+        $(`#stage${stage}-end-time`).val(tutorial_end_date);
+        $(`#stage${stage}-start-time-label`).show();
+        $(`#stage${stage}-end-time-label`).show();
+        $(`#stage${stage}-param-file`).val(param_file); // "tutorial/basic/params/RadxRate.new");  
 
-       //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
-       //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
-       //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
-       //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
-       // $(`#stage1-file`).attr("uri")
+        //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+        //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+        //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+        // $(`#stage1-file`).attr("uri")
     };
- 
-    $(document).ready(function() {setStage1Tutorial()});
-    $(document).ready(function() {setStage2Tutorial()});
+
+    $(document).ready(function() {
+        setStage1Tutorial()
+    });
+    $(document).ready(function() {
+        setStage2Tutorial()
+    });
     //
-     //  $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
-     //  //$("#stage1-file").attr("uri", default_stage1_data_file_uri); 
-     //  $("#stage1-param-file").val("rainfall/basic/params/RadxConvert.new");  
-     //  //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
-     //  // $(`#stage1-file`).attr("uri")
+    //  $("#stage1-file").val("rainfall/basic/raw/RCWF/20170602/20170602001300.raw");  
+    //  //$("#stage1-file").attr("uri", default_stage1_data_file_uri); 
+    //  $("#stage1-param-file").val("rainfall/basic/params/RadxConvert.new");  
+    //  //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+    //  // $(`#stage1-file`).attr("uri")
     //});
 
     $(document).ready(function() {
-       $("#stage1-file-tutorial").click(function() {setStage1Tutorial()}); 
-       $("#stage1-file-radar").click(function()    {setStage1Radar()});  
+        $("#stage1-file-tutorial").click(function() {
+            setStage1Tutorial()
+        });
+        $("#stage1-file-radar").click(function() {
+            setStage1Radar()
+        });
     });
     $(document).ready(function() {
-       $("#stage2-file-tutorial").click(function() {setStage2Tutorial()});  
-    });    
+        $("#stage2-file-tutorial").click(function() {
+            setStage2Tutorial()
+        });
+    });
 
     const appInterfaceId = "RadxConvert_0d6e7a6a-8c70-49d5-8cd2-f00091e42559";
-//      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
+    //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
 
 
     const stage1AppInterfaceId = "RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
@@ -794,8 +923,7 @@ Choose data source
     function loadExperiments() {
         return services.ExperimentSearchService.list({
             limit: 3,
-            [models.ExperimentSearchFields.USER_NAME.name]:
-                session.Session.username,
+            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage2AppInterfaceId
         }).then(data => {
             $("#experiment-list").empty();
@@ -812,13 +940,13 @@ Choose data source
                 // If experiment has finished, load full details, then parse the stdout file
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
-                        lookup: exp.experimentId
-                    })
+                            lookup: exp.experimentId
+                        })
                         .then(fullDetails => {
                             console.log('here 1');
                             const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "Standard-Out"
-                            ).value;  
+                            ).value;
                             const stdoutDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === stdoutDataProductId
                             );
@@ -849,47 +977,48 @@ Choose data source
         //parameter-file-stage2 
         //     data-source-stage2
         // update the Run button to use the processDirName  
-                            if (
-                                processDirName
-                            ) {
-                                // get the input parameters from the previous PROCESS_DIR
-                                
-                                // populate the input parameters
-                                $("#run-button-stage2").click(function() { 
-                                    runStage2(processDirName);
-                                });                                
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
+        if (
+            processDirName
+        ) {
+            // get the input parameters from the previous PROCESS_DIR
+
+            // populate the input parameters
+            $("#run-button-stage2").click(function() {
+                runStage2(processDirName);
+            });
+            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+        }
 
     }
+
     function populateStage3(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
         //parameter-file-stage2 
         //     data-source-stage2
         // update the Run button to use the processDirName  
-                            if (
-                                processDirName
-                            ) {
-                                const stage = 3;
-                                const param_file = "windy day";
-                                const step = "stage3";
-                                const data_file_source = 1;
-                                const param_file_uri = "";
-                                // get the input parameters from the previous PROCESS_DIR
-                                console.log("calling setStageTutorial");
-                                setStageTutorial(stage, param_file);
-                                // populate the input parameters
-                                $("#run-button-stage3").click(function() { 
-                                    runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
-                                    //runStage3(processDirName);
-                                });                                
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
+        if (
+            processDirName
+        ) {
+            const stage = 3;
+            const param_file = "windy day";
+            const step = "stage3";
+            const data_file_source = 1;
+            const param_file_uri = "";
+            // get the input parameters from the previous PROCESS_DIR
+            console.log("calling setStageTutorial");
+            setStageTutorial(stage, param_file);
+            // populate the input parameters
+            $("#run-button-stage3").click(function() {
+                runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
+                //runStage3(processDirName);
+            });
+            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+        }
 
     }
 
-// But, if the data or time or radar changes, then we need to grab the new input parameters
-// Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
+    // But, if the data or time or radar changes, then we need to grab the new input parameters
+    // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
     function runStage2(processDirName) {
         console.log('entering runStage2');
         // TODO: populate the inputs to the next stage with the info from the processDirName,
@@ -904,47 +1033,55 @@ Choose data source
 
         const data_file_source = $(`#stage2-source`).attr("source");
         const param_file_uri = $(`#stage2-param-file`).attr("uri")
-        //const radar_name = $(`#stage1-radar-name`).val();
+            //const radar_name = $(`#stage1-radar-name`).val();
 
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
-// TODO: get the id of the RadxConvert_display application
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage2AppInterfaceId
+        });
+        // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-        .then(([appInterface, workspacePrefs, queues]) => {
-            const experiment = appInterface.createExperiment();
-            experiment.experimentName = "precip " + step;
-            experiment.projectId = workspacePrefs.most_recent_project_id;
-            const cloudQueue = queues.find(q => q.queueName === queueName);
-            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // Copy the selected greeting to the value of the first input
-            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
-            console.log("processDirName " + processDirName);
-            experiment.experimentInputs[0].value = data_file_source;
-            experiment.experimentInputs[1].value = processDirName;  
-            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-            //experiment.experimentInputs[2].value = radar_name;
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "precip " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
+                console.log("processDirName " + processDirName);
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = processDirName;
+                experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+                //experiment.experimentInputs[2].value = radar_name;
 
-            return services.ExperimentService.create({data: experiment});
-        }).then(exp => {
-            return services.ExperimentService.launch({lookup: exp.experimentId});
-        })
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
     };
 
-// TODO: maybe this could be a function ...
-// args processDirName, step = "stage2", data_file_source, param_file_uri, stageXAppInterfaceId 
-// TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
+    // TODO: maybe this could be a function ...
+    // args processDirName, step = "stage2", data_file_source, param_file_uri, stageXAppInterfaceId 
+    // TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
     function runStage(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
         console.log("entering runStage " + step);
         // TODO: populate the inputs to the next stage with the info from the processDirName,
@@ -961,38 +1098,46 @@ Choose data source
         //const param_file_uri = $(`#stage2-param-file`).attr("uri")
         //const radar_name = $(`#stage1-radar-name`).val();
 
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stageXAppInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stageXAppInterfaceId
+        });
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-        .then(([appInterface, workspacePrefs, queues]) => {
-            const experiment = appInterface.createExperiment();
-            experiment.experimentName = "precip " + step;
-            experiment.projectId = workspacePrefs.most_recent_project_id;
-            const cloudQueue = queues.find(q => q.queueName === queueName);
-            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // Copy the selected greeting to the value of the first input
-            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
-            console.log("processDirName " + processDirName);
-            experiment.experimentInputs[0].value = data_file_source;
-            experiment.experimentInputs[1].value = processDirName;  
-            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-            //experiment.experimentInputs[2].value = radar_name;
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "precip " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
+                console.log("processDirName " + processDirName);
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = processDirName;
+                experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+                //experiment.experimentInputs[2].value = radar_name;
 
-            return services.ExperimentService.create({data: experiment});
-        }).then(exp => {
-            return services.ExperimentService.launch({lookup: exp.experimentId});
-        })
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
     };
 
     function some_function(processDirName) {
@@ -1000,18 +1145,17 @@ Choose data source
             let x = 0;
 
             if (x == 0) {
-               resolve(alert(processDirName));
+                resolve(alert(processDirName));
             } else {
-               reject(alert("It broke"));
-           }
+                reject(alert("It broke"));
+            }
         });
     };
 
     function loadRadxConversionExperiments() {
         return services.ExperimentSearchService.list({
             limit: 3,
-            [models.ExperimentSearchFields.USER_NAME.name]:
-                session.Session.username,
+            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
         }).then(data => {
             $("#experiment-list-conversion").empty();
@@ -1034,10 +1178,10 @@ Choose data source
                              </td>
                         </tr>`
 
-                        // <a href="#stage2">continue next step </a>
+                    // <a href="#stage2">continue next step </a>
 
-                        // <a rel="nofollow" href="http"
-                        //    <a rel="${exp.processDirName}" href="#stage2">continue next step </a> </td>
+                    // <a rel="nofollow" href="http"
+                    //    <a rel="${exp.processDirName}" href="#stage2">continue next step </a> </td>
 
                 );
                 // TODO: the url for continue needs to have the experimentId 
@@ -1045,8 +1189,8 @@ Choose data source
                 // If experiment has finished, load full details, then parse the stdout file
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
-                        lookup: exp.experimentId
-                    })
+                            lookup: exp.experimentId
+                        })
                         //.then(fullDetails => {
                         //    console.log('here 11');
                         //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
@@ -1070,27 +1214,27 @@ Choose data source
                             console.log('here 1111');
                             const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "input_parameters"
-                            ).value;  
+                            ).value;
                             const inputParametersDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === inputParametersDataProductId
                             );
 
-                            const processDirName = fullDetails.experiment.processes[0].processId; 
+                            const processDirName = fullDetails.experiment.processes[0].processId;
                             if (
                                 processDirName &&
-                                inputParametersDataProduct.downloadURL  
+                                inputParametersDataProduct.downloadURL
                             ) {
                                 console.log('here 1112');
                                 //$(`#outdir_${index}`).text(processDirName);
-                                $(`#continue_${index}`).on("click", function() { 
+                                $(`#continue_${index}`).on("click", function() {
                                     populateStage2(processDirName, inputParametersDataProduct.downloadURL);
-                                });                                
+                                });
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
                             console.log('here 111');
                             const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value; 
+                            ).value;
                             // TODO: need to parse the outdirDataProductId because it is a comma separated list
                             const imageArray = outdirDataProductId.split(',');
                             const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
@@ -1104,55 +1248,54 @@ Choose data source
                                 console.log("index=" + index + " here ... Have downloadURL");
                                 console.log(outdirDataProduct.downloadURL);
                                 $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
-                        
-                        //        return stdoutDataProductId.name;
+
+                                //        return stdoutDataProductId.name;
                                 //return fetch(outdirDataProduct.downloadURL, {
                                 //    credentials: "same-origin"
                                 //}).then(result => result.text());   
                             }
-//                        })
-//                        .then(text => {
-//                                console.log('here 112');
-//                                //console.log(text);
-//                        //        $(`#outdir_${index}`).text(outdirDataProductId);
-//                                const testOutputProductId = "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1";
- //                               //const imgsrc = "data:image/png;base64," + text; // btoa(String.fromCharCode.apply(null, text);
- //                               if (text) {
-//
-//                                  console.log("index=" + index + " if (text) is true, setting the image src");
-//
-//                                  //$(`#image_${index}`).attr('src', text); // .show();
-//                                } else {
-//                                    console.log("if (text) is false");
-//                                }
-//                        //        //return fetch(stdoutDataProduct.downloadURL, {
-//                        //        //    credentials: "same-origin"
-//                        //        //}).then(result => result.text());
+                            //                        })
+                            //                        .then(text => {
+                            //                                console.log('here 112');
+                            //                                //console.log(text);
+                            //                        //        $(`#outdir_${index}`).text(outdirDataProductId);
+                            //                                const testOutputProductId = "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1";
+                            //                               //const imgsrc = "data:image/png;base64," + text; // btoa(String.fromCharCode.apply(null, text);
+                            //                               if (text) {
+                            //
+                            //                                  console.log("index=" + index + " if (text) is true, setting the image src");
+                            //
+                            //                                  //$(`#image_${index}`).attr('src', text); // .show();
+                            //                                } else {
+                            //                                    console.log("if (text) is false");
+                            //                                }
+                            //                        //        //return fetch(stdoutDataProduct.downloadURL, {
+                            //                        //        //    credentials: "same-origin"
+                            //                        //        //}).then(result => result.text());
                         });
-                        //})
-                        //.then(fullDetails => {
+                    //})
+                    //.then(fullDetails => {
 
-                        //});
-                        // .catch(alert("Problem fetching previous experiments")); 
-                        //.then(text => {
-                        //    //$(`#continue_${index}`).text(text);
-                        //    $(`#continue_${index}`).click(function() {
-                        ////       alert(exp.processes.processId);
-                        //        alert(exp.experimentId);
-                        //    })
-                        //});
+                    //});
+                    // .catch(alert("Problem fetching previous experiments")); 
+                    //.then(text => {
+                    //    //$(`#continue_${index}`).text(text);
+                    //    $(`#continue_${index}`).click(function() {
+                    ////       alert(exp.processes.processId);
+                    //        alert(exp.experimentId);
+                    //    })
+                    //});
                 }
             });
         });
-    }    
+    }
 
     // TODO: args stage2AppInterfaceId, experiment-list
     // stage = 2, 
     function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
         return services.ExperimentSearchService.list({
             limit: 3,
-            [models.ExperimentSearchFields.USER_NAME.name]:
-                session.Session.username,
+            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stageAppInterfaceId
         }).then(data => {
             console.log("inside loadStageExperiments; stage =" + stage);
@@ -1186,8 +1329,8 @@ Choose data source
                 // If experiment has finished, load full details, then parse the stdout file
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
-                        lookup: exp.experimentId
-                    })
+                            lookup: exp.experimentId
+                        })
                         //.then(fullDetails => {
                         //    console.log('here 11');
                         //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
@@ -1211,27 +1354,27 @@ Choose data source
                             console.log('here 1111');
                             const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "input_parameters"
-                            ).value;  
+                            ).value;
                             const inputParametersDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === inputParametersDataProductId
                             );
 
-                            const processDirName = fullDetails.experiment.processes[0].processId; 
+                            const processDirName = fullDetails.experiment.processes[0].processId;
                             if (
                                 processDirName // &&
                                 // inputParametersDataProduct.downloadURL  
                             ) {
                                 console.log('here 1112');
                                 //$(`#outdir_${stage}_${index}`).text(processDirName);
-                                $(`#continue_${stage}_${index}`).on("click", function() { 
+                                $(`#continue_${stage}_${index}`).on("click", function() {
                                     populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
-                                });                                
+                                });
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
                             console.log('here 111');
                             const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value; 
+                            ).value;
                             // TODO: need to parse the outdirDataProductId because it is a comma separated list
                             const imageArray = outdirDataProductId.split(',');
                             const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
@@ -1246,7 +1389,7 @@ Choose data source
                             ) {
                                 console.log("index=" + index + " here ... Have downloadURL");
                                 console.log(outdirDataProduct.downloadURL);
-                                $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL); 
+                                $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);
                                 // also make a link to the experiment results 
                                 //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
                             }
@@ -1254,16 +1397,20 @@ Choose data source
                 }
             });
         });
-    }    
+    }
 
     //$("#continue_*").click(???)
 
     //loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
     //loadStageExperiments();
-    $("#rate-refresh-button").click(function () {loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate")});
+    $("#rate-refresh-button").click(function() {
+        loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate")
+    });
     //loadStageExperiments();
-    $("#qpe-refresh-button").click(function () {loadStageExperiments(3, stage3AppInterfaceId, "#experiment-list-qpe")});
+    $("#qpe-refresh-button").click(function() {
+        loadStageExperiments(3, stage3AppInterfaceId, "#experiment-list-qpe")
+    });
 
     $("#test-variable-button").click(e => {
         console.log("value of paramter is ");
@@ -1278,59 +1425,67 @@ Choose data source
         const data_file_source = $(`#stage1-source`).attr("source");
         const radar_name = $(`#stage1-radar-name`).val();
         const start_time = $(`#stage1-start-time`).val();
-        const end_time = $(`#stage1-end-time`).val();   
-        console.log("data_file_source: " + data_file_source); 
-        console.log("radar name: " + radar_name); 
-        console.log("start time: " + start_time); 
-        console.log("end time: " + end_time);                     
+        const end_time = $(`#stage1-end-time`).val();
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        console.log("start time: " + start_time);
+        console.log("end time: " + end_time);
         const data_file_uri = $(`#stage1-file`).attr("uri");
         // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = $(`#stage1-param-file`).attr("uri")
-        // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
-        //const radar_name = "KFTG";
-        // We need the app interface to be the same, so we can retrieve all related experiements;
-        // We will need to send different parameters based on the data_file_source
+            // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+            //const radar_name = "KFTG";
+            // We need the app interface to be the same, so we can retrieve all related experiements;
+            // We will need to send different parameters based on the data_file_source
 
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage1AppInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage1AppInterfaceId
+        });
 
-// TODO: get the id of the RadxConvert_display application
+        // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-        .then(([appInterface, workspacePrefs, queues]) => {
-            const experiment = appInterface.createExperiment();
-            experiment.experimentName = "workflow " + step;
-            experiment.projectId = workspacePrefs.most_recent_project_id;
-            const cloudQueue = queues.find(q => q.queueName === queueName);
-            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // Copy the selected greeting to the value of the first input
-            // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
-            experiment.experimentInputs[0].value = data_file_source;    
-            experiment.experimentInputs[1].value = radar_name;  
-            experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
-            experiment.experimentInputs[3].value = end_time;
-//            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = end_time;
+                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
 
 
-            return services.ExperimentService.create({data: experiment});
-        }).then(exp => {
-            return services.ExperimentService.launch({lookup: exp.experimentId});
-        })
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
     });
 
 
-// TODO: this may not be used???
+    // TODO: this may not be used???
     $("#run-stage2-button").click(e => {
         const step = "stage2"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
@@ -1338,37 +1493,45 @@ Choose data source
         const data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
         //const radar_name = "KFTG";
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage2AppInterfaceId});
-// TODO: get the id of the RadxConvert_display application
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage2AppInterfaceId
+        });
+        // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-        .then(([appInterface, workspacePrefs, queues]) => {
-            const experiment = appInterface.createExperiment();
-            experiment.experimentName = "precip " + step;
-            experiment.projectId = workspacePrefs.most_recent_project_id;
-            const cloudQueue = queues.find(q => q.queueName === queueName);
-            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
-            experiment.experimentInputs[0].value = data_file_uri;  // TODO: this needs to be a list; comma separated list
-            experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
-            //experiment.experimentInputs[2].value = radar_name;
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "precip " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // precip_stage2.job <tutorial> <STAGE1_PROCESS_DIR> <param_file> 
+                experiment.experimentInputs[0].value = data_file_uri; // TODO: this needs to be a list; comma separated list
+                experiment.experimentInputs[1].value = param_file_uri; // TODO: make this 1st parameter
+                //experiment.experimentInputs[2].value = radar_name;
 
-            return services.ExperimentService.create({data: experiment});
-        }).then(exp => {
-            return services.ExperimentService.launch({lookup: exp.experimentId});
-        })
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
     });
 
     $("#run-button").click(e => {
@@ -1376,40 +1539,45 @@ Choose data source
         const start_time = "\"2020 09 29 12 00 00\"";
         const end_time = "\"2020 09 29 12 10 00\"";
         const radar_name = "KFTG";
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({lookup: stage1AppInterfaceId});
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage1AppInterfaceId
+        });
 
         const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({ lookup: appDeploymentId });
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592"; 
+        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-        .then(([appInterface, workspacePrefs, queues]) => {
-            const experiment = appInterface.createExperiment();
-            experiment.experimentName = "workflow " + greeting;
-            experiment.projectId = workspacePrefs.most_recent_project_id;
-            const cloudQueue = queues.find(q => q.queueName === queueName);
-            experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-            experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-            experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-            experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-            experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-            experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-            // Copy the selected greeting to the value of the first input
-            experiment.experimentInputs[0].value = start_time;
-            experiment.experimentInputs[1].value = end_time;
-            experiment.experimentInputs[2].value = radar_name;
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + greeting;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                experiment.experimentInputs[0].value = start_time;
+                experiment.experimentInputs[1].value = end_time;
+                experiment.experimentInputs[2].value = radar_name;
 
-            return services.ExperimentService.create({data: experiment});
-        }).then(exp => {
-            return services.ExperimentService.launch({lookup: exp.experimentId});
-        })
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
     });
-
-    </script>
+</script>
 
 {% endblock scripts %}
-
-
