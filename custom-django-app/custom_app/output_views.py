@@ -38,7 +38,8 @@ class GaussianEigenvaluesViewProvider:
                             'interactive': [
                                 {'name': 'field',
                                 'value': field,
-                                'options': [('DBZ', 'DBZ'), ('PHIDP', 'PHIDP'), ('RHOHV', 'RHOHV'), ('VEL', 'VEL'), ('WIDTH', 'WIDTH'), ('ZDR', 'ZDR'), ('REF', 'REF')],
+                                'options': [('DBZ', 'DBZ'), ('PHIDP', 'PHIDP'), ('RHOHV', 'RHOHV'), ('VEL', 'VEL'), ('WIDTH', 'WIDTH'), ('ZDR', 'ZDR'), ('REF', 'REF'),
+                                 ('KDP', 'KDP'), ('RATE_HYBRID','RATE_HYBRID'), ('PID', 'PID')],
                                 'label': 'Radar data field',
                                 'help': 'Change data field to display.'}
                             ]
