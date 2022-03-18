@@ -20,16 +20,50 @@
         /* Active dot */
         /*background-color: rgba(0, 0, 0, .3);*/
         /* Inactive dot */
-        border: 1px solid rgba(0, 0, 0, .3);
+        border: 3px solid rgba(0, 0, 0, .3);
         /* OPTIONAL: Spacing between dots */
         margin: 0 100px;
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .circleEmpty {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: white;
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(0, 0, 0, .3);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }       
+
+    .circleFilled {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: rgba(76, 175, 80, 1);
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(76, 175, 80, 1);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }    
     
     .rectangle {
         width: 240px;
-        height: 6px;
+        height: 3px;
         background: #C4C4C4;
         position: fixed;
     }
@@ -109,11 +143,70 @@
         width:  60em;
     }
 
+    .step-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+
+        color: #757575;
+    }
+
+    .stage-text {
+        /*font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 29px;
+
+        color: #000000;
+    }
+
+    .hyperlink-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        text-decoration-line: underline;
+
+        color: #1F73D6;
+    }
+
+    table, tr, td {
+         border:none;
+    }
+
     mylabel {
     display: block;
     background: lightgrey;
     width: 100px;
     height: 100px;
+    }
+
+    .upload-download-icon {
+        height: 18px; 
+        width: 18px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }
+
+    .help-circle-icon {
+        height: 23px; 
+        width: 23px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }    
+
+    .run-button {
+        background: #04B482;
+        border-radius: 5px;
+        /* transform: matrix(1, 0, 0, -1, 0, 0); */
+        margin-left: 75%;
+        margin-bottom: 10px;
     }
 
 #demo:checked + mylabel {
@@ -142,9 +235,9 @@
                 <!-- Creating the navigation bar with circles -->
                 <nav style="position:fixed; left: -5px">
                     <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li id="stage12-rect" class="rectangle" style="left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li id="stage23-rect" class="rectangle" style="left: 430px; top: 20px; position:relative; z-index: -1"></li>
-                        <li id="stage34-rect" class="rectangle" style="left: 630px; top: 14px; position:relative; z-index: -1"></li>
+                        <li id="stage12-rect" class="rectangle" style="left: 196px; top: 20px; position:relative; z-index: -1"></li>
+                        <li id="stage23-rect" class="rectangle" style="left: 440px; top: 16px; position:relative; z-index: -1"></li>
+                        <li id="stage34-rect" class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
                     </ul>
 
 <!--
@@ -168,24 +261,24 @@
 
 
                     <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#stage1" <li id="circle-stage1" class="circle" style="background-color: #4CAF50; display: inline">
+                        <a href="#stage1" <li id="circle-stage1" class="circleFilled" style="display: inline">
 
 
                         </li>
                         </a>
 
 
-                        <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circle" style="background-color:white; display: inline">
+                        <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circleEmpty" style="display: inline">
                            <label for="circle-stage2"></label>
                         </li>
                         </a>
 
 
-                        <a href="#stage3" <li id="circle-stage3" class="circle" style="background-color:white; display: inline">
+                        <a href="#stage3" <li id="circle-stage3" class="circleEmpty" style="display: inline">
                            <label for="circle-stage3"></label>
                         </li>
                         </a>
-                        <a href="#stage4" <li id="circle-stage4" class="circle" style="background-color:white; display: inline">
+                        <a href="#stage4" <li id="circle-stage4" class="circleEmpty" style="display: inline">
                            <label for="circle-stage4"></label>
                         </li>
                         </a>
@@ -228,11 +321,20 @@
             <div class="card" id="stage1">
                 <!-- <div class="icon-bar"> hello</div> -->
 
-                <div class="card-header">
-                    Convert Level II Data to CfRadial (RadxConvert)
-                </div>
+                <!-- div class="card-header">
+                    <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>
+                </div -->
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="url" class="hyperlink-text">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
@@ -259,11 +361,10 @@
                         <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
 
                     </div>
-                    <div>
-                    </div>
+              
 
                     <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
-
+                    <!-- 
                     <br>
                     <table class="table">
                         <thead>
@@ -275,32 +376,42 @@
                         <tbody id="data-source-list">
                         </tbody>
                     </table>
-
-                    Step 2: Setup parameter file
+                    -->
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
+                    
                     <div class="form-group">
                         <label for="email"></label>
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                            <!-- <a href="url">Upload your parameter file </a> </th> -->
-                        </thead>
+                    <table>
+
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
 
-
-                    <!-- <select id="greeting-select"></select>  -->
-                    <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
-
                 </div>
+                
             </div>
+                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
 
             <!-- Adding aside tag to keep cards same width -->
             <aside style="display: block;">
@@ -543,11 +654,9 @@
             <!-- begin RateAccum -->
             
             <div class="card" id="stage4">
-                <!-- 
                 <div class="card-header">
                     Compute Rainfall Accumulation (RateAccum)
                 </div>
-                 -->
                 <div class="card-body">
                     Step 1: Choose data source
                     <br>
@@ -585,7 +694,7 @@
                 </div>
             </div>  <!-- div stage 4 -->
       </div> <!-- <div class="overflow-y-scroll" -->
-      <button id="run-button" class="btn btn-secondary">Exit</button><br><br>
+    <!--  <button id="run-button" class="btn btn-secondary">Exit</button><br><br> -->
 
    </main>
 </div>
@@ -720,38 +829,48 @@
 
     $('document').ready(function() {
         $("#circle-stage1").click(function() {
-            document.getElementById("circle-stage2").style.backgroundColor = "white";
+            //document.getElementById("circle-stage2").style.backgroundColor = "white";
+            //document.getElementById("circle-stage2").style.border = "3px solid #4CAF50";
+            document.getElementById("circle-stage2").className = "circleEmpty";
             document.getElementById("stage12-rect").style.backgroundColor = "#C4C4C4";
-            document.getElementById("circle-stage3").style.backgroundColor = "white";
+            document.getElementById("circle-stage3").className = "circleEmpty";
             document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
-            document.getElementById("circle-stage4").style.backgroundColor = "white";
+            document.getElementById("circle-stage4").className = "circleEmpty";
             document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
         });
     });
 
     $('document').ready(function() {
         $("#circle-stage2").click(function() {
-            document.getElementById("circle-stage2").style.backgroundColor = "#4CAF50";
+            //document.getElementById("circle-stage2").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage2").className = "circleFilled";
+
             document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
-            document.getElementById("circle-stage3").style.backgroundColor = "white";
+            document.getElementById("circle-stage3").className = "circleEmpty";
             document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
-            document.getElementById("circle-stage4").style.backgroundColor = "white";
+            document.getElementById("circle-stage4").className = "circleEmpty";
             document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
         });
     });
 
     $('document').ready(function() {
         $("#circle-stage3").click(function() {
-            document.getElementById("circle-stage3").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
             document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";      
-            document.getElementById("circle-stage4").style.backgroundColor = "white";
+            document.getElementById("circle-stage4").className = "circleEmpty";
             document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";      
         });
     });
 
     $('document').ready(function() {
         $("#circle-stage4").click(function() {
-            document.getElementById("circle-stage4").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
+            document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";  
+            document.getElementById("circle-stage4").className = "circleFilled";
             document.getElementById("stage34-rect").style.backgroundColor = "#4CAF50";
         });
     });
