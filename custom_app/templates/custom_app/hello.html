@@ -80,7 +80,7 @@
     }
     
     aside {
-        width: 10%;
+        width: 30%;
         padding-left: 5px;
         padding-right: 5px;
         margin-left: 5px;
@@ -283,14 +283,18 @@
 }
 
 /* Change background color of buttons on hover */
+/*
 .tab button:hover {
   background-color: #ddd;
 }
+*/
 
 /* Create an active/current tablink class */
+/*
 .tab button.active {
   background-color: #ccc;
 }
+*/
 
 /* Style the tab content */
 .tabcontent {
@@ -299,6 +303,28 @@
   border: 1px solid #ccc;
   border-top: none;
 }
+
+
+/* left-chevron 2 */
+.left-chevron2 {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+/* arrow out of box*/
+.arrow-out-corner-box {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
 
 </style>
 
@@ -396,23 +422,30 @@
 
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'London')">
+  <button class="tablinks" onclick="openCity(event, 'RadxConvertInfo')">
       <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
   </button>
-  <button class="tablinks" onclick="openCity(event, 'Paris')">
+  <button class="tablinks" onclick="openCity(event, 'StageNLog')">
       <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
   </button>
 </div>
 
 <!-- Tab content -->
-<div id="London" class="tabcontent">
-  <h3>London</h3>
-  <p>London is the capital city of England.</p>
+<div id="RadxConvertInfo" class="tabcontent">
+  <!-- h3>RadxConvertInfo</h3 -->
+  <p>RadxConvert is .... more info.</p>
 </div>
 
-<div id="Paris" class="tabcontent">
-  <h3>Paris</h3>
-  <p>Paris is the capital of France.</p>
+<div id="StageNLog" class="tabcontent">
+  <!-- h3>StageNLog</h3 -->
+  <button>
+    <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+  </button>
+  <button>
+    <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+  </button>
+      
+  <p>Log file for more recent run.</p>
 </div>
 
 <!--
@@ -467,7 +500,7 @@ src={% static 'custom_app/icons/log.png' %}   />
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
-
+<!--
                     <div class="input-group mt-3 mb-3">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
@@ -492,7 +525,7 @@ src={% static 'custom_app/icons/log.png' %}   />
 
                     </div>
               
-
+-->
 
 
                     <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
@@ -519,11 +552,12 @@ src={% static 'custom_app/icons/log.png' %}   />
                           </th>
                       </tr>
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    
+                 <!--   
                     <div class="form-group">
                         <label for="email"></label>
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
+                -->
                     <table>
 
                         <tr>
@@ -543,12 +577,6 @@ src={% static 'custom_app/icons/log.png' %}   />
                 </div>
                 
             </div>
-
-
-                        <button type="button" class="collapsible">Open Collapsible</button>
-                        <div class="content">
-                          <p>Lorem ipsum...</p>
-                        </div>
 
                     <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
 
