@@ -422,10 +422,10 @@
 
 <!-- Tab links -->
 <div class="tab">
-  <button class="tablinks" onclick="openCity(event, 'RadxConvertInfo')">
+  <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
       <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
   </button>
-  <button class="tablinks" onclick="openCity(event, 'StageNLog')">
+  <button class="tablinks" onclick="openLog(event, 'StageNLog')">
       <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
   </button>
 </div>
@@ -433,7 +433,7 @@
 <!-- Tab content -->
 <div id="RadxConvertInfo" class="tabcontent">
   <!-- h3>RadxConvertInfo</h3 -->
-  <p>RadxConvert is .... more info.</p>
+  <p>RadxConvert allows you to convert data stored in one format to a different format.</p>
 </div>
 
 <div id="StageNLog" class="tabcontent">
@@ -445,7 +445,7 @@
     <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
   </button>
       
-  <p>Log file for more recent run.</p>
+  <p>Log file for most recent run.</p>
 </div>
 
 <!--
@@ -1869,7 +1869,7 @@ for (i = 0; i < coll.length; i++) {
 
 
 
-function openCity(evt, cityName) {
+function openInfo(evt, cityName) {
   // Declare all variables
   var i, tabcontent, tablinks;
 
@@ -1890,6 +1890,26 @@ function openCity(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
+function openLog(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
 
 </script>
 
