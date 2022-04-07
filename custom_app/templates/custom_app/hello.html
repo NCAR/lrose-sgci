@@ -325,6 +325,54 @@
     border: none;
 }
 
+/* The start date must be earlier than the end date */
+
+.caution { 
+    /* position: absolute; 
+    width: 253px;
+    height: 14px; */
+    left: 631px;
+    /* top: 1061px; */
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #EB1616;
+}
+
+.analyze-date-time {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: right;
+
+    color: #000000;
+}
+
+.start-end-date-time {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+
+    color: #000000;
+}
+
+.data-and-time {
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
 
 </style>
 
@@ -558,7 +606,6 @@ src={% static 'custom_app/icons/log.png' %}   />
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
                 -->
-                    <table>
 
                         <tr>
                             <th> <a href="url" class="hyperlink-text">Download template </a> 
@@ -573,6 +620,48 @@ src={% static 'custom_app/icons/log.png' %}   />
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
+
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
+
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
 
                 </div>
                 
