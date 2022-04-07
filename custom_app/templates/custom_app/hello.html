@@ -20,16 +20,50 @@
         /* Active dot */
         /*background-color: rgba(0, 0, 0, .3);*/
         /* Inactive dot */
-        border: 1px solid rgba(0, 0, 0, .3);
+        border: 3px solid rgba(0, 0, 0, .3);
         /* OPTIONAL: Spacing between dots */
         margin: 0 100px;
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .circleEmpty {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: white;
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(0, 0, 0, .3);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }       
+
+    .circleFilled {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: rgba(76, 175, 80, 1);
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(76, 175, 80, 1);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }    
     
     .rectangle {
         width: 240px;
-        height: 6px;
+        height: 3px;
         background: #C4C4C4;
         position: fixed;
     }
@@ -46,7 +80,7 @@
     }
     
     aside {
-        width: 10%;
+        width: 30%;
         padding-left: 5px;
         padding-right: 5px;
         margin-left: 5px;
@@ -84,37 +118,284 @@
         border: 3px solid blue;
         float: left;
     }
+
+    div.a {
+        /* top: -50px;
+        float: bottom; */
+    }
+
+    
+    .overflow-y-scroll {
+        /* background-color: lightblue; */
+        height: 400px;
+        overflow-y: scroll;
+        margin: 200px 0 0 0;
+    }
+
+    .workflow-title {
+        position:fixed; 
+        /* text-align: center; */
+
+        margin-top: -45px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0px;
+        width:  60em;
+    }
+
+    .step-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+
+        color: #757575;
+    }
+
+    .stage-text {
+        /*font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 29px;
+
+        color: #000000;
+    }
+
+    .hyperlink-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        text-decoration-line: underline;
+
+        color: #1F73D6;
+    }
+
+    table, tr, td {
+         border:none;
+    }
+
+    mylabel {
+    display: block;
+    background: lightgrey;
+    width: 100px;
+    height: 100px;
+    }
+
+    .upload-download-icon {
+        height: 18px; 
+        width: 18px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }
+
+    .help-circle-icon {
+        height: 23px; 
+        width: 23px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }    
+
+    .run-button {
+        background: #04B482;
+        border-radius: 5px;
+        /* transform: matrix(1, 0, 0, -1, 0, 0); */
+        margin-left: 75%;
+        margin-bottom: 10px;
+    }
+
+#demo:checked + mylabel {
+    background: blue;
+    color: white;
+}
+
+.info-button {
+    height: 30px; 
+    width: 30px; 
+    display: inline;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  /* background-color: #eee;
+  color: #444; */
+  cursor: pointer;
+  /*
+  padding: 18px;
+  width: 10%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  /* background-color: #ccc; */
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding-top: 20px ;
+  padding-right: 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.collapsible:after {
+  /* content: '\02795';  */ /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: top;
+  margin-left: 5px;
+}
+
+.active:after {
+  /* content: "\2796"; *//* Unicode character for "minus" sign (-) */
+}
+
+/* for tabs */
+
+/* Style the tab */
+.tab {
+  /* overflow: hidden; */
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: inline;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  /* padding: 14px 16px; */
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+/*
+.tab button:hover {
+  background-color: #ddd;
+}
+*/
+
+/* Create an active/current tablink class */
+/*
+.tab button.active {
+  background-color: #ccc;
+}
+*/
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+
+/* left-chevron 2 */
+.left-chevron2 {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+/* arrow out of box*/
+.arrow-out-corner-box {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+
 </style>
 
 <div class="main-content-wrapper">
-    <main class="main-content">
+   <main class="main-content">
+    
 
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
         <!-- class comes from bootstrap -->
         <div class="container-fluid">
-            <div style="text-align: center">
-                <h1 id="first">Rainfall Estimation</h1>
+            <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
+                <h1 style="text-align: center">Rainfall Estimation</h1>
+                
                 <a href="url">Learn more </a> | <a href="url">Help </a>
+                
             </div>
             <div style="text-align: center; margin: 30px; min-width:1080px">
                 <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
+                <nav style="position:fixed; left: -5px">
                     <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
+                        <li id="stage12-rect" class="rectangle" style="left: 196px; top: 20px; position:relative; z-index: -1"></li>
+                        <li id="stage23-rect" class="rectangle" style="left: 440px; top: 16px; position:relative; z-index: -1"></li>
+                        <li id="stage34-rect" class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
                     </ul>
+
+<!--
+<a href="#stage2" class="btn btn-primary circle" role="button" id="brenda" data-bs-toggle="button"></a> 
+<label class="btn btn-primary circle" for="brenda"></label>
+-->
+<!--
+<input type="checkbox" class="btn-check" name="options" id="btn-check-outlined" autocomplete="off">
+<label class="btn btn-outline-primary" for="btn-check-outlined"></label>
+
+<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+<label class="btn btn-secondary" for="option2"></label>
+
+<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
+<label class="btn btn-secondary" for="option3"></label>
+-->
+<!-- 
+<input type="radio" class="btn-check circle" name="options" id="option4" autocomplete="off">
+<label class="btn btn-secondary" for="option4"></label>
+-->
+
+
                     <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
+                        <a href="#stage1" <li id="circle-stage1" class="circleFilled" style="display: inline">
+
+
+                        </li>
                         </a>
-                        <a href="#second" <li class="circle" style="background-color:white; display: inline"></li>
+
+
+                        <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circleEmpty" style="display: inline">
+                           <label for="circle-stage2"></label>
+                        </li>
                         </a>
-                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
+
+
+                        <a href="#stage3" <li id="circle-stage3" class="circleEmpty" style="display: inline">
+                           <label for="circle-stage3"></label>
+                        </li>
                         </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
+                        <a href="#stage4" <li id="circle-stage4" class="circleEmpty" style="display: inline">
+                           <label for="circle-stage4"></label>
+                        </li>
                         </a>
                     </ul>
+
+
                     <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
                         <li style="display: inline; margin: 0 30px;">
                             <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
@@ -123,7 +404,7 @@
                             <p>Map Rate to Surface<br>(RadxRate)</p>
                         </li>
                         <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
+                            <p>Quantitative Precipitation <br> Estimation <br>(RadxQpe)</p>
                         </li>
                         <li style="display: inline; margin: 0 40px;">
                             <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
@@ -131,28 +412,95 @@
                     </ul>
                 </nav>
             </div>
+        </div> <!-- end container-fluid -->
+
+
+        <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
+
             <!-- Adding an aside tag to hold the information and logs buttons -->
             <aside style="display: inline;">
+
+<!-- Tab links -->
+<div class="tab">
+  <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
+      <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
+  </button>
+  <button class="tablinks" onclick="openLog(event, 'StageNLog')">
+      <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
+  </button>
+</div>
+
+<!-- Tab content -->
+<div id="RadxConvertInfo" class="tabcontent">
+  <!-- h3>RadxConvertInfo</h3 -->
+  <p>RadxConvert allows you to convert data stored in one format to a different format.</p>
+</div>
+
+<div id="StageNLog" class="tabcontent">
+  <!-- h3>StageNLog</h3 -->
+  <button>
+    <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+  </button>
+  <button>
+    <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+  </button>
+      
+  <p>Log file for most recent run.</p>
+</div>
+
+<!--
+
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
                     <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/info.png' %} alt="info" style="height: 30px; width: 30px; display: inline" />
+
+                   <input type="image" class="info-button collapsible"
+src={% static 'custom_app/icons/info.png' %}   />
+                        </input>
+                        
+                        <input type="image" src={% static 'custom_app/icons/info.png' %} class="collapsible info-button" 
+                                alt="info" /> 
+                        <div class="content">
+                          <p>Lorem ipsum...</p>
+                        </div>
+
+                        
                     </li>
                     <li style="display: inline; margin: 0 10px">
+
+                   <input type="image" class="info-button collapsible"
+src={% static 'custom_app/icons/log.png' %}   />
+                        </input>        
+                                      
                         <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
+                        <div class="content">
+                          <p>Log file content here ...</p>
+                        </div>
+
                     </li>
                 </ul>
+            -->
             </aside>
-            <div class="card">
+
+            <div class="card" id="stage1">
                 <!-- <div class="icon-bar"> hello</div> -->
 
-                <div class="card-header">
-                    Convert Level II Data to CfRadial (RadxConvert)
-                </div>
+                <!-- div class="card-header">
+                    <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>
+                </div -->
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="url" class="hyperlink-text">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
-
+<!--
                     <div class="input-group mt-3 mb-3">
                         <div class="input-group-prepend">
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
@@ -176,18 +524,12 @@
                         <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
 
                     </div>
-                    <div>
-                    </div>
-
-
-                    <!--
-  <div class="form-group">
-    <label for="email"></label>
-    <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-param-file" uri="888">
-  </div>
+              
 -->
-                    <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
 
+
+                    <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
+                    <!-- 
                     <br>
                     <table class="table">
                         <thead>
@@ -199,79 +541,45 @@
                         <tbody id="data-source-list">
                         </tbody>
                     </table>
-
-                    Step 2: Setup parameter file
+                    -->
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
+                 <!--   
                     <div class="form-group">
                         <label for="email"></label>
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                            <!-- <a href="url">Upload your parameter file </a> </th> -->
-                        </thead>
+                -->
+                    <table>
+
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
 
-
-                    <!-- <select id="greeting-select"></select>  -->
-                    <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
-                    <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
-
-                    <!-- for status and image
-                        <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Result</th>
-                            </tr>
-                        </thead>
-                        <tbody id="stage1-status">
-                        </tbody>
-                    </table>
--->
                 </div>
+                
             </div>
 
-            <!--
-            <div class="card">
-                <div id="demo" class="carousel slide" data-ride="carousel">
-  <-- Indicators
-  
-  <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-  
-  <-- The slideshow 
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
-    </div>
-    <div class="carousel-item">
-      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
-    </div>
-    <div class="carousel-item">
-      <img src="ny.jpg" alt="New York" width="1100" height="500">
-    </div>
-  </div>
-  
-  <-- Left and right controls 
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-</div>
-           </div> <-- card for carousel -->
+                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
+
             <!-- Adding aside tag to keep cards same width -->
             <aside style="display: block;">
                 <p></p>
@@ -303,60 +611,8 @@
             </div>
             <!-- begin My Storage-->
 
-            <!--
-            <div class="card" id="stage2optional">
-                <div class="card-header">
-                    Compute Beam Blockage (RadxBeamBlock)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian rate data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>   
-            -->
-            <div style="text-align: center">
-                <h1 id="second">Rainfall Estimation</h1>
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-            </div>
             <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50;left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
@@ -451,43 +707,14 @@
             </div>
 
             <!-- end RadxRate -->
+            <!--
             <div style="text-align: center">
                 <h1 id="third">Rainfall Estimation</h1>
                 <a href="url">Learn more </a> | <a href="url">Help </a>
             </div>
+            -->
             <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50; left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
@@ -502,7 +729,7 @@
             <!-- begin RadxQpe -->
             <div class="card" id="stage3">
                 <div class="card-header">
-                    Compute Something (RadxQpe)
+                    Quantitative Precipitation Estimation (RadxQpe)
                 </div>
                 <div class="card-body">
                     Step 1: Choose data source
@@ -550,23 +777,7 @@
                     <button id="run-button-stage3" class="btn btn-primary">Run</button>
                 </div>
             </div>
-            <!-- old code -----
-            <div class="card">
-                <div class="card-header">
-                    Compute Something (RadxQpe)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian rate data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-      end old code  -->
+
 
             <!-- Adding aside tag to keep cards same width -->
             <aside style="display: block;">
@@ -596,44 +807,7 @@
                 </div>
             </div>
             <!-- end RadxQpe -->
-            <div style="text-align: center">
-                <h1 id="fourth">Rainfall Estimation</h1>
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-            </div>
-            <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50; left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
                     <li style="display: inline; margin: 0 10px">
@@ -645,7 +819,7 @@
                 </ul>
             </aside>
             <!-- begin RateAccum -->
-
+            
             <div class="card" id="stage4">
                 <div class="card-header">
                     Compute Rainfall Accumulation (RateAccum)
@@ -674,7 +848,7 @@
                             <span class="input-group-text">stop time</span>
                         </div>
                         <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
-                    </div>
+                    </div> <!-- input-group mt-3 mb-3 -->
 
                     Step 2: Setup parameter file
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
@@ -683,115 +857,13 @@
                         <label for="email"></label>
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
                     </div>
-
-
-                    <!--
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                     -->
                     <button id="run-button-stage4" class="btn btn-primary">Run</button>
                 </div>
-            </div>
-            <!-- old code ...
-            <div class="card">
-                <div class="card-header">
-                    Compute Rainfall Accumulation (RateAccum)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-            end old code -->
-            <!-- end RateAccum -->
+            </div>  <!-- div stage 4 -->
+      </div> <!-- <div class="overflow-y-scroll" -->
+    <!--  <button id="run-button" class="btn btn-secondary">Exit</button><br><br> -->
 
-            <button id="run-button" class="btn btn-secondary">Exit</button><br><br>
-
-            <!-- begin My Storage-->
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    User Storage
-                </div>
-                <div class="card-body">
-                    <!-- button id="refresh-button" class="btn btn-secondary">Refresh</button -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Directory</th>
-                                <th scope="col">URL</th>
-                                <th scope="col">Size</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storage-dir-list">
-                        </tbody>
-                    </table>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">File</th>
-                                <th scope="col">dataProductURI</th>
-                                <th scope="col">Mime Type</th>
-                                <th scope="col">Size</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storage-file-list">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- begin My Storage-->
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <div class="card">
-                <div class="card-header">
-                    Choose data source
-                </div>
-                <div class="card-body">
-                    <div id="user-storage" />
-
-                </div>
-
-                <script>
-                    // provide data for initializing api's session.Session
-                    window.AiravataPortalSessionData = {
-                        "username": "brenda92",
-                        "airavataInternalUserId": "brenda92@lrose",
-                        "isGatewayAdmin": true
-                    };
-                </script>
-                <!-- script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
-  <script type="text/javascript" src="/static/common/dist/js/app.faa7ad7b.js" ></script>
-  
-    <script type="text/javascript" src="/static/common/dist/js/notices.398e45d2.js" ></script>
-  
-  
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.e45ba37b.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.18aeeebe.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script-->
-            </div>
-        </div>
-
-        <!-- end My Storage  -->
-
-</div>
-</main>
+   </main>
 </div>
 {% endblock content %} {% block scripts %}
 
@@ -838,6 +910,23 @@
             });
         });
     };
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
 
     function chooseDataSourceDate() {
         console.log("inside chooseDataSource");
@@ -905,6 +994,83 @@
     $(document).ready(function() {
         $("#set-stage1-input-default").click(function() {
             printArgs()
+        });
+    });
+
+
+    var labelID;
+
+    $('label').click(function() {
+       labelID = $(this).attr('for');
+       $('#'+labelID).trigger('click');
+     });
+
+    $('document').ready(function() {
+        $("#option4").click(function() {
+            document.getElementById("option4").style.backgroundColor = "lightblue";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage1").click(function() {
+            //document.getElementById("circle-stage2").style.backgroundColor = "white";
+            //document.getElementById("circle-stage2").style.border = "3px solid #4CAF50";
+            document.getElementById("circle-stage2").className = "circleEmpty";
+            document.getElementById("stage12-rect").style.backgroundColor = "#C4C4C4";
+            document.getElementById("circle-stage3").className = "circleEmpty";
+            document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage2").click(function() {
+            //document.getElementById("circle-stage2").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage2").className = "circleFilled";
+
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleEmpty";
+            document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage3").click(function() {
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
+            document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";      
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";      
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage4").click(function() {
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
+            document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";  
+            document.getElementById("circle-stage4").className = "circleFilled";
+            document.getElementById("stage34-rect").style.backgroundColor = "#4CAF50";
+        });
+    });
+
+            
+
+    // may not need this ...
+    $('document').ready(function() {
+        $("#stage2-circle").click(function() {
+            console.log("circle clicked!");
+                document.getElementById("stage2-circle").style.backgroundColor = "lightblue";
+                //document.getElementById("stage2-circle").setAttribute("style", "background-color:pink; //display: inline");
+                //$(event.delegateTarget).css("background-color", "pink");
+
+               //});
+               return false;
         });
     });
 
@@ -1700,6 +1866,51 @@
                 });
             })
     });
+
+
+
+function openInfo(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openLog(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
 </script>
 
 {% endblock scripts %}

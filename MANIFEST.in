@@ -1,0 +1,2 @@
+recursive-include custom_app/static *
+recursive-include custom_app/templates *

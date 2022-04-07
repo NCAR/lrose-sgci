@@ -1,4 +1,4 @@
-from django.conf.urls import url, include
+from django.urls import path
 
 from . import views
 
@@ -6,5 +6,7 @@ from . import views
 
 app_name = 'custom_app'
 urlpatterns = [
-    url(r'^hello/', views.hello_world, name="home"),
+    path('home/', views.home, name='home'),
+    path('hello/', views.hello_world, name='hello_world'),
+    path('custom_nav/', views.custom_nav, name='custom_nav'),
 ]
