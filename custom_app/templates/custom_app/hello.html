@@ -376,8 +376,37 @@
 
 </style>
 
+
 <div class="main-content-wrapper">
    <main class="main-content">
+
+
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" style="text-align: center">Choose data source</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Drop files here <br> or </p>
+      </div>
+      <button>Upload from your desktop</button>
+      <button>Select from file manager</button>
+      <button>Use online data source</button>
+      <div class="modal-footer">
+        <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
     
 
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
@@ -542,7 +571,8 @@ src={% static 'custom_app/icons/log.png' %}   />
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="url" class="hyperlink-text">Choose data source </a> 
+                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
                   </table>
