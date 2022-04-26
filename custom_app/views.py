@@ -31,16 +31,20 @@ def home(request):
     # Example code: user_storage module
     # In your Django views, you can make calls to the user_storage module to manage a user's files in the gateway
     #
-    # user_storage.listdir(request, "")  # lists the user's home directory
+    home_dir_list = user_storage.listdir(request, "")  # lists the user's home directory
     # user_storage.open_file(request, data_product_uri=...)  # open's a file for a given data_product_uri
     # user_storage.save(request, "path/in/user/storage", file)  # save a file to a path in the user's storage
     #
     # For more information as well as other user_storage functions, see https://airavata-django-portal-sdk.readthedocs.io/en/latest/
 
+    # NOTE: project_name is part of a list/dictionary of args passed to the html page (home.html)
     return render(request, "custom_app/home.html", {
-        'project_name': "Custom UI Tutorial App"
+        'project_name': "LROSE View 1 App", 'home_dir_list': home_dir_list
     })
 
+#@login_required
+#def file_browser(request):
+#    return render(request, "custom_app/file_browser")
 
 @login_required
 def hello_world(request):
