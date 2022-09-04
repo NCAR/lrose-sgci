@@ -1,0 +1,2 @@
+[airavata.djangoapp]
+custom_app = custom_app.apps:CustomAppConfig

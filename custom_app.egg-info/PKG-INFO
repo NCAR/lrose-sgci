@@ -1,0 +1,5 @@
+Metadata-Version: 2.1
+Name: custom-app
+Version: 0.1.1
+Summary: LROSE Custom Django app with everything needed to be installed in the airavata-django-portal
+License-File: LICENSE

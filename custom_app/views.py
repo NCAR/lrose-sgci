@@ -47,7 +47,7 @@ def home(request):
 #    return render(request, "custom_app/file_browser")
 
 @login_required
-def hello_world(request):
+def hello(request):
     return render(request, "custom_app/hello.html")
 
 @login_required

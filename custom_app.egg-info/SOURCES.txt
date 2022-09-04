@@ -1,0 +1,35 @@
+LICENSE
+MANIFEST.in
+README.md
+pyproject.toml
+setup.cfg
+setup.py
+custom_app/__init__.py
+custom_app/admin.py
+custom_app/apps.py
+custom_app/models.py
+custom_app/output_views.py
+custom_app/tests.py
+custom_app/urls.py
+custom_app/views.py
+custom_app.egg-info/PKG-INFO
+custom_app.egg-info/SOURCES.txt
+custom_app.egg-info/dependency_links.txt
+custom_app.egg-info/entry_points.txt
+custom_app.egg-info/requires.txt
+custom_app.egg-info/top_level.txt
+custom_app/migrations/__init__.py
+custom_app/static/custom_app/icons/Vector.png
+custom_app/static/custom_app/icons/box_arrow_up_right_icon.png
+custom_app/static/custom_app/icons/double_chevron_down_icon.png
+custom_app/static/custom_app/icons/download_file.png
+custom_app/static/custom_app/icons/forum_user.png
+custom_app/static/custom_app/icons/help-circle.png
+custom_app/static/custom_app/icons/info 2.png
+custom_app/static/custom_app/icons/info.png
+custom_app/static/custom_app/icons/log 2.png
+custom_app/static/custom_app/icons/log.png
+custom_app/static/custom_app/icons/mail 1.png
+custom_app/static/custom_app/icons/upload_file.png
+custom_app/templates/custom_app/hello.html
+custom_app/templates/custom_app/home.html
