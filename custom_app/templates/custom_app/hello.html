@@ -421,10 +421,12 @@
           <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
         </div>
         <div>
-          <button class="rectangle-208">Use online data source</button>
+          <button class="rectangle-208">Use online data source (NEXRAD or tutorial)</button>
         </div>
 
-
+        <div>
+          <button class="rectangle-208">Continue previous stage</button>
+        </div>
 
 
 
@@ -782,10 +784,11 @@ src={% static 'custom_app/icons/log.png' %}   />
                     <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
 
             <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
+            <!--aside style="display: block;">
                 <p></p>
-            </aside>
+            </aside -->
             <!-- Displaying a list of recent experiments -->
+            <!--
             <div class="card">
                 <div class="card-header">
                     Previous Conversions
@@ -796,10 +799,12 @@ src={% static 'custom_app/icons/log.png' %}   />
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
+            -->
                                 <!-- <th scope="col">Application</th> -->
+            <!-- 
                                 <th scope="col">Status</th>
                                 <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
+                            
                                 <th scope="col">View Log</th>
                                 <th scope="col">Images</th>
                                 <th scope="col">Next Stage</th>
@@ -810,12 +815,13 @@ src={% static 'custom_app/icons/log.png' %}   />
                     </table>
                 </div>
             </div>
+            -->
             <!-- begin My Storage-->
 
-            <div style="text-align: center; margin: 30px">
+            <!-- div style="text-align: center; margin: 30px">
 
-            </div>
-            <aside style="display: inline;">
+            </div -->
+            <!-- aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
                     <li style="display: inline; margin: 0 10px">
                         <img src={% static 'custom_app/icons/info.png' %} alt="info" style="height: 30px; width: 30px; display: inline" />
@@ -824,90 +830,160 @@ src={% static 'custom_app/icons/log.png' %}   />
                         <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
                     </li>
                 </ul>
-            </aside>
-            <!-- begin RadxRate -->
-            <div class="card" id="stage2">
-                <div class="card-header">
-                    Map Rate to Surface (RadxRate)
+            </aside -->
+
+
+            <!-- begin RadxRate restyle (stage 2) -->
+        <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
+
+            <!-- Adding an aside tag to hold the information and logs buttons -->
+            <aside style="display: inline;">
+
+                <!-- Tab links -->
+                <div class="tab">
+                  <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
+                      <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
+                  </button>
+                  <button class="tablinks" onclick="openLog(event, 'StageNLog')">
+                      <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
+                  </button>
                 </div>
+
+                <!-- Tab content -->
+                <div id="RadxConvertInfo" class="tabcontent">
+                  <!-- h3>RadxConvertInfo</h3 -->
+                  <p>RadxRate allows you to convert data stored in one format to a different format.</p>
+                </div>
+
+                <div id="StageNLog" class="tabcontent">
+                  <!-- h3>StageNLog</h3 -->
+                  <button>
+                    <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+                  </button>
+                  <button>
+                    <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+                  </button>
+                      
+                  <p>Log file for most recent run.</p>
+                </div>
+
+            </aside>
+
+            <div class="card" id="stage2">
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Map Rate to Surface (RadxRate) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage2-source" data-toggle="dropdown">
-      Data Sources
-    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage2-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage2-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage2-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage2-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage2-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-end-time" placeholder="end date time">
-                    </div>
-
-                    Step 2: Setup parameter file
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage2-param-file" uri="888">
-                    </div>
-
-
-                    <!--
-                	
-                	<a href="url">Choose data source </a> <br>
-                	
-                	Set up parameter file <br>
-                	<a href="url">Download template </a> <br>
-                	<a href="url">Upload your parameter file - production </a> <br>
-                     -->
-                    <button id="run-button-stage2" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Previous Stage2 Experiments
-                </div>
-                <div class="card-body">
-                    <button id="rate-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                                <th scope="col">Next Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-rate">
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tbody id="parameter-file-list">
                         </tbody>
                     </table>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
+
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
+
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
+
                 </div>
+
             </div>
 
-            <!-- end RadxRate -->
+
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+<div class="example-one">
+  <!-- <h5>autoProceed is on BEJ</h5> -->
+
+  <!-- Target DOM node #1 -->
+  <div class="for-DragDrop"></div>
+
+  <!-- Progress bar #1 -->
+  <div class="for-ProgressBar"></div>
+
+  <!-- Uploaded files list #1 -->
+  <div class="uploaded-files">
+    <!-- <h5>Uploaded files:</h5> -->
+    <ol></ol>
+  </div>
+</div>
+
+
+                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>  
+            <!-- end RadxRate restyle -->           
             <!--
             <div style="text-align: center">
                 <h1 id="third">Rainfall Estimation</h1>
@@ -927,88 +1003,124 @@ src={% static 'custom_app/icons/log.png' %}   />
                     </li>
                 </ul>
             </aside>
-            <!-- begin RadxQpe -->
+            <!-- begin RadxQpe restyle -->
             <div class="card" id="stage3">
-                <div class="card-header">
-                    Quantitative Precipitation Estimation (RadxQpe)
-                </div>
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Quantitative Precipitation Estimation (RadxQpe) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  </table>
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage3-source" data-toggle="dropdown">
-                      Data Sources
-                    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage3-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage3-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage3-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage3-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage3-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage3-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-end-time" placeholder="end date time">
-                    </div>
-
-                    Step 2: Setup parameter file
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage3-param-file" uri="888">
-                    </div>
-
-
-                    <!--
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                     -->
-                    <button id="run-button-stage3" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-
-
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Previous Stage3 Experiments
-                </div>
-                <div class="card-body">
-                    <button id="qpe-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-qpe">
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tbody id="parameter-file-list">
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <!-- end RadxQpe -->
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
 
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
+
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
+
+                </div>
+
+            </div>
+
+
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+<div class="example-one">
+  <!-- <h5>autoProceed is on BEJ</h5> -->
+
+  <!-- Target DOM node #1 -->
+  <div class="for-DragDrop"></div>
+
+  <!-- Progress bar #1 -->
+  <div class="for-ProgressBar"></div>
+
+  <!-- Uploaded files list #1 -->
+  <div class="uploaded-files">
+    <!-- <h5>Uploaded files:</h5> -->
+    <ol></ol>
+  </div>
+</div>
+
+
+                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
+
+            <!-- end RadxQpe restyle -->
+ 
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
                     <li style="display: inline; margin: 0 10px">
@@ -1019,48 +1131,124 @@ src={% static 'custom_app/icons/log.png' %}   />
                     </li>
                 </ul>
             </aside>
-            <!-- begin RateAccum -->
-            
+
+            <!-- begin RateAccum restyle -->
             <div class="card" id="stage4">
-                <div class="card-header">
-                    Compute Rainfall Accumulation (RateAccum)
-                </div>
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Compute Rainfall Accumulation (RateAccum) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  </table>
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage4-source" data-toggle="dropdown">
-                      Data Sources
-                    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage4-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage4-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage4-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage4-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage4-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage4-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
-                    </div> <!-- input-group mt-3 mb-3 -->
-
-                    Step 2: Setup parameter file
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
+                 <!--   
                     <div class="form-group">
                         <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
-                    <button id="run-button-stage4" class="btn btn-primary">Run</button>
+                -->
+
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
+
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
+
                 </div>
-            </div>  <!-- div stage 4 -->
+
+            </div>
+
+
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+<div class="example-one">
+  <!-- <h5>autoProceed is on BEJ</h5> -->
+
+  <!-- Target DOM node #1 -->
+  <div class="for-DragDrop"></div>
+
+  <!-- Progress bar #1 -->
+  <div class="for-ProgressBar"></div>
+
+  <!-- Uploaded files list #1 -->
+  <div class="uploaded-files">
+    <!-- <h5>Uploaded files:</h5> -->
+    <ol></ol>
+  </div>
+</div>
+
+
+                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>   
+            <!-- end RateAccum restyle -->
+            
       </div> <!-- <div class="overflow-y-scroll" -->
     <!--  <button id="run-button" class="btn btn-secondary">Exit</button><br><br> -->
 
