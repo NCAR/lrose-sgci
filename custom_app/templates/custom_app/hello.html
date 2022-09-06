@@ -205,8 +205,23 @@
         background: #04B482;
         border-radius: 5px;
         /* transform: matrix(1, 0, 0, -1, 0, 0); */
-        margin-left: 75%;
+        margin-left: 60%;
         margin-bottom: 10px;
+    }
+
+    .exit-button {
+        background: #575757;
+        border-radius: 5px; 
+        /* transform: matrix(1, 0, 0, -1, 0, 0); */
+        margin-left: 30%;
+        margin-bottom: 10px; 
+
+        /* height: 56px; */
+        width: 207px;
+ /*       left: 616px;
+        top: 3626px;
+        border-radius: 5px;
+*/
     }
 
 #demo:checked + mylabel {
@@ -393,452 +408,363 @@
 
 
 <div class="main-content-wrapper">
-   <main class="main-content">
+    <main class="main-content">
 
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
 
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center">Choose data source</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+              <div class="modal-body">
+                <!-- <p>Drop files here <br> or </p> -->
 
-<!-- Modal -->
-<div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+                <!-- Basic Uppy styles -->
+                <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
+                <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" style="text-align: center">Choose data source</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-      <div class="modal-body">
-        <!-- <p>Drop files here <br> or </p> -->
+                <div>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
+                </div>
+                <div>  
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
+                </div>
+                <div>
+                  <button class="rectangle-208">Use online data source (NEXRAD or tutorial)</button>
+                </div>
 
-        <!-- Basic Uppy styles -->
-        <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
-        <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
+                <div>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Continue previous stage</button>
+                </div>
 
-        <div>
-          <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
-        </div>
-        <div>  
-          <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
-        </div>
-        <div>
-          <button class="rectangle-208">Use online data source (NEXRAD or tutorial)</button>
-        </div>
+                          <!-- grabbed this from the gateway file store page ...   
+                        <div id="user-storage"/>
+                          </div>
+                          <script>
+                            // provide data for initializing api's session.Session
+                            window.AiravataPortalSessionData = {"username": "", "airavataInternalUserId": "", "isGatewayAdmin": true};
+                          </script>
+                          <script type="text/javascript" src="/static/common/dist/js/chunk-vendors.98ccde31.js" ></script>
+                          <script type="text/javascript" src="/static/common/dist/js/app.f16ab7ea.js" ></script>
+                            <script type="text/javascript" src="/static/common/dist/js/notices.f53630b0.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.569d6e6d.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.9bbd477b.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.35b9584d.js" ></script>    
+                          end ... grabbed this from the gateway file store page ...    -->
+                  
+                <div class="modal-footer">
+                    <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
+                </div>
+              </div> <!-- modal-body -->
+            </div> <!-- class modal content -->
 
-        <div>
-          <button class="rectangle-208">Continue previous stage</button>
-        </div>
-
-
-
-  <!-- grabbed this from the gateway file store page ...   
-
-<div id="user-storage"/>
-
-  </div>
-
-  <script>
-    // provide data for initializing api's session.Session
-    window.AiravataPortalSessionData = {"username": "", "airavataInternalUserId": "", "isGatewayAdmin": true};
-  </script>
-  <script type="text/javascript" src="/static/common/dist/js/chunk-vendors.98ccde31.js" ></script>
-  <script type="text/javascript" src="/static/common/dist/js/app.f16ab7ea.js" ></script>
-  
-    <script type="text/javascript" src="/static/common/dist/js/notices.f53630b0.js" ></script>
-  
-  
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.569d6e6d.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.9bbd477b.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.35b9584d.js" ></script>    
-
-  end ... grabbed this from the gateway file store page ...    -->
-          
-
-
-
-          <div class="modal-footer">
-            <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
-          </div>
-      </div> <!-- modal-body -->
-    </div> <!-- class modal content -->
-
-  </div>  <!-- class modal dialog -->
-</div>  <!-- id = myModal -->
-
-
-    
+          </div>  <!-- class modal dialog -->
+        </div>  <!-- id = myModal -->
 
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
-        <!-- class comes from bootstrap -->
-        <div class="container-fluid">
-            <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
-                <h1 style="text-align: center">Rainfall Estimation</h1>
-                
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-                
-            </div>
-            <div style="text-align: center; margin: 30px; min-width:1080px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:fixed; left: -5px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li id="stage12-rect" class="rectangle" style="left: 196px; top: 20px; position:relative; z-index: -1"></li>
-                        <li id="stage23-rect" class="rectangle" style="left: 440px; top: 16px; position:relative; z-index: -1"></li>
-                        <li id="stage34-rect" class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
-                    </ul>
+    <!-- class comes from bootstrap -->
+    <div class="container-fluid">
+        <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
+            <h1 style="text-align: center">Rainfall Estimation</h1>
+            <a href="url">Learn more </a> | <a href="url">Help </a> 
+        </div>
+        <div style="text-align: center; margin: 30px; min-width:1080px">
+            <!-- Creating the navigation bar with circles -->
+            <nav style="position:fixed; left: -5px">
+                <ul style="list-style-type: none; overflow: hidden; display: inline">
+                    <li id="stage12-rect" class="rectangle" style="left: 196px; top: 20px; position:relative; z-index: -1"></li>
+                    <li id="stage23-rect" class="rectangle" style="left: 440px; top: 16px; position:relative; z-index: -1"></li>
+                    <li id="stage34-rect" class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                </ul>
 
-<!--
-<a href="#stage2" class="btn btn-primary circle" role="button" id="" data-bs-toggle="button"></a> 
-<label class="btn btn-primary circle" for=""></label>
--->
-<!--
-<input type="checkbox" class="btn-check" name="options" id="btn-check-outlined" autocomplete="off">
-<label class="btn btn-outline-primary" for="btn-check-outlined"></label>
+                <!--
+                <a href="#stage2" class="btn btn-primary circle" role="button" id="" data-bs-toggle="button"></a> 
+                <label class="btn btn-primary circle" for=""></label>
+                -->
+                <!--
+                <input type="checkbox" class="btn-check" name="options" id="btn-check-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined"></label>
 
-<input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
-<label class="btn btn-secondary" for="option2"></label>
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                <label class="btn btn-secondary" for="option2"></label>
 
-<input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
-<label class="btn btn-secondary" for="option3"></label>
--->
-<!-- 
-<input type="radio" class="btn-check circle" name="options" id="option4" autocomplete="off">
-<label class="btn btn-secondary" for="option4"></label>
--->
+                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
+                <label class="btn btn-secondary" for="option3"></label>
+                -->
+                <!-- 
+                <input type="radio" class="btn-check circle" name="options" id="option4" autocomplete="off">
+                <label class="btn btn-secondary" for="option4"></label>
+                -->
 
 
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#stage1" <li id="circle-stage1" class="circleFilled" style="display: inline">
+                <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                    <a href="#stage1" <li id="circle-stage1" class="circleFilled" style="display: inline">
+                    </a>
+                    <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circleEmpty" style="display: inline">
+                       <label for="circle-stage2"></label>
+                    </a>
+                    <a href="#stage3" <li id="circle-stage3" class="circleEmpty" style="display: inline">
+                       <label for="circle-stage3"></label>
+                    </a>
+                    <a href="#stage4" <li id="circle-stage4" class="circleEmpty" style="display: inline">
+                       <label for="circle-stage4"></label>
+                    </a>
+                </ul>
 
 
-                        </li>
-                        </a>
-
-
-                        <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circleEmpty" style="display: inline">
-                           <label for="circle-stage2"></label>
-                        </li>
-                        </a>
-
-
-                        <a href="#stage3" <li id="circle-stage3" class="circleEmpty" style="display: inline">
-                           <label for="circle-stage3"></label>
-                        </li>
-                        </a>
-                        <a href="#stage4" <li id="circle-stage4" class="circleEmpty" style="display: inline">
-                           <label for="circle-stage4"></label>
-                        </li>
-                        </a>
-                    </ul>
-
-
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Quantitative Precipitation <br> Estimation <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div> <!-- end container-fluid -->
-
-
-        <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
-
-            <!-- Adding an aside tag to hold the information and logs buttons -->
-            <aside style="display: inline;">
-
-<!-- Tab links -->
-<div class="tab">
-  <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
-      <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
-  </button>
-  <button class="tablinks" onclick="openLog(event, 'StageNLog')">
-      <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
-  </button>
-</div>
-
-<!-- Tab content -->
-<div id="RadxConvertInfo" class="tabcontent">
-  <!-- h3>RadxConvertInfo</h3 -->
-  <p>RadxConvert allows you to convert data stored in one format to a different format.</p>
-</div>
-
-<div id="StageNLog" class="tabcontent">
-  <!-- h3>StageNLog</h3 -->
-  <button>
-    <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
-  </button>
-  <button>
-    <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
-  </button>
-      
-  <p>Log file for most recent run.</p>
-</div>
-
-<!--
-
-                <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
-                    <li style="display: inline; margin: 0 10px">
-
-                   <input type="image" class="info-button collapsible"
-src={% static 'custom_app/icons/info.png' %}   />
-                        </input>
-                        
-                        <input type="image" src={% static 'custom_app/icons/info.png' %} class="collapsible info-button" 
-                                alt="info" /> 
-                        <div class="content">
-                          <p>Lorem ipsum...</p>
-                        </div>
-
-                        
+                <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
+                    <li style="display: inline; margin: 0 30px;">
+                        <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
                     </li>
-                    <li style="display: inline; margin: 0 10px">
-
-                   <input type="image" class="info-button collapsible"
-src={% static 'custom_app/icons/log.png' %}   />
-                        </input>        
-                                      
-                        <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
-                        <div class="content">
-                          <p>Log file content here ...</p>
-                        </div>
-
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Map Rate to Surface<br>(RadxRate)</p>
+                    </li>
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Quantitative Precipitation <br> Estimation <br>(RadxQpe)</p>
+                    </li>
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
                     </li>
                 </ul>
-            -->
-            </aside>
-
-            <div class="card" id="stage1">
-                <!-- <div class="icon-bar"> hello</div> -->
-
-                <!-- div class="card-header">
-                    <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>
-                </div -->
-                <div class="card-body">
-                    <table> <!--  class="table" -->
-                      <tr>
-                        <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>                       
-                      </tr>
-                      <tr>
-                          <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
-                        data-target="#myModal">Choose data source </a> 
-                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
-                      </th> </tr>
-                  </table>
-                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
-                    <br>
-<!--
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
-      Data Sources
-    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
-                                <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage1-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage1-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage1-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage1-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
-
-                    </div>
-              
--->
+            </nav>
+        </div>
+    </div> <!-- end container-fluid -->
 
 
-                    <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
-                    <!-- 
-                    <br>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="data-source-list">
-                        </tbody>
-                    </table>
-                    -->
-                    <table>
-                      <tr>
-                          <th class="step-text">Step 2 </th>
-                      </tr> 
-                      <tr>
-                          <th class="stage-text">Set up parameter file 
-                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
-                          </th>
-                      </tr>
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                 <!--   
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
-                    </div>
-                -->
+    <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
 
-                        <tr>
-                            <th> <a href="url" class="hyperlink-text">Use default </a> 
-                            </th>   
-                        </tr>
-                        <tr>                         
-                            <th> <a href="url" class="hyperlink-text">Download template </a> 
-                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
-                            </th>
-                        </tr>
-                        <tr>
-                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
-                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
-                            </th>
-                        </tr>
-                        <tbody id="parameter-file-list">
-                        </tbody>
-                    </table>
-                    <br>
-                    <table>
-                      <tr>
-                          <th class="step-text">Step 3 </th>
-                      </tr> 
-                      <tr>
-                          <th class="stage-text">Select time frame
-                          </th>
-                      </tr>
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                 <!--   
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
-                    </div>
-                -->
+        <!-- Adding an aside tag to hold the information and logs buttons -->
+        <aside style="display: inline;">
 
-                        <tr>
-                            <th class="analyze-date-time"> Analyze data from
-                            </th>
-
-                            <th> 
-                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
-                            </th>
-                            <th class="start-end-date-time"> Start Date and Time </th>
-                        </tr>
-                        <tr>
-                            <th class="analyze-date-time"> to 
-                            </th>
-
-                            <th>
-                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
-                            </th>
-                            <th class="start-end-date-time"> End Date and Time </th> 
-                        </tr>
-                        <tr><th>&nbsp;</th> 
-                            <th class="caution"> * The start date must be earlier than the end date </th>
-                             
-                        </tr>
-                        <tbody id="parameter-file-list">
-                        </tbody>
-                    </table>                    
-
-                </div>
-
+            <!-- Tab links -->
+            <div class="tab">
+              <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
+                  <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
+              </button>
+              <button class="tablinks" onclick="openLog(event, 'StageNLog')">
+                  <img class="log-button" src={% static 'custom_app/icons/log.png' %} />     
+              </button>
             </div>
+
+            <!-- Tab content -->
+            <div id="RadxConvertInfo" class="tabcontent">
+              <!-- h3>RadxConvertInfo</h3 -->
+              <p>RadxConvert allows you to convert data stored in one format to a different format.</p>
+            </div>
+
+            <div id="StageNLog" class="tabcontent">
+              <!-- h3>StageNLog</h3 -->
+              <button>
+                <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+              </button>
+              <button>
+                <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+              </button>
+                  
+              <p>Log file for most recent run.</p>
+            </div>
+
+                        <!--
+
+                            <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
+                                <li style="display: inline; margin: 0 10px">
+
+                               <input type="image" class="info-button collapsible" src={% static 'custom_app/icons/info.png' %}   />
+                                    </input>
+                                    
+                                    <input type="image" src={% static 'custom_app/icons/info.png' %} class="collapsible info-button" 
+                                            alt="info" /> 
+                                    <div class="content">
+                                      <p>Lorem ipsum...</p>
+                                    </div>
+
+                                    
+                                </li>
+                                <li style="display: inline; margin: 0 10px">
+
+                               <input type="image" class="info-button collapsible" src={% static 'custom_app/icons/log.png' %}   />
+                                    </input>        
+                                                  
+                                    <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
+                                    <div class="content">
+                                      <p>Log file content here ...</p>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        -->
+        </aside>
+
+        <div class="card" id="stage1">
+            <!-- <div class="icon-bar"> hello</div> -->
+
+            <!-- div class="card-header">
+                <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>
+            </div -->
+            <div class="card-body">
+                <table> <!--  class="table" -->
+                  <tr>
+                    <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>                       
+                  </tr>
+                  <tr>
+                      <th class="step-text">Step 1 </th>
+                  </tr> 
+                  <tr> 
+                    <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                    data-target="#myModal">Choose data source </a> 
+                    <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon"> </th> 
+                  </tr>
+                </table>
+                <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
+                <br>
+<!--
+                <div class="input-group mt-3 mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
+  Data Sources
+</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
+                            <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
+                            <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
+                        </div>
+                    </div>
+                    <input type="text" class="form-control" uri="888" source=1 id="stage1-file" placeholder="data/directory">
+                    <input type="text" class="form-control" uri="888" source=2 id="stage1-radar-name" placeholder="radar name, e.g. KFTG">
+                    <div class="input-group-prepend" id="stage1-start-time-label">
+                        <span class="input-group-text">start time</span>
+                    </div>
+                    <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                    <div class="input-group-prepend" id="stage1-end-time-label">
+                        <span class="input-group-text">stop time</span>
+                    </div>
+                    <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                </div>              
+-->
+                <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
+                <!-- 
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-source-list">
+                    </tbody>
+                </table>
+                -->
+                <table>
+                  <tr>
+                      <th class="step-text">Step 2 </th>
+                  </tr> 
+                  <tr>
+                      <th class="stage-text">Set up parameter file 
+                        <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                      </th>
+                  </tr>
+                <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
+
+                    <tr>
+                        <th> <a href="url" class="hyperlink-text">Use default </a> 
+                        </th>   
+                    </tr>
+                    <tr>                         
+                        <th> <a href="url" class="hyperlink-text">Download template </a> 
+                            <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                            <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                        </th>
+                    </tr>
+                    <tbody id="parameter-file-list">
+                    </tbody>
+                </table>
+                <br>
+                <table>
+                    <tr>
+                      <th class="step-text">Step 3 </th>
+                    </tr> 
+                    <tr>
+                      <th class="stage-text">Select time frame </th>
+                    </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                     <!--   
+                        <div class="form-group">
+                            <label for="email"></label>
+                            <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                        </div>
+                    -->
+
+                    <tr>
+                        <th class="analyze-date-time"> Analyze data from </th>
+                        <th> 
+                           <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                        </th>
+                        <th class="start-end-date-time"> Start Date and Time </th>
+                    </tr>
+                    <tr>
+                        <th class="analyze-date-time"> to </th>
+                        <th>
+                            <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                        </th>
+                        <th class="start-end-date-time"> End Date and Time </th> 
+                    </tr>
+                    <tr><th>&nbsp;</th> 
+                        <th class="caution"> * The start date must be earlier than the end date </th>
+                         
+                    </tr>
+                    <tbody id="parameter-file-list">
+                    </tbody>
+                </table>                    
+            </div> <!-- card body -->
+        </div> <!-- card stage 1-->
 
 
         <!-- Basic Uppy styles -->
 <!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
 
 
-<div class="example-one">
-  <!-- <h5>autoProceed is on BEJ</h5> -->
+        <div class="example-one">
+            <!-- <h5>autoProceed is on BEJ</h5> -->
 
-  <!-- Target DOM node #1 -->
-  <div class="for-DragDrop"></div>
+            <!-- Target DOM node #1 -->
+            <div class="for-DragDrop"></div>
 
-  <!-- Progress bar #1 -->
-  <div class="for-ProgressBar"></div>
+            <!-- Progress bar #1 -->
+            <div class="for-ProgressBar"></div>
 
-  <!-- Uploaded files list #1 -->
-  <div class="uploaded-files">
-    <!-- <h5>Uploaded files:</h5> -->
-    <ol></ol>
-  </div>
-</div>
-
-
-                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
-
-            <!-- Adding aside tag to keep cards same width -->
-            <!--aside style="display: block;">
-                <p></p>
-            </aside -->
-            <!-- Displaying a list of recent experiments -->
-            <!--
-            <div class="card">
-                <div class="card-header">
-                    Previous Conversions
-                </div>
-                <div class="card-body">
-                    <button id="conversion-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-            -->
-                                <!-- <th scope="col">Application</th> -->
-            <!-- 
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                            
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                                <th scope="col">Next Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-conversion">
-                        </tbody>
-                    </table>
-                </div>
+            <!-- Uploaded files list #1 -->
+            <div class="uploaded-files">
+                <!-- <h5>Uploaded files:</h5> -->
+                <ol></ol>
             </div>
-            -->
-            <!-- begin My Storage-->
-
-            <!-- div style="text-align: center; margin: 30px">
-
-            </div -->
-            <!-- aside style="display: inline;">
-                <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/info.png' %} alt="info" style="height: 30px; width: 30px; display: inline" />
-                    </li>
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
-                    </li>
-                </ul>
-            </aside -->
+        </div>
 
 
-            <!-- begin RadxRate restyle (stage 2) -->
-        <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
+        <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
+        <div style="text-align: center; margin: 30px">
+        </div>
+
+    <!-- begin RadxRate restyle (stage 2) -->
+
 
             <!-- Adding an aside tag to hold the information and logs buttons -->
             <aside style="display: inline;">
-
                 <!-- Tab links -->
                 <div class="tab">
                   <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
@@ -866,7 +792,6 @@ src={% static 'custom_app/icons/log.png' %}   />
                       
                   <p>Log file for most recent run.</p>
                 </div>
-
             </aside>
 
             <div class="card" id="stage2">
@@ -875,14 +800,17 @@ src={% static 'custom_app/icons/log.png' %}   />
                 <div class="card-body">
                     <table> <!--  class="table" -->
                       <tr>
-                        <p class="stage-text"> Map Rate to Surface (RadxRate) </p>                       
+                        <p class="stage-text"> Map Rate to Surface (RadxRate) </p>
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
-                        data-target="#myModal">Choose data source </a> 
-                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
-                      </th> </tr>
+                      </tr> 
+                      <tr>
+                          <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                            data-target="#myModal">Choose data source </a> 
+                            <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                          </th> 
+                      </tr>
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
@@ -929,7 +857,6 @@ src={% static 'custom_app/icons/log.png' %}   />
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
                 -->
-
                         <tr>
                             <th class="analyze-date-time"> Analyze data from
                             </th>
@@ -949,17 +876,14 @@ src={% static 'custom_app/icons/log.png' %}   />
                             <th class="start-end-date-time"> End Date and Time </th> 
                         </tr>
                         <tr><th>&nbsp;</th> 
-                            <th class="caution"> * The start date must be earlier than the end date </th>
-                             
+                            <th class="caution"> * The start date must be earlier than the end date </th> 
                         </tr>
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>                    
 
-                </div>
-
-            </div>
-
+                </div> <!-- card body -->
+            </div> <!-- card stage 2 -->
 
         <!-- Basic Uppy styles -->
 <!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
@@ -980,10 +904,12 @@ src={% static 'custom_app/icons/log.png' %}   />
     <ol></ol>
   </div>
 </div>
+            <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>  
 
 
-                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>  
-            <!-- end RadxRate restyle -->           
+    <!-- end RadxRate restyle -->    
+
+
             <!--
             <div style="text-align: center">
                 <h1 id="third">Rainfall Estimation</h1>
@@ -1120,6 +1046,9 @@ src={% static 'custom_app/icons/log.png' %}   />
                     <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
 
             <!-- end RadxQpe restyle -->
+
+            <div style="text-align: center; margin: 30px">
+            </div>            
  
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
@@ -1147,7 +1076,7 @@ src={% static 'custom_app/icons/log.png' %}   />
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
-                  </table>
+                    </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
@@ -1225,32 +1154,36 @@ src={% static 'custom_app/icons/log.png' %}   />
             </div>
 
 
-        <!-- Basic Uppy styles -->
-<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+            <!-- Basic Uppy styles -->
+            <!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
 
 
-<div class="example-one">
-  <!-- <h5>autoProceed is on BEJ</h5> -->
+            <div class="example-one">
+              <!-- <h5>autoProceed is on BEJ</h5> -->
 
-  <!-- Target DOM node #1 -->
-  <div class="for-DragDrop"></div>
+              <!-- Target DOM node #1 -->
+              <div class="for-DragDrop"></div>
 
-  <!-- Progress bar #1 -->
-  <div class="for-ProgressBar"></div>
+              <!-- Progress bar #1 -->
+              <div class="for-ProgressBar"></div>
 
-  <!-- Uploaded files list #1 -->
-  <div class="uploaded-files">
-    <!-- <h5>Uploaded files:</h5> -->
-    <ol></ol>
-  </div>
-</div>
+              <!-- Uploaded files list #1 -->
+              <div class="uploaded-files">
+                <!-- <h5>Uploaded files:</h5> -->
+                <ol></ol>
+              </div>
+            </div>
 
 
                     <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>   
             <!-- end RateAccum restyle -->
-            
+                  
       </div> <!-- <div class="overflow-y-scroll" -->
     <!--  <button id="run-button" class="btn btn-secondary">Exit</button><br><br> -->
+
+         <div>
+            <button id="exit-workflow-button" class="btn btn-primary exit-button">Exit</button>  
+        </div>  
 
    </main>
 </div>
