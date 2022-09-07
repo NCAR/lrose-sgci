@@ -434,11 +434,22 @@
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
                 </div>
                 <div>
-                  <button class="rectangle-208">Use online data source (NEXRAD or tutorial)</button>
+                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                  <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
+                  <table class="table"> 
+                    <tbody id="onlineDataSources">
+                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td></tr>
+                    <tr><td><button id="data-source-tutorial">Tutorial</button></td></tr> 
+                    </tbody>
+                  </table>
                 </div>
 
                 <div>
-                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Continue previous stage</button>
+                  <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
+                    <table class="table" id="previousStageList">
+                        <tbody id="experiment-list-rate">
+                        </tbody>
+                    </table>
                 </div>
 
                           <!-- grabbed this from the gateway file store page ...   
@@ -1923,16 +1934,8 @@ for (i = 0; i < coll.length; i++) {
                             <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
-                            <!-- <td id="outdir_${stage}_${index}"></td> -->
-                            <td id="log_${stage}_${index}">
-                            <a href="url">view log file </a> </td>
-                            <td id="image3_${index}">
-                            <a href="/workspace/experiments/${exp.experimentId}"> 
-                              <img id="image_${stage}_${index}" src="" alt="No image" width="100" height="100"> 
-                            </a>
-                            </td>
                             <td>
-                            <a href="#stage${nextStage}" id="continue_${stage}_${index}">Continue</button>
+                            <a href="#stage${nextStage}" id="continue_${stage}_${index}">Select</button>
                              </td>
                         </tr>`
 
@@ -2012,7 +2015,38 @@ for (i = 0; i < coll.length; i++) {
         });
     }
 
+    
+    function showOnlineDataSources() {
+        console.log("inside showOnlineDataSources");
+        $(previousStageList).hide();
+        $(onlineDataSources).show();
+    } 
+
+    function showPreviousStages() {
+        console.log("inside showPreviousStagess");
+        $(previousStageList).show();
+        $(onlineDataSources).hide();
+    } 
+
+
     //$("#continue_*").click(???)
+
+    $("#get-previous-stage-button").click(function() {
+        showPreviousStages();
+        loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate")
+    });
+
+    $("#use-online-data-source").click(function() {
+        showOnlineDataSources()
+    });
+
+    $("#data-source-nexrad").click(function() {
+        console.log("data-source is nexrad")
+    });
+
+    $("#data-source-tutorial").click(function() {
+        console.log("data-source is tutorial")
+    });
 
     //loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
