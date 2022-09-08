@@ -402,6 +402,11 @@
     border-radius: 5px;
 }
 
+.done-lime-green {
+    color:  #268541;
+    background-color:  #F2FCF6;
+}
+
 </style>
 
 
@@ -438,8 +443,8 @@
                   <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
                   <table class="table"> 
                     <tbody id="onlineDataSources">
-                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td></tr>
-                    <tr><td><button id="data-source-tutorial">Tutorial</button></td></tr> 
+                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td>
+                        <td><button id="data-source-tutorial">Tutorial</button></td></tr> 
                     </tbody>
                   </table>
                 </div>
@@ -447,7 +452,7 @@
                 <div>
                   <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
                     <table class="table" id="previousStageList">
-                        <tbody id="experiment-list-rate">
+                        <tbody id="experiment-list-modal">
                         </tbody>
                     </table>
                 </div>
@@ -630,6 +635,9 @@
                     data-target="#myModal">Choose data source </a> 
                     <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon"> </th> 
                   </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage1-source"></th>
+                  </tr>
                 </table>
                 <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                 <br>
@@ -700,7 +708,10 @@
                     <tr>
                         <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
                             <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
-                        </th>
+                        </th>    
+                    </tr>
+                    <tr>
+                        <th class="done-lime-green" id="stage1-param-file"></th>
                     </tr>
                     <tbody id="parameter-file-list">
                     </tbody>
@@ -915,7 +926,7 @@
     <ol></ol>
   </div>
 </div>
-            <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>  
+            <button id="run-button-stage2" class="btn btn-primary run-button">Run</button>  
 
 
     <!-- end RadxRate restyle -->    
@@ -1054,7 +1065,7 @@
 </div>
 
 
-                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
+                    <button id="run-button-stage3" class="btn btn-primary run-button">Run</button>            
 
             <!-- end RadxQpe restyle -->
 
@@ -1186,7 +1197,7 @@
             </div>
 
 
-                    <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>   
+                    <button id="run-button-stage4" class="btn btn-primary run-button">Run</button>   
             <!-- end RateAccum restyle -->
                   
       </div> <!-- <div class="overflow-y-scroll" -->
@@ -1430,6 +1441,7 @@ for (i = 0; i < coll.length; i++) {
         $("#stage1-start-time-label").show();
         $("#stage1-end-time-label").show();
         $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
+        $("#stage1-param-file").text("Default");
     }
 
     function setStage1File() {
@@ -1453,7 +1465,7 @@ for (i = 0; i < coll.length; i++) {
         // TODO: change the input boxes to time and radar name
         $("#stage1-file").hide();
         $("#stage1-source").attr("source", RADAR_ENUM);
-        $("#stage1-source").text("Radar");
+        $("#stage1-source").text("NEXRAD");
         $("#stage1-radar-name").show();
         $("#stage1-start-time").show();
         $("#stage1-end-time").show();
@@ -1923,6 +1935,7 @@ for (i = 0; i < coll.length; i++) {
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stageAppInterfaceId
         }).then(data => {
             console.log("inside loadStageExperiments; stage =" + stage);
+            console.log("               stageAppInterfaceId = " + stageAppInterfaceId);
             const nextStage = stage + 1;
             $(experimentList).empty();
             data.results.forEach((exp, index) => {
@@ -2028,12 +2041,63 @@ for (i = 0; i < coll.length; i++) {
         $(onlineDataSources).hide();
     } 
 
+    var currentStage = 1;
+
+
+    function setCurrentStage() {
+        var windowscroll = $(window).scrollTop();
+        var sec1 = $('#stage1').offset().top;
+        var sec2 = $('#stage2').offset().top;
+        var sec3 = $('#stage3').offset().top;
+        var sec4 = $('#stage4').offset().top;   
+         
+        console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);
+        console.log("windowscroll="+windowscroll);
+        currentStage = 1;
+        if (sec1 < 0) {
+          currentStage += 1;
+        }
+        if (sec2 < 0) {
+          currentStage += 1;
+        }
+        if (sec3 < 0) {
+          currentStage += 1;
+        }
+        //if (sec4 < 0) {
+        //  currentStage += 1;
+        //}
+        console.log("setting stage = " + currentStage);
+    }
+
 
     //$("#continue_*").click(???)
 
     $("#get-previous-stage-button").click(function() {
         showPreviousStages();
-        loadStageExperiments(2, stage2AppInterfaceId, "#experiment-list-rate")
+        setCurrentStage();
+        console.log("current stage = " + currentStage);
+        var appIId = stage2AppInterfaceId;
+        var experimentList = "#experiment-list-modal";
+        switch (currentStage-1) {
+            case 0: 
+                appIId = stage1AppInterfaceId; 
+                break;
+            case 1: 
+                appIId = stage1AppInterfaceId; 
+                //experimentList = "#experiment-list-conversion";
+                break;
+            case 2: 
+                appIId = stage2AppInterfaceId; 
+                //experimentList = "#experiment-list-rate";
+                break;
+            case 3: 
+                appIId = stage3AppInterfaceId; 
+                //experimentList = "#experiment-list-qpe";
+                break;
+            default:                                    
+        }
+
+        loadStageExperiments(currentStage-1, appIId, "#experiment-list-modal")
     });
 
     $("#use-online-data-source").click(function() {
@@ -2041,11 +2105,13 @@ for (i = 0; i < coll.length; i++) {
     });
 
     $("#data-source-nexrad").click(function() {
-        console.log("data-source is nexrad")
+        console.log("data-source is nexrad");
+        setStage1Radar();
     });
 
     $("#data-source-tutorial").click(function() {
-        console.log("data-source is tutorial")
+        console.log("data-source is tutorial");
+        setStage1Tutorial();
     });
 
     //loadRadxConversionExperiments();
@@ -2067,25 +2133,27 @@ for (i = 0; i < coll.length; i++) {
 
 
     $("#run-radxconvert-button").click(e => {
+
         const step = "RadxConvert"; // $("#greeting-select").val();
         //const data_file_uri = "\"2020 09 29 12 00 00\"";
         //const param_file_uri = "\"2020 09 29 12 10 00\"";
-        const data_file_source = TUTORIAL_ENUM; // $(`#stage1-source`).attr("source");
-        const radar_name = "RCWF"; // $(`#stage1-radar-name`).val();
-        //const start_time = tutorial_start_date; // $(`#stage1-start-time`).val();
-        //const end_time = tutorial_end_date; // $(`#stage1-end-time`).val();
+        const data_file_source = $(`#stage1-source`).attr("source");
+        const radar_name = $(`#stage1-radar-name`).val();
+        const start_time = $(`#stage1-start-time`).val();
+        const end_time =   $(`#stage1-end-time`).val();
         // reformat the start and end times for RadxConvert yyyy mm dd hh mm ss
         //js_start_time = new Date(Date.parse(tutorial_start_date));
         //iso_time = js_start_time.toISOString();
         //console.log(iso_time);
-        let start_time = tutorial_start_date.replace(/-|T|:|Z/g, " "); 
+        //let start_time = tutorial_start_date.replace(/-|T|:|Z/g, " "); 
         //getFullYear().toString();
         //start_time.append(" " + js_start_time.getMonth() " " + js_start_time.getDate() + " " + js_start_time.getHours() + " " + js_start_time.getMinutes() + " " + js_start_time.getSeconds();
-        console.log("HERE!!!");
+        console.log("stage1-RadxConvert params ...");
         console.log(start_time);
+        console.log(end_time);
         //js_end_time = new Date(Date.parse(tutorial_end_date));
         //iso_time =  js_end_time.toISOString();
-        let end_time = tutorial_end_date.replace(/-|T|:|Z/g, " ");
+        //let end_time = tutorial_end_date.replace(/-|T|:|Z/g, " ");
         // getFullYear() + " " + js_end_time.getMonth() + " " + js_end_time.getDate() + " " + js_end_time.getHours() + " " + js_end_time.getMinutes() + " " + js_end_time.getSeconds();
 
         console.log("data_file_source: " + data_file_source);
