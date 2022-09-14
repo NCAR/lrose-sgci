@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<head>
 <style>
     .active {
         background-color: #4CAF50;
@@ -408,6 +409,7 @@
 }
 
 </style>
+</head>
 
 
 
@@ -416,7 +418,7 @@
     <main class="main-content">
 
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
+        <div id="myModal" class="modal fade" role="dialog" onload="generateDataSources()">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -425,13 +427,16 @@
                 <h4 class="modal-title" style="text-align: center">Choose data source</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-              <div class="modal-body">
+              <table> <!--  class="modal-body"> -->
+                <tbody id="chooseDataSourceTable">
+                </tbody>
+                
                 <!-- <p>Drop files here <br> or </p> -->
 
                 <!-- Basic Uppy styles -->
                 <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
                 <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
-
+<!--
                 <div>
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
                 </div>
@@ -439,8 +444,9 @@
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
                 </div>
                 <div>
-                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button> -->
                   <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
+                  <!--
                   <table class="table"> 
                     <tbody id="onlineDataSources">
                     <tr><td><button id="data-source-nexrad" >NEXRAD</button></td>
@@ -455,7 +461,7 @@
                         <tbody id="experiment-list-modal">
                         </tbody>
                     </table>
-                </div>
+                </div> -->
 
                           <!-- grabbed this from the gateway file store page ...   
                         <div id="user-storage"/>
@@ -471,11 +477,11 @@
                         <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.9bbd477b.js" ></script>
                         <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.35b9584d.js" ></script>    
                           end ... grabbed this from the gateway file store page ...    -->
-                  
-                <div class="modal-footer">
+                  <!--
+                <div class="modal-footer"> -->
                     <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
-                </div>
-              </div> <!-- modal-body -->
+             <!--   </div> -->
+              </table> <!-- modal-body -->
             </div> <!-- class modal content -->
 
           </div>  <!-- class modal dialog -->
@@ -484,7 +490,7 @@
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
     <!-- class comes from bootstrap -->
-    <div class="container-fluid">
+    <div class="container-fluid" id="dotNav">
         <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
             <h1 style="text-align: center">Rainfall Estimation</h1>
             <a href="url">Learn more </a> | <a href="url">Help </a> 
@@ -551,8 +557,7 @@
         </div>
     </div> <!-- end container-fluid -->
 
-
-    <div class="overflow-y-scroll" > <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
+    <div class="overflow-y-scroll"  onscroll="scrollFunction()"> <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
 
         <!-- Adding an aside tag to hold the information and logs buttons -->
         <aside style="display: inline;">
@@ -631,7 +636,7 @@
                       <th class="step-text">Step 1 </th>
                   </tr> 
                   <tr> 
-                    <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                    <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
                     data-target="#myModal">Choose data source </a> 
                     <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon"> </th> 
                   </tr>
@@ -1319,6 +1324,51 @@ for (i = 0; i < coll.length; i++) {
         );
     };
 
+
+    function generateDataSources() {
+        console.log("inside generateDataSources");
+        setCurrentStage();
+               // <!-- <p>Drop files here <br> or </p> -->
+
+               // <!-- Basic Uppy styles -->
+               // <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
+               // <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
+        $("#chooseDataSourceTable").empty();
+        // TODO: make this a table??
+        $("#chooseDataSourceTable").append(        
+                `<tr><td>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button></td>
+                </tr>
+                <tr><td>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button><td>
+                </tr>`);
+        if (currentStage == 1) {
+            $("#chooseDataSourceTable").append( 
+                `<tr><td>
+                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                  <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
+                  <table class="table"> 
+                    <tbody id="onlineDataSources">
+                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td>
+                        <td><button id="data-source-tutorial">Tutorial</button></td></tr> 
+                    </tbody>
+                  </table>
+                  </td>
+                </tr>`);
+        }
+        if (currentStage > 1) {
+            $("#chooseDataSourceTable").append( 
+                `<tr><td>
+                  <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
+                    <table class="table" id="previousStageList">
+                        <tbody id="experiment-list-modal">
+                        </tbody>
+                    </table>
+                  </td>
+                </tr>`
+                );
+        }
+    }
     function printArgs() {
         stage1_input_uri = "beautiful";
         console.log(stage1_input_uri);
@@ -1342,7 +1392,6 @@ for (i = 0; i < coll.length; i++) {
             printArgs()
         });
     });
-
 
     var labelID;
 
@@ -1794,9 +1843,9 @@ for (i = 0; i < coll.length; i++) {
             [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
         }).then(data => {
-            $("#experiment-list-conversion").empty();
+            $("#experiment-list-modal").empty();
             data.results.forEach((exp, index) => {
-                $("#experiment-list-conversion").append(
+                $("#experiment-list-modal").append(
                     `<tr>
                             <td>${exp.name}</td>
                             <!-- <td>${exp.executionId}</td> -->
@@ -2041,33 +2090,49 @@ for (i = 0; i < coll.length; i++) {
         $(onlineDataSources).hide();
     } 
 
-    var currentStage = 1;
+// WORKING HERE ...
+    window.onscroll = function() {scrollFunction()};
 
-
-    function setCurrentStage() {
-        var windowscroll = $(window).scrollTop();
-        var sec1 = $('#stage1').offset().top;
-        var sec2 = $('#stage2').offset().top;
-        var sec3 = $('#stage3').offset().top;
-        var sec4 = $('#stage4').offset().top;   
+    function scrollFunction() {
+      console.log("inside scrollFunction ");
+        var offset = $('#dotNav').offset().top;
+        //offset += $('dotNav').height();
+        console.log("offset=" + offset);
+        var sec1 = $('#stage1').offset().top + offset;
+        var sec2 = $('#stage2').offset().top + offset;
+        var sec3 = $('#stage3').offset().top + offset;
+        var sec4 = $('#stage4').offset().top + offset;   
          
-        console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);
-        console.log("windowscroll="+windowscroll);
+        console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);  
+
+        //console.log("windowscroll="+c.scrollTop());
         currentStage = 1;
+        $("#circle-stage1").click();
         if (sec1 < 0) {
           currentStage += 1;
+          $("#circle-stage2").click();
         }
         if (sec2 < 0) {
           currentStage += 1;
+          $("#circle-stage3").click();
         }
         if (sec3 < 0) {
           currentStage += 1;
+          $("#circle-stage4").click();
         }
         //if (sec4 < 0) {
         //  currentStage += 1;
         //}
         console.log("setting stage = " + currentStage);
+
+     // if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+     //   document.getElementById("navbar").style.top = "0";
+     // } else {
+     //   document.getElementById("navbar").style.top = "-50px";
+     // }
     }
+// end WORKING HERE
+    var currentStage = 1;
 
 
     //$("#continue_*").click(???)
@@ -2096,8 +2161,11 @@ for (i = 0; i < coll.length; i++) {
                 break;
             default:                                    
         }
-
-        loadStageExperiments(currentStage-1, appIId, "#experiment-list-modal")
+        if (currentStage == 1) {
+            loadRadxConversionExperiments();
+        } else {
+            loadStageExperiments(currentStage-1, appIId, "#experiment-list-modal");
+        }
     });
 
     $("#use-online-data-source").click(function() {
@@ -2106,6 +2174,16 @@ for (i = 0; i < coll.length; i++) {
 
     $("#data-source-nexrad").click(function() {
         console.log("data-source is nexrad");
+        setCurrentStage();
+        console.log("current stage = " + currentStage);
+        var appIId = stage2AppInterfaceId;
+        var experimentList = "#experiment-list-modal";
+        switch (currentStage-1) {
+            case 0: 
+                appIId = stage1AppInterfaceId; 
+                break;
+            default:
+        }        
         setStage1Radar();
     });
 
@@ -2177,6 +2255,94 @@ for (i = 0; i < coll.length; i++) {
         // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "149.165.152.168_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = end_time;
+                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+
+
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
+    });
+
+
+
+
+    $("#run-button-stage2").click(e => {
+
+        //const step = "RadxConvert"; // $("#greeting-select").val();
+        //const data_file_uri = "\"2020 09 29 12 00 00\"";
+        //const param_file_uri = "\"2020 09 29 12 10 00\"";
+        const data_file_source = $(`#stage2-source`).attr("source");
+        const radar_name = $(`#stage2-radar-name`).val();  
+        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
+        const start_time = $(`#stage2-start-time`).val();
+        const end_time =   $(`#stage2-end-time`).val();
+        // reformat the start and end times for RadxConvert yyyy mm dd hh mm ss
+        //js_start_time = new Date(Date.parse(tutorial_start_date));
+        //iso_time = js_start_time.toISOString();
+        //console.log(iso_time);
+        //let start_time = tutorial_start_date.replace(/-|T|:|Z/g, " "); 
+        //getFullYear().toString();
+        //start_time.append(" " + js_start_time.getMonth() " " + js_start_time.getDate() + " " + js_start_time.getHours() + " " + js_start_time.getMinutes() + " " + js_start_time.getSeconds();
+        console.log("stage2-RadxRate params ...");
+        console.log(start_time);
+        console.log(end_time);
+        //js_end_time = new Date(Date.parse(tutorial_end_date));
+        //iso_time =  js_end_time.toISOString();
+        //let end_time = tutorial_end_date.replace(/-|T|:|Z/g, " ");
+        // getFullYear() + " " + js_end_time.getMonth() + " " + js_end_time.getDate() + " " + js_end_time.getHours() + " " + js_end_time.getMinutes() + " " + js_end_time.getSeconds();
+
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        //console.log("start time: " + start_time);
+        //console.log("end time: " + end_time);
+        const data_file_uri = $(`#stage2-file`).attr("uri");
+        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = $(`#stage2-param-file`).attr("uri")
+            // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
+            //const radar_name = "KFTG";
+            // We need the app interface to be the same, so we can retrieve all related experiements;
+            // We will need to send different parameters based on the data_file_source
+
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage2AppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+
+        // TODO: get the id of the RadxConvert_display application
+        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
