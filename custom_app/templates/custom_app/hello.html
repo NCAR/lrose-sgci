@@ -144,6 +144,10 @@
         width:  60em;
     }
 
+    .workflow-header {
+       height: 3px;
+    }
+
     .step-text {
         /* font-family: 'Roboto'; */
         font-style: normal;
@@ -418,7 +422,7 @@
     <main class="main-content">
 
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog" onload="generateDataSources()">
+        <div id="myModal" class="modal fade" role="dialog" onshow="generateDataSources()">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -490,7 +494,7 @@
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
     <!-- class comes from bootstrap -->
-    <div class="container-fluid" id="dotNav">
+    <div class="container-fluid workflow-header" id="dotNav">
         <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
             <h1 style="text-align: center">Rainfall Estimation</h1>
             <a href="url">Learn more </a> | <a href="url">Help </a> 
@@ -833,7 +837,7 @@
                           <th class="step-text">Step 1 </th>
                       </tr> 
                       <tr>
-                          <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                          <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
                             data-target="#myModal">Choose data source </a> 
                             <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                           </th> 
@@ -967,7 +971,7 @@
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                      </tr> <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()"  data-toggle="modal" 
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
@@ -1099,7 +1103,7 @@
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" data-toggle="modal" 
+                      </tr> <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
@@ -1326,8 +1330,8 @@ for (i = 0; i < coll.length; i++) {
 
 
     function generateDataSources() {
-        console.log("inside generateDataSources");
-        setCurrentStage();
+        console.log("inside generateDataSources currentStage=" + currentStage);
+        // setCurrentStage();
                // <!-- <p>Drop files here <br> or </p> -->
 
                // <!-- Basic Uppy styles -->
