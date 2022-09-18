@@ -412,6 +412,15 @@
     background-color:  #F2FCF6;
 }
 
+progress {
+  margin: 4px;
+}
+
+progress:indeterminate {
+  width: 50vw;
+  height: 30px;
+}
+
 </style>
 </head>
 
@@ -786,7 +795,8 @@
             </div>
         </div>
 
-
+        <!-- progress></progress -->
+        <button id="check-status-button" class="btn btn-primary run-button">Check Status</button>          
         <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
         <div style="text-align: center; margin: 30px">
         </div>
@@ -1346,20 +1356,25 @@ for (i = 0; i < coll.length; i++) {
                 <tr><td>
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button><td>
                 </tr>`);
-        if (currentStage == 1) {
-            $("#chooseDataSourceTable").append( 
+
+        $("#chooseDataSourceTable").append( 
                 `<tr><td>
                   <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
                   <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
                   <table class="table"> 
                     <tbody id="onlineDataSources">
-                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td>
-                        <td><button id="data-source-tutorial">Tutorial</button></td></tr> 
+                    <tr>
+                      <td><button id="data-source-tutorial">Tutorial</button></td>`);
+        if (currentStage == 1) {
+            $("#chooseDataSourceTable").append( 
+                    `<td><button id="data-source-nexrad" >NEXRAD</button></td>`);
+        }
+        $("#chooseDataSourceTable").append( 
+                        `</tr> 
                     </tbody>
                   </table>
                   </td>
                 </tr>`);
-        }
         if (currentStage > 1) {
             $("#chooseDataSourceTable").append( 
                 `<tr><td>
@@ -1979,6 +1994,100 @@ for (i = 0; i < coll.length; i++) {
         });
     }
 
+
+    function checkStatus(experimentId) {
+        //return 
+        // services.ExperimentSearchService.list({
+        //      limit: 3,
+        //     [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
+        //    [models.ExperimentSearchFields.APPLICATION_ID.name]: experimentId
+        //}).then(data => {
+        //    console.log("inside loadStageExperiments; stage =" + stage);
+        //    console.log("               stageAppInterfaceId = " + stageAppInterfaceId);
+        //    const nextStage = stage + 1;
+        //    $(experimentList).empty();
+        //    data.results.forEach((exp, index) => {
+        //        // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
+        //        // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
+        //        $(experimentList).append(
+        //            `<tr>
+        //                    <td>${exp.name}</td>
+        //                    <!-- <td>${exp.executionId}</td> -->
+        //                    <td>${exp.experimentStatus.name}</td>
+        //                    <td>${exp.creationTime}</td>
+        //                    <td>
+        //                    <a href="#stage${nextStage}" id="continue_${stage}_${index}">Select</button>
+        //                     </td>
+        //                </tr>`
+
+        //        );
+                // TODO: the url for continue needs to have the experimentId 
+                //       the url would be the next step card, 
+                // If experiment has finished, load full details, then parse the stdout file
+        //        if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
+        return  services.FullExperimentService.retrieve({
+                            lookup: experimentId
+                        })
+                        .then(fullDetails => {
+                            console.log('here 1111');
+                            console.log("experimentStatusName=" + fullDetails.experimentStatusName);
+                            if (fullDetails.isProgressing) {
+                                console.log('progressing ...');
+                            } else {
+                                console.log('not progressing!');
+                            }
+                            /*
+                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "input_parameters"
+                            ).value;
+                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === inputParametersDataProductId
+                            );
+
+                            const processDirName = fullDetails.experiment.processes[0].processId;
+                            if (
+                                processDirName // &&
+                                // inputParametersDataProduct.downloadURL  
+                            ) {
+                                console.log('here 1112');
+                                //$(`#outdir_${stage}_${index}`).text(processDirName);
+                                //$(`#continue_${stage}_${index}`).on("click", function() {
+                                //    populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
+                                //});
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            }
+                            console.log('here 111');
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Images" // TODO: what is the name of the image dir?
+                            ).value;
+                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
+                            const imageArray = outdirDataProductId.split(',');
+                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
+                            const outdirDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === firstOne
+                            );
+                            // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
+                            // https://gateway.lrose.net/workspace/experiments/
+                            if (
+                                outdirDataProduct &&
+                                outdirDataProduct.downloadURL
+                            ) {
+                                console.log("index=" + index + " here ... Have downloadURL");
+                                console.log(outdirDataProduct.downloadURL);
+                                //$(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);
+                                // also make a link to the experiment results 
+                                //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
+                            }
+                            */
+                        },
+                        function(error) {console.log('there was an error');}
+                        );
+                //}
+            //});
+        //});
+    }
+    
+
     // TODO: args stage2AppInterfaceId, experiment-list
     // stage = 2, 
     function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
@@ -2213,6 +2322,12 @@ for (i = 0; i < coll.length; i++) {
         console.log($(`#stage1-file`).attr("uri"));
     });
 
+    var theExperimentId = "something";
+
+    $("#check-status-button").click(function() {
+      checkStatus(theExperimentId)
+      // TODO: does experiment.launch return the experimentId?????
+    });
 
     $("#run-radxconvert-button").click(e => {
 
@@ -2292,6 +2407,8 @@ for (i = 0; i < coll.length; i++) {
                     data: experiment
                 });
             }).then(exp => {
+                theExperimentId = exp.experimentId;
+                console.log("theExperimentId=" + theExperimentId);
                 return services.ExperimentService.launch({
                     lookup: exp.experimentId
                 });
