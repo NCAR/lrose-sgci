@@ -431,7 +431,7 @@ progress:indeterminate {
     <main class="main-content">
 
         <!-- Modal -->
-        <div id="myModal" class="modal fade" role="dialog" onshow="generateDataSources()">
+        <div id="myModal" class="modal fade" role="dialog">
           <div class="modal-dialog">
 
             <!-- Modal content-->
@@ -440,16 +440,13 @@ progress:indeterminate {
                 <h4 class="modal-title" style="text-align: center">Choose data source</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
               </div>
-              <table> <!--  class="modal-body"> -->
-                <tbody id="chooseDataSourceTable">
-                </tbody>
-                
+             
                 <!-- <p>Drop files here <br> or </p> -->
 
                 <!-- Basic Uppy styles -->
                 <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
                 <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
-<!--
+
                 <div>
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
                 </div>
@@ -457,24 +454,16 @@ progress:indeterminate {
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
                 </div>
                 <div>
-                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button> -->
-                  <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
-                  <!--
-                  <table class="table"> 
-                    <tbody id="onlineDataSources">
-                    <tr><td><button id="data-source-nexrad" >NEXRAD</button></td>
-                        <td><button id="data-source-tutorial">Tutorial</button></td></tr> 
-                    </tbody>
-                  </table>
+                      <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                     <div>
+                       <button id="data-source-tutorial">Tutorial</button>
+                       <button id="data-source-nexrad" >NEXRAD</button>
+                    </div>
                 </div>
-
+                 
                 <div>
                   <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
-                    <table class="table" id="previousStageList">
-                        <tbody id="experiment-list-modal">
-                        </tbody>
-                    </table>
-                </div> -->
+                </div>
 
                           <!-- grabbed this from the gateway file store page ...   
                         <div id="user-storage"/>
@@ -490,11 +479,12 @@ progress:indeterminate {
                         <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.9bbd477b.js" ></script>
                         <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.35b9584d.js" ></script>    
                           end ... grabbed this from the gateway file store page ...    -->
-                  <!--
-                <div class="modal-footer"> -->
-                    <!-- button type="button" class="btn btn-default" data-dismiss="modal">Close</button-->
-             <!--   </div> -->
-              </table> <!-- modal-body -->
+                  
+                <div class="modal-footer"> 
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 </div>
+            
+
             </div> <!-- class modal content -->
 
           </div>  <!-- class modal dialog -->
@@ -649,8 +639,9 @@ progress:indeterminate {
                       <th class="step-text">Step 1 </th>
                   </tr> 
                   <tr> 
-                    <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
-                    data-target="#myModal">Choose data source </a> 
+                    <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
                     <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon"> </th> 
                   </tr>
                   <tr>
@@ -796,7 +787,7 @@ progress:indeterminate {
         </div>
 
         <!-- progress></progress -->
-        <button id="check-status-button" class="btn btn-primary run-button">Check Status</button>          
+        <button id="check-status-button" class="btn btn-primary run-button">Stop Status Check</button>          
         <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
         <div style="text-align: center; margin: 30px">
         </div>
@@ -847,7 +838,8 @@ progress:indeterminate {
                           <th class="step-text">Step 1 </th>
                       </tr> 
                       <tr>
-                          <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
+                          <th> <a href="#" class="hyperlink-text" 
+                            onclick="hideUnavailableDataSources()"  data-toggle="modal" 
                             data-target="#myModal">Choose data source </a> 
                             <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                           </th> 
@@ -981,7 +973,8 @@ progress:indeterminate {
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()"  data-toggle="modal" 
+                      </tr> <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()"   data-toggle="modal" 
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
@@ -1113,7 +1106,8 @@ progress:indeterminate {
                       </tr>
                       <tr>
                           <th class="step-text">Step 1 </th>
-                      </tr> <th> <a href="#" class="hyperlink-text" onclick="generateDataSources()" data-toggle="modal" 
+                      </tr> <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()"  data-toggle="modal" 
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
@@ -1293,6 +1287,152 @@ for (i = 0; i < coll.length; i++) {
 }
 
 
+    function loadRadxConversionExperiments() {
+        return services.ExperimentSearchService.list({
+            limit: 3,
+            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
+        }).then(function (data) {
+            console.log("inside loadRadxConversionExperiments");
+            $("#experiment-list-modal").empty();
+            data.results.forEach(function (exp, index) {
+                $("#experiment-list-modal").append(
+                    `<tr>
+                            <td>${exp.name}</td>
+                            <!-- <td>${exp.executionId}</td> -->
+                            <td>${exp.experimentStatus.name}</td>
+                            <td>${exp.creationTime}</td>
+                            <!-- <td id="outdir_${index}"></td> -->
+                            <td id="log_${index}">
+                            <a href="url">view log file </a> </td>
+                            <td id="image3_${index}">
+                            <a href="/workspace/experiments/${exp.experimentId}"> 
+                              <img id="image_${index}" src="" alt="No image" width="100" height="100"> </td>
+                            </a>
+                            <td>
+                            <a href="#stage2" id="continue_${index}">Continue</button>
+                             </td>
+                        </tr>`
+                );
+                // TODO: the url for continue needs to have the experimentId 
+                //       the url would be the next step card, 
+                // If experiment has finished, load full details, then parse the stdout file
+                // something messed up from here ...
+                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                    services.FullExperimentService.retrieve({
+                            lookup: exp.experimentId
+                        }).then(fullDetails => {
+                            console.log('here 1111');
+                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "input_parameters"
+                            ).value;
+                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === inputParametersDataProductId
+                            );
+
+                            const processDirName = fullDetails.experiment.processes[0].processId;
+                            if (
+                                processDirName &&
+                                inputParametersDataProduct.downloadURL
+                            ) {
+                                console.log('here 1112');
+                                //$(`#outdir_${index}`).text(processDirName);
+                                $(`#continue_${index}`).on("click", function() {
+                                    populateStage2(processDirName, inputParametersDataProduct.downloadURL);
+                                });
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            }
+                            console.log('here 111');
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Images" // TODO: what is the name of the image dir?
+                            ).value;
+                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
+                            const imageArray = outdirDataProductId.split(',');
+                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
+                            const outdirDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === firstOne
+                            );
+                            if (
+                                outdirDataProduct &&
+                                outdirDataProduct.downloadURL
+                            ) {
+                                console.log("index=" + index + " here ... Have downloadURL");
+                                console.log(outdirDataProduct.downloadURL);
+                                $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
+                            }
+                        });  // fullDetails
+                } // experimentStatus
+                // ... to here 
+            })
+        });
+    };
+
+    $("#run-radxconvert-button").click(function (e) {
+        const step = "RadxConvert";
+        const data_file_source = $(`#stage1-source`).attr("source");
+        const radar_name = $(`#stage1-radar-name`).val();
+        const start_time = $(`#stage1-start-time`).val();
+        const end_time =   $(`#stage1-end-time`).val();
+        console.log("stage1-RadxConvert params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage1-file`).attr("uri");
+        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = $(`#stage1-param-file`).attr("uri");
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage1AppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+
+        // TODO: get the id of the RadxConvert_display application
+        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "149.165.152.168_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = end_time;
+                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                theExperimentId = exp.experimentId;
+                console.log("theExperimentId=" + theExperimentId);
+                // start checkStatus timer 
+                // this is not working; generates syntax error unexpected token 'Promise'
+                //myVar = setInterval(checkStatus(theExperimentId), 10000);  
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            }).catch(console.log);
+        return 0;
+    });
+
     function chooseDataSourceDate() {
         console.log("inside chooseDataSource");
         $("#data-source-list").append(
@@ -1348,7 +1488,6 @@ for (i = 0; i < coll.length; i++) {
                // <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
                // <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
         $("#chooseDataSourceTable").empty();
-        // TODO: make this a table??
         $("#chooseDataSourceTable").append(        
                 `<tr><td>
                   <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button></td>
@@ -1388,6 +1527,26 @@ for (i = 0; i < coll.length; i++) {
                 );
         }
     }
+
+    function hideUnavailableDataSources() {
+        console.log("inside hideUnavailableDataSources currentStage=" + currentStage);
+        
+        if (currentStage > 1) {
+            console.log("should hide NEXRAD");
+            $("#data-source-nexrad").hide();
+            $("#get-previous-stage-button").show();            
+        }
+
+        if (currentStage == 1) {
+            console.log("currentStage == 1");
+            $("#get-previous-stage-button").hide();
+            $("#data-source-nexrad").show();
+        }
+
+
+        
+    }
+
     function printArgs() {
         stage1_input_uri = "beautiful";
         console.log(stage1_input_uri);
@@ -1843,248 +2002,26 @@ for (i = 0; i < coll.length; i++) {
                 });
             })
     };
+ 
 
-    function some_function(processDirName) {
-        return new Promise(function(resolve, reject) {
-            let x = 0;
-
-            if (x == 0) {
-                resolve(alert(processDirName));
-            } else {
-                reject(alert("It broke"));
-            }
-        });
-    };
-
-    function loadRadxConversionExperiments() {
-        return services.ExperimentSearchService.list({
-            limit: 3,
-            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
-            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
-        }).then(data => {
-            $("#experiment-list-modal").empty();
-            data.results.forEach((exp, index) => {
-                $("#experiment-list-modal").append(
-                    `<tr>
-                            <td>${exp.name}</td>
-                            <!-- <td>${exp.executionId}</td> -->
-                            <td>${exp.experimentStatus.name}</td>
-                            <td>${exp.creationTime}</td>
-                            <!-- <td id="outdir_${index}"></td> -->
-                            <td id="log_${index}">
-                            <a href="url">view log file </a> </td>
-                            <td id="image3_${index}">
-                            <a href="/workspace/experiments/${exp.experimentId}"> 
-                              <img id="image_${index}" src="" alt="No image" width="100" height="100"> </td>
-                            </a>
-                            <td>
-                            <a href="#stage2" id="continue_${index}">Continue</button>
-                             </td>
-                        </tr>`
-
-                    // <a href="#stage2">continue next step </a>
-
-                    // <a rel="nofollow" href="http"
-                    //    <a rel="${exp.processDirName}" href="#stage2">continue next step </a> </td>
-
-                );
-                // TODO: the url for continue needs to have the experimentId 
-                //       the url would be the next step card, 
-                // If experiment has finished, load full details, then parse the stdout file
-                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
-                    services.FullExperimentService.retrieve({
-                            lookup: exp.experimentId
-                        })
-                        //.then(fullDetails => {
-                        //    console.log('here 11');
-                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                        //        o => o.name === "Output-Dir"
-                        //    ).value;  
-                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
-                        //        dp => dp.productUri === stdoutDataProductId
-                        //    );
-                        //    if (
-                        //        stdoutDataProduct &&
-                        //        stdoutDataProduct.downloadURL
-                        //    ) {
-                        //        console.log('here 12');
-                        //        return stdoutDataProductId.name;
-                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                        //        //    credentials: "same-origin"
-                        //        //}).then(result => result.text());
-                        //    }
-                        //})
-                        .then(fullDetails => {
-                            console.log('here 1111');
-                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "input_parameters"
-                            ).value;
-                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === inputParametersDataProductId
-                            );
-
-                            const processDirName = fullDetails.experiment.processes[0].processId;
-                            if (
-                                processDirName &&
-                                inputParametersDataProduct.downloadURL
-                            ) {
-                                console.log('here 1112');
-                                //$(`#outdir_${index}`).text(processDirName);
-                                $(`#continue_${index}`).on("click", function() {
-                                    populateStage2(processDirName, inputParametersDataProduct.downloadURL);
-                                });
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value;
-                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
-                            const imageArray = outdirDataProductId.split(',');
-                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
-                            const outdirDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === firstOne
-                            );
-                            if (
-                                outdirDataProduct &&
-                                outdirDataProduct.downloadURL
-                            ) {
-                                console.log("index=" + index + " here ... Have downloadURL");
-                                console.log(outdirDataProduct.downloadURL);
-                                $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
-
-                                //        return stdoutDataProductId.name;
-                                //return fetch(outdirDataProduct.downloadURL, {
-                                //    credentials: "same-origin"
-                                //}).then(result => result.text());   
-                            }
-                            //                        })
-                            //                        .then(text => {
-                            //                                console.log('here 112');
-                            //                                //console.log(text);
-                            //                        //        $(`#outdir_${index}`).text(outdirDataProductId);
-                            //                                const testOutputProductId = "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1";
-                            //                               //const imgsrc = "data:image/png;base64," + text; // btoa(String.fromCharCode.apply(null, text);
-                            //                               if (text) {
-                            //
-                            //                                  console.log("index=" + index + " if (text) is true, setting the image src");
-                            //
-                            //                                  //$(`#image_${index}`).attr('src', text); // .show();
-                            //                                } else {
-                            //                                    console.log("if (text) is false");
-                            //                                }
-                            //                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                            //                        //        //    credentials: "same-origin"
-                            //                        //        //}).then(result => result.text());
-                        });
-                    //})
-                    //.then(fullDetails => {
-
-                    //});
-                    // .catch(alert("Problem fetching previous experiments")); 
-                    //.then(text => {
-                    //    //$(`#continue_${index}`).text(text);
-                    //    $(`#continue_${index}`).click(function() {
-                    ////       alert(exp.processes.processId);
-                    //        alert(exp.experimentId);
-                    //    })
-                    //});
-                }
-            });
-        });
-    }
 
 
     function checkStatus(experimentId) {
-        //return 
-        // services.ExperimentSearchService.list({
-        //      limit: 3,
-        //     [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
-        //    [models.ExperimentSearchFields.APPLICATION_ID.name]: experimentId
-        //}).then(data => {
-        //    console.log("inside loadStageExperiments; stage =" + stage);
-        //    console.log("               stageAppInterfaceId = " + stageAppInterfaceId);
-        //    const nextStage = stage + 1;
-        //    $(experimentList).empty();
-        //    data.results.forEach((exp, index) => {
-        //        // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
-        //        // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
-        //        $(experimentList).append(
-        //            `<tr>
-        //                    <td>${exp.name}</td>
-        //                    <!-- <td>${exp.executionId}</td> -->
-        //                    <td>${exp.experimentStatus.name}</td>
-        //                    <td>${exp.creationTime}</td>
-        //                    <td>
-        //                    <a href="#stage${nextStage}" id="continue_${stage}_${index}">Select</button>
-        //                     </td>
-        //                </tr>`
-
-        //        );
-                // TODO: the url for continue needs to have the experimentId 
-                //       the url would be the next step card, 
-                // If experiment has finished, load full details, then parse the stdout file
-        //        if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
         return  services.FullExperimentService.retrieve({
-                            lookup: experimentId
+                            lookup: theExperimentId
                         })
                         .then(fullDetails => {
-                            console.log('here 1111');
+                            console.log('here 1122');
                             console.log("experimentStatusName=" + fullDetails.experimentStatusName);
-                            if (fullDetails.isProgressing) {
-                                console.log('progressing ...');
-                            } else {
-                                console.log('not progressing!');
+                            if (fullDetails.experimentStatusName === models.ExperimentState.COMPLETED) {
+                                console.log("DONE");
+                                // stop the progress bar
+                                clearInterval(myVar);
+                                // report DONE
+                                // display an image from the results
+                                return;
                             }
-                            /*
-                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "input_parameters"
-                            ).value;
-                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === inputParametersDataProductId
-                            );
-
-                            const processDirName = fullDetails.experiment.processes[0].processId;
-                            if (
-                                processDirName // &&
-                                // inputParametersDataProduct.downloadURL  
-                            ) {
-                                console.log('here 1112');
-                                //$(`#outdir_${stage}_${index}`).text(processDirName);
-                                //$(`#continue_${stage}_${index}`).on("click", function() {
-                                //    populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
-                                //});
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value;
-                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
-                            const imageArray = outdirDataProductId.split(',');
-                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
-                            const outdirDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === firstOne
-                            );
-                            // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
-                            // https://gateway.lrose.net/workspace/experiments/
-                            if (
-                                outdirDataProduct &&
-                                outdirDataProduct.downloadURL
-                            ) {
-                                console.log("index=" + index + " here ... Have downloadURL");
-                                console.log(outdirDataProduct.downloadURL);
-                                //$(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);
-                                // also make a link to the experiment results 
-                                //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
-                            }
-                            */
-                        },
-                        function(error) {console.log('there was an error');}
-                        );
-                //}
-            //});
-        //});
+                        });
     }
     
 
@@ -2103,6 +2040,7 @@ for (i = 0; i < coll.length; i++) {
             data.results.forEach((exp, index) => {
                 // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
                 // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
+                
                 $(experimentList).append(
                     `<tr>
                             <td>${exp.name}</td>
@@ -2121,27 +2059,7 @@ for (i = 0; i < coll.length; i++) {
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
                             lookup: exp.experimentId
-                        })
-                        //.then(fullDetails => {
-                        //    console.log('here 11');
-                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                        //        o => o.name === "Output-Dir"
-                        //    ).value;  
-                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
-                        //        dp => dp.productUri === stdoutDataProductId
-                        //    );
-                        //    if (
-                        //        stdoutDataProduct &&
-                        //        stdoutDataProduct.downloadURL
-                        //    ) {
-                        //        console.log('here 12');
-                        //        return stdoutDataProductId.name;
-                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                        //        //    credentials: "same-origin"
-                        //        //}).then(result => result.text());
-                        //    }
-                        //})
-                        .then(fullDetails => {
+                        }).then(fullDetails => {
                             console.log('here 1111');
                             const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "input_parameters"
@@ -2184,8 +2102,9 @@ for (i = 0; i < coll.length; i++) {
                                 // also make a link to the experiment results 
                                 //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
                             }
-                        });
-                }
+                        })
+
+                };
             });
         });
     }
@@ -2207,16 +2126,16 @@ for (i = 0; i < coll.length; i++) {
     window.onscroll = function() {scrollFunction()};
 
     function scrollFunction() {
-      console.log("inside scrollFunction ");
+      //console.log("inside scrollFunction ");
         var offset = $('#dotNav').offset().top;
         //offset += $('dotNav').height();
-        console.log("offset=" + offset);
+        //console.log("offset=" + offset);
         var sec1 = $('#stage1').offset().top + offset;
         var sec2 = $('#stage2').offset().top + offset;
         var sec3 = $('#stage3').offset().top + offset;
         var sec4 = $('#stage4').offset().top + offset;   
          
-        console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);  
+        //console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);  
 
         //console.log("windowscroll="+c.scrollTop());
         currentStage = 1;
@@ -2251,8 +2170,9 @@ for (i = 0; i < coll.length; i++) {
     //$("#continue_*").click(???)
 
     $("#get-previous-stage-button").click(function() {
+        console.log("inside get-previous-stage-button click");
         showPreviousStages();
-        setCurrentStage();
+        //setCurrentStage();
         console.log("current stage = " + currentStage);
         var appIId = stage2AppInterfaceId;
         var experimentList = "#experiment-list-modal";
@@ -2274,7 +2194,7 @@ for (i = 0; i < coll.length; i++) {
                 break;
             default:                                    
         }
-        if (currentStage == 1) {
+        if (currentStage == 2) {
             loadRadxConversionExperiments();
         } else {
             loadStageExperiments(currentStage-1, appIId, "#experiment-list-modal");
@@ -2287,7 +2207,7 @@ for (i = 0; i < coll.length; i++) {
 
     $("#data-source-nexrad").click(function() {
         console.log("data-source is nexrad");
-        setCurrentStage();
+        //setCurrentStage();
         console.log("current stage = " + currentStage);
         var appIId = stage2AppInterfaceId;
         var experimentList = "#experiment-list-modal";
@@ -2323,146 +2243,37 @@ for (i = 0; i < coll.length; i++) {
     });
 
     var theExperimentId = "something";
+    var myVar; // setInterval(checkStatus(theExperimentId), ); 
 
     $("#check-status-button").click(function() {
-      checkStatus(theExperimentId)
+      //checkStatus(theExperimentId)
+      clearInterval(myVar);
       // TODO: does experiment.launch return the experimentId?????
     });
 
-    $("#run-radxconvert-button").click(e => {
 
-        const step = "RadxConvert"; // $("#greeting-select").val();
-        //const data_file_uri = "\"2020 09 29 12 00 00\"";
-        //const param_file_uri = "\"2020 09 29 12 10 00\"";
-        const data_file_source = $(`#stage1-source`).attr("source");
-        const radar_name = $(`#stage1-radar-name`).val();
-        const start_time = $(`#stage1-start-time`).val();
-        const end_time =   $(`#stage1-end-time`).val();
-        // reformat the start and end times for RadxConvert yyyy mm dd hh mm ss
-        //js_start_time = new Date(Date.parse(tutorial_start_date));
-        //iso_time = js_start_time.toISOString();
-        //console.log(iso_time);
-        //let start_time = tutorial_start_date.replace(/-|T|:|Z/g, " "); 
-        //getFullYear().toString();
-        //start_time.append(" " + js_start_time.getMonth() " " + js_start_time.getDate() + " " + js_start_time.getHours() + " " + js_start_time.getMinutes() + " " + js_start_time.getSeconds();
-        console.log("stage1-RadxConvert params ...");
-        console.log(start_time);
-        console.log(end_time);
-        //js_end_time = new Date(Date.parse(tutorial_end_date));
-        //iso_time =  js_end_time.toISOString();
-        //let end_time = tutorial_end_date.replace(/-|T|:|Z/g, " ");
-        // getFullYear() + " " + js_end_time.getMonth() + " " + js_end_time.getDate() + " " + js_end_time.getHours() + " " + js_end_time.getMinutes() + " " + js_end_time.getSeconds();
-
-        console.log("data_file_source: " + data_file_source);
-        console.log("radar name: " + radar_name);
-        //console.log("start time: " + start_time);
-        //console.log("end time: " + end_time);
-        const data_file_uri = $(`#stage1-file`).attr("uri");
-        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
-        const param_file_uri = $(`#stage1-param-file`).attr("uri")
-            // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
-            //const radar_name = "KFTG";
-            // We need the app interface to be the same, so we can retrieve all related experiements;
-            // We will need to send different parameters based on the data_file_source
-
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
-            lookup: stage1AppInterfaceId
-        });
-
-        console.log("loadAppInterface = " + loadAppInterface);
-
-        // TODO: get the id of the RadxConvert_display application
-        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "149.165.152.168_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({
-            lookup: appDeploymentId
-        });
-
-        const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
-        const queueName = "cloud";
-        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
-        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
-        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-            .then(([appInterface, workspacePrefs, queues]) => {
-                const experiment = appInterface.createExperiment();
-                experiment.experimentName = "workflow " + step;
-                experiment.projectId = workspacePrefs.most_recent_project_id;
-                const cloudQueue = queues.find(q => q.queueName === queueName);
-                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-                // Copy the selected greeting to the value of the first input
-                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
-                experiment.experimentInputs[0].value = data_file_source;
-                experiment.experimentInputs[1].value = radar_name;
-                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
-                experiment.experimentInputs[3].value = end_time;
-                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-
-
-                return services.ExperimentService.create({
-                    data: experiment
-                });
-            }).then(exp => {
-                theExperimentId = exp.experimentId;
-                console.log("theExperimentId=" + theExperimentId);
-                return services.ExperimentService.launch({
-                    lookup: exp.experimentId
-                });
-            })
-    });
 
 
 
 
     $("#run-button-stage2").click(e => {
-
-        //const step = "RadxConvert"; // $("#greeting-select").val();
-        //const data_file_uri = "\"2020 09 29 12 00 00\"";
-        //const param_file_uri = "\"2020 09 29 12 10 00\"";
         const data_file_source = $(`#stage2-source`).attr("source");
         const radar_name = $(`#stage2-radar-name`).val();  
         //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
         const start_time = $(`#stage2-start-time`).val();
         const end_time =   $(`#stage2-end-time`).val();
-        // reformat the start and end times for RadxConvert yyyy mm dd hh mm ss
-        //js_start_time = new Date(Date.parse(tutorial_start_date));
-        //iso_time = js_start_time.toISOString();
-        //console.log(iso_time);
-        //let start_time = tutorial_start_date.replace(/-|T|:|Z/g, " "); 
-        //getFullYear().toString();
-        //start_time.append(" " + js_start_time.getMonth() " " + js_start_time.getDate() + " " + js_start_time.getHours() + " " + js_start_time.getMinutes() + " " + js_start_time.getSeconds();
         console.log("stage2-RadxRate params ...");
         console.log(start_time);
         console.log(end_time);
-        //js_end_time = new Date(Date.parse(tutorial_end_date));
-        //iso_time =  js_end_time.toISOString();
-        //let end_time = tutorial_end_date.replace(/-|T|:|Z/g, " ");
-        // getFullYear() + " " + js_end_time.getMonth() + " " + js_end_time.getDate() + " " + js_end_time.getHours() + " " + js_end_time.getMinutes() + " " + js_end_time.getSeconds();
-
         console.log("data_file_source: " + data_file_source);
         console.log("radar name: " + radar_name);
-        //console.log("start time: " + start_time);
-        //console.log("end time: " + end_time);
         const data_file_uri = $(`#stage2-file`).attr("uri");
-        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
         const param_file_uri = $(`#stage2-param-file`).attr("uri")
-            // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
-            //const radar_name = "KFTG";
-            // We need the app interface to be the same, so we can retrieve all related experiements;
-            // We will need to send different parameters based on the data_file_source
-
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({
             lookup: stage2AppInterfaceId
         });
 
         console.log("loadAppInterface = " + loadAppInterface);
-
-        // TODO: get the id of the RadxConvert_display application
-        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
@@ -2490,9 +2301,6 @@ for (i = 0; i < coll.length; i++) {
                 experiment.experimentInputs[1].value = radar_name;
                 experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
                 experiment.experimentInputs[3].value = end_time;
-                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-
-
                 return services.ExperimentService.create({
                     data: experiment
                 });
@@ -2685,5 +2493,6 @@ uploadBtn.addEventListener('click', () => {
 
 */
 </script>
+
 
 {% endblock scripts %}
