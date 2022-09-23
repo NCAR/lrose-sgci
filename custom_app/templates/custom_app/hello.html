@@ -448,10 +448,10 @@ progress:indeterminate {
                 <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
 
                 <div>
-                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
+                  <button class="rectangle-208"  disabled="true" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
                 </div>
                 <div>  
-                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
+                  <button class="rectangle-208" disabled="true" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
                 </div>
                 <div>
                       <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
@@ -463,6 +463,10 @@ progress:indeterminate {
                  
                 <div>
                   <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
+                        <table class="table" id="previousStageList">
+                            <tbody id="experiment-list-modal">
+                            </tbody>
+                        </table>
                 </div>
 
                           <!-- grabbed this from the gateway file store page ...   
@@ -844,6 +848,9 @@ progress:indeterminate {
                             <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                           </th> 
                       </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage2-source"></th>
+                  </tr>
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
@@ -871,6 +878,9 @@ progress:indeterminate {
                                 <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                             </th>
                         </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage2-param-file"></th>
+                        </tr>                        
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
@@ -895,7 +905,7 @@ progress:indeterminate {
                             </th>
 
                             <th> 
-                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage2-start-time" placeholder="start date time">
                             </th>
                             <th class="start-end-date-time"> Start Date and Time </th>
                         </tr>
@@ -904,7 +914,7 @@ progress:indeterminate {
                             </th>
 
                             <th>
-                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage2-end-time" placeholder="end date time">
                             </th>
                             <th class="start-end-date-time"> End Date and Time </th> 
                         </tr>
@@ -938,7 +948,6 @@ progress:indeterminate {
   </div>
 </div>
             <button id="run-button-stage2" class="btn btn-primary run-button">Run</button>  
-
 
     <!-- end RadxRate restyle -->    
 
@@ -978,6 +987,9 @@ progress:indeterminate {
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage3-source"></th>
+                  </tr>
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
@@ -1005,6 +1017,9 @@ progress:indeterminate {
                                 <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                             </th>
                         </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage3-param-file"></th>
+                        </tr>
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
@@ -1030,7 +1045,7 @@ progress:indeterminate {
                             </th>
 
                             <th> 
-                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage3-start-time" placeholder="start date time">
                             </th>
                             <th class="start-end-date-time"> Start Date and Time </th>
                         </tr>
@@ -1039,7 +1054,7 @@ progress:indeterminate {
                             </th>
 
                             <th>
-                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage3-end-time" placeholder="end date time">
                             </th>
                             <th class="start-end-date-time"> End Date and Time </th> 
                         </tr>
@@ -1111,6 +1126,9 @@ progress:indeterminate {
                         data-target="#myModal">Choose data source </a> 
                         <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                       </th> </tr>
+                      <tr>
+                        <th class="done-lime-green" id="stage4-source"></th>
+                      </tr>
                     </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
@@ -1138,6 +1156,9 @@ progress:indeterminate {
                                 <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
                             </th>
                         </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage4-param-file"></th>
+                        </tr>
                         <tbody id="parameter-file-list">
                         </tbody>
                     </table>
@@ -1163,7 +1184,7 @@ progress:indeterminate {
                             </th>
 
                             <th> 
-                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage4-start-time" placeholder="start date time">
                             </th>
                             <th class="start-end-date-time"> Start Date and Time </th>
                         </tr>
@@ -1172,7 +1193,7 @@ progress:indeterminate {
                             </th>
 
                             <th>
-                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
                             </th>
                             <th class="start-end-date-time"> End Date and Time </th> 
                         </tr>
@@ -1303,14 +1324,8 @@ for (i = 0; i < coll.length; i++) {
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
                             <!-- <td id="outdir_${index}"></td> -->
-                            <td id="log_${index}">
-                            <a href="url">view log file </a> </td>
-                            <td id="image3_${index}">
-                            <a href="/workspace/experiments/${exp.experimentId}"> 
-                              <img id="image_${index}" src="" alt="No image" width="100" height="100"> </td>
-                            </a>
                             <td>
-                            <a href="#stage2" id="continue_${index}">Continue</button>
+                            <a href="#stage2" id="continue_${index}">Select</button>
                              </td>
                         </tr>`
                 );
@@ -1329,16 +1344,25 @@ for (i = 0; i < coll.length; i++) {
                             const inputParametersDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === inputParametersDataProductId
                             );
+                            // get the start and end times
+                            const experimentInputs = fullDetails.experiment.experimentInputs;
+                            console.log(experimentInputs);
+                            expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                            expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                            console.log("expStartTime = " + expStartTime);
+                            console.log("expEndTime = " + expEndTime);
+                            // TODO: send the start and end time to the continue button? 
+                            // or just the experimentId, and then retrieve the info when 
+                            // selected?
 
                             const processDirName = fullDetails.experiment.processes[0].processId;
-                            if (
                                 processDirName &&
                                 inputParametersDataProduct.downloadURL
-                            ) {
+                            {
                                 console.log('here 1112');
                                 //$(`#outdir_${index}`).text(processDirName);
                                 $(`#continue_${index}`).on("click", function() {
-                                    populateStage2(processDirName, inputParametersDataProduct.downloadURL);
+                                    populateStage2(exp.experimentId);
                                 });
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
@@ -1394,7 +1418,7 @@ for (i = 0; i < coll.length; i++) {
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -1668,7 +1692,7 @@ for (i = 0; i < coll.length; i++) {
         $("#stage1-start-time-label").show();
         $("#stage1-end-time-label").show();
         $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
-        $("#stage1-param-file").text("Default");
+        $("#stage1-param-file").text("RadxConvert.new");
     }
 
     function setStage1File() {
@@ -1722,7 +1746,8 @@ for (i = 0; i < coll.length; i++) {
         // $(`#stage1-file`).attr("uri")
     };
 
-    function setStageTutorial(stage, param_file) {
+    function setStageTutorial() {
+        stage = currentStage;
         $(`#stage${stage}-file`).hide();
         $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
         $(`#stage${stage}-source`).text("Tutorial");
@@ -1734,7 +1759,27 @@ for (i = 0; i < coll.length; i++) {
         $(`#stage${stage}-end-time`).val(tutorial_end_date);
         $(`#stage${stage}-start-time-label`).show();
         $(`#stage${stage}-end-time-label`).show();
-        $(`#stage${stage}-param-file`).val(param_file); // "tutorial/basic/params/RadxRate.new");  
+        basedir = "tutorial/basic/params/";
+        switch(stage) {
+            case 1: 
+              param_file = "RadxConvert.new";
+              break;
+            case 2: 
+              param_file = "RadxRate.new";
+              break;
+            case 3: 
+              param_file = "RadxQpe.new";
+              break;
+            case 4: 
+              param_file = "RateAccum.new";
+              break;
+            default:
+              // TODO report error
+              console.log("error, unknown stage -- cannot determine param_file");
+        }
+        $(`#stage${stage}-param-file`).val(basedir + param_file); // "tutorial/basic/params/RadxRate.new");  
+        console.log("setting stage " + stage + " param-file to " + param_file);
+        $(`#stage${stage}-param-file`).text(param_file);
 
         //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
         //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
@@ -1742,6 +1787,54 @@ for (i = 0; i < coll.length; i++) {
         //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
         // $(`#stage1-file`).attr("uri")
     };
+
+
+
+    function setStagePrevious(processDirName) {
+        stage = currentStage;
+        // TODO: get the start and end times
+        $(`#stage${stage}-file`).hide();
+        $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
+        $(`#stage${stage}-source`).text(processDirName);
+        $(`#stage${stage}-radar-name`).show();
+        $(`#stage${stage}-radar-name`).val("RCWF");
+        $(`#stage${stage}-start-time`).show();
+        $(`#stage${stage}-start-time`).val(tutorial_start_date);
+        $(`#stage${stage}-end-time`).show();
+        $(`#stage${stage}-end-time`).val(tutorial_end_date);
+        $(`#stage${stage}-start-time-label`).show();
+        $(`#stage${stage}-end-time-label`).show();
+        basedir = "tutorial/basic/params/";
+        switch(stage) {
+            case 1: 
+              param_file = "RadxConvert.new";
+              break;
+            case 2: 
+              param_file = "RadxRate.new";
+              break;
+            case 3: 
+              param_file = "RadxQpe.new";
+              break;
+            case 4: 
+              param_file = "RateAccum.new";
+              break;
+            default:
+              // TODO report error
+              console.log("error, unknown stage -- cannot determine param_file");
+        }
+        $(`#stage${stage}-param-file`).val(basedir + param_file); // "tutorial/basic/params/RadxRate.new");  
+        console.log("setting stage " + stage + " param-file to " + param_file);
+        $(`#stage${stage}-param-file`).text(param_file);
+
+        //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+        //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+        //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+        // $(`#stage1-file`).attr("uri")
+    };
+
+
+
 
     $(document).ready(function() {
         setStage1Tutorial()
@@ -1780,6 +1873,8 @@ for (i = 0; i < coll.length; i++) {
     const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
     const stage3AppInterfaceId = "precip_stage3_5f6aee08-4c60-4592-ab52-23b467aa31c6";
     const stage4AppInterfaceId = "precip_stage4_";
+
+    const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
 
 
 
@@ -1835,6 +1930,55 @@ for (i = 0; i < coll.length; i++) {
     //loadExperiments();
     //$("#refresh-button").click(loadExperiments);
 
+    // the argument is just the experimentId, and then look things up as needed
+    function populateStage2(previousExperimentId) {
+        // processDirName, inputParametersDownloadURL) {
+        alert(previousExperimentId);
+
+        services.FullExperimentService.retrieve({
+                lookup: previousExperimentId
+            }).then(fullDetails => {
+                console.log('here pe111');
+                const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                    o => o.name === "input_parameters"
+                ).value;
+                const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                    dp => dp.productUri === inputParametersDataProductId
+                );
+                // get the start and end times
+                const experimentInputs = fullDetails.experiment.experimentInputs;
+                console.log(experimentInputs);
+                expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                console.log("expStartTime = " + expStartTime);
+                console.log("expEndTime = " + expEndTime);
+                // TODO: send the start and end time to the continue button? 
+                // or just the experimentId, and then retrieve the info when 
+                // selected?
+
+                const processDirName = fullDetails.experiment.processes[0].processId;
+                if (processDirName &&
+                    inputParametersDataProduct.downloadURL) 
+                {
+                    // update the Run button to use the processDirName  
+                    // get the input parameters from the previous PROCESS_DIR
+                    // populate the input parameters
+
+                    // HERE working here 9/22/2022
+                    setStagePrevious(processDirName);
+                    // somehow populate the information in the stage2 window, and also retain the
+                    $(`#stage2-start-time`).val(expStartTime);
+                    $(`#stage2-end-time`).val(expEndTime);
+                    // processDirName in order to pass it along to the run button.
+
+                    $("#run-button-stage2").click(function() {
+                        runStage2(processDirName);
+                    });
+                }
+            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+        })
+    }
+
     function populateStage2(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
         //parameter-file-stage2 
@@ -1846,6 +1990,13 @@ for (i = 0; i < coll.length; i++) {
             // get the input parameters from the previous PROCESS_DIR
 
             // populate the input parameters
+
+
+            // HERE working here 9/22/2022
+            setStagePrevious(processDirName);
+            // somehow populate the information in the stage2 window, and also retain the
+            // processDirName in order to pass it along to the run button.
+
             $("#run-button-stage2").click(function() {
                 runStage2(processDirName);
             });
@@ -1869,7 +2020,7 @@ for (i = 0; i < coll.length; i++) {
             const param_file_uri = "";
             // get the input parameters from the previous PROCESS_DIR
             console.log("calling setStageTutorial");
-            setStageTutorial(stage, param_file);
+            setStageTutorial(); // stage, param_file);
             // populate the input parameters
             $("#run-button-stage3").click(function() {
                 runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
@@ -1882,8 +2033,74 @@ for (i = 0; i < coll.length; i++) {
 
     // But, if the data or time or radar changes, then we need to grab the new input parameters
     // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
-    function runStage2(processDirName) {
+    function runStage2(processDirName) {   /// <<=== this is used 
         console.log('entering runStage2');
+        console.log('processDirName = ' + processDirName);
+        const data_file_source = $(`#stage2-source`).attr("source");
+        const radar_name = $(`#stage2-radar-name`).val();  
+        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
+        const start_time = $(`#stage2-start-time`).val();
+        const end_time =   $(`#stage2-end-time`).val();
+        console.log("stage2-RadxRate params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage2-file`).attr("uri");
+        const param_file = $(`#stage2-param-file`).val();
+
+        console.log("param_file: " + param_file);
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage2AppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+        const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + currentStage;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                console.log("data_file_source = " + data_file_source);
+                experiment.experimentInputs[0].value = data_file_source;
+                console.log("aaa");
+                experiment.experimentInputs[1].value = processDirName;
+                console.log("bbb");
+                experiment.experimentInputs[2].value = param_file;
+                console.log("ccc");
+                //experiment.experimentInputs[3].value = start_time; // TODO: make this 1st parameter
+                //console.log("ddd");
+                //experiment.experimentInputs[4].value = end_time;
+                console.log("before experiment create");
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                console.log("before experiment launch");
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
+    }
+
+    function runStage2Old(processDirName) {    
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
         // then when "Run" is clicked, send the processDirName as argument.
@@ -1908,14 +2125,14 @@ for (i = 0; i < coll.length; i++) {
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
             .then(([appInterface, workspacePrefs, queues]) => {
                 const experiment = appInterface.createExperiment();
-                experiment.experimentName = "precip " + step;
+                experiment.experimentName = "precip " + currentStage;
                 experiment.projectId = workspacePrefs.most_recent_project_id;
                 const cloudQueue = queues.find(q => q.queueName === queueName);
                 experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
@@ -1969,7 +2186,7 @@ for (i = 0; i < coll.length; i++) {
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -2028,6 +2245,9 @@ for (i = 0; i < coll.length; i++) {
     // TODO: args stage2AppInterfaceId, experiment-list
     // stage = 2, 
     function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
+
+        console.log("inside loadStageExperiments");
+
         return services.ExperimentSearchService.list({
             limit: 3,
             [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
@@ -2053,9 +2273,6 @@ for (i = 0; i < coll.length; i++) {
                         </tr>`
 
                 );
-                // TODO: the url for continue needs to have the experimentId 
-                //       the url would be the next step card, 
-                // If experiment has finished, load full details, then parse the stdout file
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
                             lookup: exp.experimentId
@@ -2113,13 +2330,13 @@ for (i = 0; i < coll.length; i++) {
     function showOnlineDataSources() {
         console.log("inside showOnlineDataSources");
         $(previousStageList).hide();
-        $(onlineDataSources).show();
+        //$(onlineDataSources).show();
     } 
 
     function showPreviousStages() {
         console.log("inside showPreviousStagess");
         $(previousStageList).show();
-        $(onlineDataSources).hide();
+        //$(onlineDataSources).hide();
     } 
 
 // WORKING HERE ...
@@ -2192,7 +2409,8 @@ for (i = 0; i < coll.length; i++) {
                 appIId = stage3AppInterfaceId; 
                 //experimentList = "#experiment-list-qpe";
                 break;
-            default:                                    
+            default:     
+                console.log("get-previous-stage-button unexpected currentStage-1 = " + currentStage-1);                               
         }
         if (currentStage == 2) {
             loadRadxConversionExperiments();
@@ -2222,7 +2440,7 @@ for (i = 0; i < coll.length; i++) {
 
     $("#data-source-tutorial").click(function() {
         console.log("data-source is tutorial");
-        setStage1Tutorial();
+        setStageTutorial();
     });
 
     //loadRadxConversionExperiments();
@@ -2249,67 +2467,16 @@ for (i = 0; i < coll.length; i++) {
       //checkStatus(theExperimentId)
       clearInterval(myVar);
       // TODO: does experiment.launch return the experimentId?????
-    });
+    }); 
 
+//switch from run-button-stage2 to runStage
+//does precip_stage2 need a processDir???? only for continuation, right?
+//well, we need the location of the results from stage1.  Hmmm. how to get this when it is 
+//tutorial??? Q: Do we have intermediate data for the tutorial?  If not, then 
+// we must use the previous stage results and remove tutorial for stage > 1.
+//Need prior stage results, or use the tutorial???
+//Right. prior results gives us the uri for the input data directory
 
-
-
-
-
-    $("#run-button-stage2").click(e => {
-        const data_file_source = $(`#stage2-source`).attr("source");
-        const radar_name = $(`#stage2-radar-name`).val();  
-        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
-        const start_time = $(`#stage2-start-time`).val();
-        const end_time =   $(`#stage2-end-time`).val();
-        console.log("stage2-RadxRate params ...");
-        console.log(start_time);
-        console.log(end_time);
-        console.log("data_file_source: " + data_file_source);
-        console.log("radar name: " + radar_name);
-        const data_file_uri = $(`#stage2-file`).attr("uri");
-        const param_file_uri = $(`#stage2-param-file`).attr("uri")
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
-            lookup: stage2AppInterfaceId
-        });
-
-        console.log("loadAppInterface = " + loadAppInterface);
-        const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({
-            lookup: appDeploymentId
-        });
-
-        const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
-        const queueName = "cloud";
-        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
-        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
-        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-            .then(([appInterface, workspacePrefs, queues]) => {
-                const experiment = appInterface.createExperiment();
-                experiment.experimentName = "workflow " + step;
-                experiment.projectId = workspacePrefs.most_recent_project_id;
-                const cloudQueue = queues.find(q => q.queueName === queueName);
-                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-                // Copy the selected greeting to the value of the first input
-                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
-                experiment.experimentInputs[0].value = data_file_source;
-                experiment.experimentInputs[1].value = radar_name;
-                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
-                experiment.experimentInputs[3].value = end_time;
-                return services.ExperimentService.create({
-                    data: experiment
-                });
-            }).then(exp => {
-                return services.ExperimentService.launch({
-                    lookup: exp.experimentId
-                });
-            })
-    });
 
 
     // TODO: this may not be used???
@@ -2330,7 +2497,7 @@ for (i = 0; i < coll.length; i++) {
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -2375,7 +2542,7 @@ for (i = 0; i < coll.length; i++) {
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
