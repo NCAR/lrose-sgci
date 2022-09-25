@@ -457,7 +457,7 @@ progress:indeterminate {
                       <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
                      <div>
                        <button id="data-source-tutorial">Tutorial</button>
-                       <button id="data-source-nexrad" >NEXRAD</button>
+                       <button id="data-source-nexrad" disabled="true">NEXRAD</button>
                     </div>
                 </div>
                  
@@ -1359,7 +1359,7 @@ for (i = 0; i < coll.length; i++) {
                                 processDirName &&
                                 inputParametersDataProduct.downloadURL
                             {
-                                console.log('here 1112');
+                                console.log("here 1112: select.onclick(populateStage2(" + exp.experimentId + ")");
                                 //$(`#outdir_${index}`).text(processDirName);
                                 $(`#continue_${index}`).on("click", function() {
                                     populateStage2(exp.experimentId);
@@ -1554,7 +1554,7 @@ for (i = 0; i < coll.length; i++) {
 
     function hideUnavailableDataSources() {
         console.log("inside hideUnavailableDataSources currentStage=" + currentStage);
-        
+        $("#experiment-list-modal").empty();
         if (currentStage > 1) {
             console.log("should hide NEXRAD");
             $("#data-source-nexrad").hide();
@@ -1935,6 +1935,8 @@ for (i = 0; i < coll.length; i++) {
         // processDirName, inputParametersDownloadURL) {
         alert(previousExperimentId);
 
+        console.log("entering populateStage2: previousExperimentId=" + previousExperimentId);
+
         services.FullExperimentService.retrieve({
                 lookup: previousExperimentId
             }).then(fullDetails => {
@@ -1956,8 +1958,9 @@ for (i = 0; i < coll.length; i++) {
                 // or just the experimentId, and then retrieve the info when 
                 // selected?
 
-                const processDirName = fullDetails.experiment.processes[0].processId;
-                if (processDirName &&
+                const processDirName3 = fullDetails.experiment.processes[0].processId;
+                console.log("populateStage2: processDirName = " + processDirName3);
+                if (processDirName3 &&
                     inputParametersDataProduct.downloadURL) 
                 {
                     // update the Run button to use the processDirName  
@@ -1965,25 +1968,27 @@ for (i = 0; i < coll.length; i++) {
                     // populate the input parameters
 
                     // HERE working here 9/22/2022
-                    setStagePrevious(processDirName);
+                    setStagePrevious(processDirName3);
                     // somehow populate the information in the stage2 window, and also retain the
                     $(`#stage2-start-time`).val(expStartTime);
                     $(`#stage2-end-time`).val(expEndTime);
                     // processDirName in order to pass it along to the run button.
 
                     $("#run-button-stage2").click(function() {
-                        runStage2(processDirName);
+                        runStage2(processDirName3);
                     });
                 }
             //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
         })
     }
 
-    function populateStage2(processDirName, inputParametersDownloadURL) {
+/*
+    function populateStage22(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
         //parameter-file-stage2 
         //     data-source-stage2
         // update the Run button to use the processDirName  
+        console.log("inside populateStage22");
         if (
             processDirName
         ) {
@@ -2004,6 +2009,7 @@ for (i = 0; i < coll.length; i++) {
         }
 
     }
+*/
 
     function populateStage3(processDirName, inputParametersDownloadURL) {
         alert(processDirName);
