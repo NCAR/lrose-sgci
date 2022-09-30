@@ -650,6 +650,7 @@ progress:indeterminate {
                   </tr>
                   <tr>
                     <th class="done-lime-green" id="stage1-source"></th>
+                    <th class="done-lime-green" id="stage1-radar-name"></th>
                   </tr>
                 </table>
                 <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
@@ -850,6 +851,7 @@ progress:indeterminate {
                       </tr>
                   <tr>
                     <th class="done-lime-green" id="stage2-source"></th>
+                    <th class="done-lime-green" id="stage2-radar-name"></th>
                   </tr>
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
@@ -989,6 +991,7 @@ progress:indeterminate {
                       </th> </tr>
                   <tr>
                     <th class="done-lime-green" id="stage3-source"></th>
+                    <th class="done-lime-green" id="stage3-radar-name"></th>                  
                   </tr>
                   </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
@@ -1128,6 +1131,7 @@ progress:indeterminate {
                       </th> </tr>
                       <tr>
                         <th class="done-lime-green" id="stage4-source"></th>
+                        <th class="done-lime-green" id="stage4-radar-name"></th>
                       </tr>
                     </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
@@ -1262,6 +1266,19 @@ progress:indeterminate {
     const RADAR_ENUM = 2;
     const FILEDIR_ENUM = 3;
 
+    function formatTime(dateString) {
+        console.log("in dateString = " + dateString);
+        yyyy = dateString.substr(1,4);
+        console.log("yyyy = " + yyyy);
+        const MM = dateString.substr(6,2);
+        const dd = dateString.substr(9,2);
+        const hh = dateString.substr(12,2);
+        const mm = dateString.substr(15,2);
+        const df = yyyy.concat("-", MM, "-", dd, "T", hh, ":", mm);
+        console.log("dateString = " + df);
+        return df;
+    }
+
     // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
     function chooseDataSourceFile(path) {
         return services.UserStoragePathService.get({
@@ -1355,18 +1372,27 @@ for (i = 0; i < coll.length; i++) {
                             // or just the experimentId, and then retrieve the info when 
                             // selected?
 
-                            const processDirName = fullDetails.experiment.processes[0].processId;
-                                processDirName &&
-                                inputParametersDataProduct.downloadURL
-                            {
+                            ///const processDirName = fullDetails.experiment.processes[0].processId;
+                            //if (processDirName &&
+                            //    inputParametersDataProduct.downloadURL)
+                            //{
                                 console.log("here 1112: select.onclick(populateStage2(" + exp.experimentId + ")");
                                 //$(`#outdir_${index}`).text(processDirName);
                                 $(`#continue_${index}`).on("click", function() {
                                     populateStage2(exp.experimentId);
                                 });
                                 //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
+                            //}
                             console.log('here 111');
+
+                        });  // fullDetails
+                } // experimentStatus
+                // ... to here 
+            })
+        });
+    };
+
+                                /*  how to find the images ...
                             const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "Images" // TODO: what is the name of the image dir?
                             ).value;
@@ -1384,19 +1410,19 @@ for (i = 0; i < coll.length; i++) {
                                 console.log(outdirDataProduct.downloadURL);
                                 $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
                             }
-                        });  // fullDetails
-                } // experimentStatus
-                // ... to here 
-            })
-        });
-    };
+                            */
 
     $("#run-radxconvert-button").click(function (e) {
         const step = "RadxConvert";
         const data_file_source = $(`#stage1-source`).attr("source");
-        const radar_name = $(`#stage1-radar-name`).val();
-        const start_time = $(`#stage1-start-time`).val();
-        const end_time =   $(`#stage1-end-time`).val();
+        const radar_name = $(`#stage1-radar-name`).text();
+        console.log("radar_name text = " + $(`#stage1-radar-name`).text());
+        //console.log("radar_name val = " + $(`#stage1-radar-name`).val());
+        const start_time_rough = $(`#stage1-start-time`).val();
+        const end_time_rough =   $(`#stage1-end-time`).val();
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");
+        const param_file = $(`#stage1-param-file`).val();
         console.log("stage1-RadxConvert params ...");
         console.log(start_time);
         console.log(end_time);
@@ -1413,7 +1439,7 @@ for (i = 0; i < coll.length; i++) {
 
         // TODO: get the id of the RadxConvert_display application
         //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "149.165.152.168_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const appDeploymentId = stage1DeploymentId;
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
@@ -1438,9 +1464,9 @@ for (i = 0; i < coll.length; i++) {
                 // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
                 experiment.experimentInputs[0].value = data_file_source;
                 experiment.experimentInputs[1].value = radar_name;
-                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
-                experiment.experimentInputs[3].value = end_time;
-                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
+                experiment.experimentInputs[2].value = "\"" + start_time + "\""; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = "\"" + end_time + "\"";
+                experiment.experimentInputs[4].value = param_file;
                 return services.ExperimentService.create({
                     data: experiment
                 });
@@ -1558,6 +1584,8 @@ for (i = 0; i < coll.length; i++) {
         if (currentStage > 1) {
             console.log("should hide NEXRAD");
             $("#data-source-nexrad").hide();
+            $("#data-source-tutorial").hide();
+            $("use-online-data-source").hide();
             $("#get-previous-stage-button").show();            
         }
 
@@ -1680,11 +1708,12 @@ for (i = 0; i < coll.length; i++) {
     function setStage1Tutorial() {
         // TODO: change the "Data Sources" to be "Tutorial"; set attr("source") on stage1 "Data Sources" button NOT the stage1-file id.
         // TODO: make the radar, start, end times non-editable when tutorial is the data source.
+
         $("#stage1-file").hide();
         $("#stage1-source").attr("source", TUTORIAL_ENUM);
         $("#stage1-source").text("Tutorial");
         $("#stage1-radar-name").show();
-        $("#stage1-radar-name").val("RCWF");
+        $("#stage1-radar-name").text("RCWF");
         $("#stage1-start-time").show();
         $("#stage1-start-time").val(tutorial_start_date);
         $("#stage1-end-time").show();
@@ -1693,6 +1722,7 @@ for (i = 0; i < coll.length; i++) {
         $("#stage1-end-time-label").show();
         $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
         $("#stage1-param-file").text("RadxConvert.new");
+        console.log("inside setStage1Tutorial ... radar-name = " + $("#stage1-radar-name").text());
     }
 
     function setStage1File() {
@@ -1730,7 +1760,7 @@ for (i = 0; i < coll.length; i++) {
         $("#stage2-source").attr("source", TUTORIAL_ENUM);
         $("#stage2-source").text("Tutorial");
         $("#stage2-radar-name").show();
-        $("#stage2-radar-name").val("RCWF");
+        $("#stage2-radar-name").text("RCWF");
         $("#stage2-start-time").show();
         $("#stage2-start-time").val(tutorial_start_date);
         $("#stage2-end-time").show();
@@ -1752,7 +1782,7 @@ for (i = 0; i < coll.length; i++) {
         $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
         $(`#stage${stage}-source`).text("Tutorial");
         $(`#stage${stage}-radar-name`).show();
-        $(`#stage${stage}-radar-name`).val("RCWF");
+        $(`#stage${stage}-radar-name`).text("RCWF");
         $(`#stage${stage}-start-time`).show();
         $(`#stage${stage}-start-time`).val(tutorial_start_date);
         $(`#stage${stage}-end-time`).show();
@@ -1797,11 +1827,11 @@ for (i = 0; i < coll.length; i++) {
         $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
         $(`#stage${stage}-source`).text(processDirName);
         $(`#stage${stage}-radar-name`).show();
-        $(`#stage${stage}-radar-name`).val("RCWF");
+        //$(`#stage${stage}-radar-name`).text("RCWF");
         $(`#stage${stage}-start-time`).show();
-        $(`#stage${stage}-start-time`).val(tutorial_start_date);
+        //$(`#stage${stage}-start-time`).val(tutorial_start_date);
         $(`#stage${stage}-end-time`).show();
-        $(`#stage${stage}-end-time`).val(tutorial_end_date);
+        //$(`#stage${stage}-end-time`).val(tutorial_end_date);
         $(`#stage${stage}-start-time-label`).show();
         $(`#stage${stage}-end-time-label`).show();
         basedir = "tutorial/basic/params/";
@@ -1869,10 +1899,17 @@ for (i = 0; i < coll.length; i++) {
     //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
 
 
-    const stage1AppInterfaceId = "RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";  // dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+    // these have been updated to JS2
+    const stage1AppInterfaceId = "precip_stage1_7183856e-2450-4416-84bd-a72dde6ca525";
     const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
     const stage3AppInterfaceId = "precip_stage3_5f6aee08-4c60-4592-ab52-23b467aa31c6";
-    const stage4AppInterfaceId = "precip_stage4_";
+    const stage4AppInterfaceId = "precip_stage4_d146ed4c-5bca-4ca5-80b6-49fbbd9f6e8f";
+
+
+    const stage1DeploymentId = "149.165.152.168_precip_stage1_0e49e868-5e04-48a1-8505-3ec1ca1d0c5a";
+    const stage2DeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+    const stage3DeploymentId = "149.165.152.168_precip_stage3_b8f88098-0b3b-4c48-857c-1766609d1138";
+    const stage4DeploymentId = "149.165.152.168_precip_stage4_545cba6a-ed32-40f3-8a1a-7c2c210b64b5";
 
     const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
 
@@ -1960,8 +1997,7 @@ for (i = 0; i < coll.length; i++) {
 
                 const processDirName3 = fullDetails.experiment.processes[0].processId;
                 console.log("populateStage2: processDirName = " + processDirName3);
-                if (processDirName3 &&
-                    inputParametersDataProduct.downloadURL) 
+                if (processDirName3) 
                 {
                     // update the Run button to use the processDirName  
                     // get the input parameters from the previous PROCESS_DIR
@@ -1970,12 +2006,74 @@ for (i = 0; i < coll.length; i++) {
                     // HERE working here 9/22/2022
                     setStagePrevious(processDirName3);
                     // somehow populate the information in the stage2 window, and also retain the
-                    $(`#stage2-start-time`).val(expStartTime);
-                    $(`#stage2-end-time`).val(expEndTime);
+                    const formattedTime = formatTime(expStartTime);
+                    console.log("formattedTime9 = " + formattedTime);
+                    $(`#stage2-start-time`).val(formattedTime);
+                    const formattedTimeE = formatTime(expEndTime);
+                    $(`#stage2-end-time`).val(formattedTimeE);
                     // processDirName in order to pass it along to the run button.
-
+                    console.log("done formatting time");
                     $("#run-button-stage2").click(function() {
                         runStage2(processDirName3);
+                    });
+                }
+            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+        })
+    }
+
+
+    // the argument is just the experimentId, and then look things up as needed
+    function populateStage(stage, previousExperimentId) {
+
+        alert(previousExperimentId);
+
+        console.log("entering populateStage: stage=" + stage + " previousExperimentId=" + previousExperimentId);
+
+        services.FullExperimentService.retrieve({
+                lookup: previousExperimentId
+            }).then(fullDetails => {
+                console.log('here ps111');
+                const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                    o => o.name === "input_parameters"
+                ).value;
+                const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                    dp => dp.productUri === inputParametersDataProductId
+                );
+                // get the start and end times
+                const experimentInputs = fullDetails.experiment.experimentInputs;
+                console.log(experimentInputs);
+                const expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                const expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                console.log("expStartTime = " + expStartTime);
+                console.log("expEndTime = " + expEndTime);
+                const radar_name = experimentInputs.find(i => i.name === "radar name").value;
+                // TODO: send the start and end time to the continue button? 
+                // or just the experimentId, and then retrieve the info when 
+                // selected?
+
+                const processDirName3 = fullDetails.experiment.processes[0].processId;
+                console.log("populateStage: processDirName = " + processDirName3);
+                if (processDirName3 && stageAppInterfaceId && appDeploymentId) 
+                {
+                    // update the Run button to use the processDirName  
+                    // get the input parameters from the previous PROCESS_DIR
+                    // populate the input parameters
+
+                    setStagePrevious(processDirName3);
+                    // somehow populate the information in the stage2 window, and also retain the
+                    console.log("before formatting time; expStartTime = " + expStartTime);
+                    const formattedTime = formatTime(expStartTime);
+                    $(`#stage${stage}-start-time`).val(formattedTime);
+                    const formattedTimeX = formatTime(expEndTime);
+                    $(`#stage${stage}-end-time`).val(formattedTimeX);
+                    $(`#stage${stage}-radar-name`).text(radar_name);
+                    console.log("after formatting time");
+                    // processDirName in order to pass it along to the run button.
+
+                    $(`#run-button-stage${stage}`).click(function() {
+                        //runStage(stage, processDirName3);
+                        runStage(stage, processDirName3, stageAppInterfaceId,
+      appDeploymentId);  // <<=== 9/26/2022 here, need stageAppInterfaceId, and appDeploymentId for stage
                     });
                 }
             //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
@@ -2043,10 +2141,12 @@ for (i = 0; i < coll.length; i++) {
         console.log('entering runStage2');
         console.log('processDirName = ' + processDirName);
         const data_file_source = $(`#stage2-source`).attr("source");
-        const radar_name = $(`#stage2-radar-name`).val();  
+        const radar_name = $(`#stage2-radar-name`).text();  
         //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
-        const start_time = $(`#stage2-start-time`).val();
-        const end_time =   $(`#stage2-end-time`).val();
+        const start_time_rough = "\"" + $(`#stage2-start-time`).val() + "\"";
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time_rough =   "\"" + $(`#stage2-end-time`).val() + "\"";
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");        
         console.log("stage2-RadxRate params ...");
         console.log(start_time);
         console.log(end_time);
@@ -2084,12 +2184,15 @@ for (i = 0; i < coll.length; i++) {
                 experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
                 // Copy the selected greeting to the value of the first input
                 // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
-                console.log("data_file_source = " + data_file_source);
-                experiment.experimentInputs[0].value = data_file_source;
+                //console.log("data_file_source = " + data_file_source);
+                //experiment.experimentInputs[0].value = data_file_source;
                 console.log("aaa");
-                experiment.experimentInputs[1].value = processDirName;
+                experiment.experimentInputs[0].value = processDirName;
                 console.log("bbb");
-                experiment.experimentInputs[2].value = param_file;
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = start_time;
+                experiment.experimentInputs[3].value = end_time;                
+                experiment.experimentInputs[4].value = param_file;
                 console.log("ccc");
                 //experiment.experimentInputs[3].value = start_time; // TODO: make this 1st parameter
                 //console.log("ddd");
@@ -2105,6 +2208,80 @@ for (i = 0; i < coll.length; i++) {
                 });
             })
     }
+
+        // But, if the data or time or radar changes, then we need to grab the new input parameters
+    // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
+    function runStage(stage, processDirName, stageAppInterfaceId,
+      appDeploymentId) {   /// <<=== this is used 
+        console.log('entering runStage stage=' + stage);
+        console.log('processDirName = ' + processDirName);
+        const data_file_source = $(`#stage${stage}-source`).attr("source");
+        const radar_name = $(`#stage${stage}-radar-name`).text();  
+        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
+        const start_time = $(`#stage${stage}-start-time`).val();
+        const end_time =   $(`#stage${stage}-end-time`).val();
+        console.log("stage params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage${stage}-file`).attr("uri");
+        const param_file = $(`#stage${stage}-param-file`).val();
+
+        console.log("param_file: " + param_file);
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stageAppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+    //  ==>>  const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + currentStage;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                console.log("data_file_source = " + data_file_source);
+                experiment.experimentInputs[0].value = processDirName;
+                console.log("aaa2");
+                experiment.experimentInputs[1].value = radar_name;
+                // TODO: make sure start and end times have quotes ("") around them!!
+                experiment.experimentInputs[2].value = start_time;
+                experiment.experimentInputs[3].value = end_time;
+                console.log("bbb2");
+                experiment.experimentInputs[4].value = param_file;
+                console.log("ccc2");
+                //experiment.experimentInputs[3].value = start_time; // TODO: make this 1st parameter
+                //console.log("ddd");
+                //experiment.experimentInputs[4].value = end_time;
+                console.log("before experiment create");
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                console.log("before experiment launch");
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
+    }
+
 
     function runStage2Old(processDirName) {    
         // TODO: populate the inputs to the next stage with the info from the processDirName,
@@ -2168,7 +2345,7 @@ for (i = 0; i < coll.length; i++) {
     // TODO: maybe this could be a function ...
     // args processDirName, step = "stage2", data_file_source, param_file_uri, stageXAppInterfaceId 
     // TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
-    function runStage(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
+    function runStageOld(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
         console.log("entering runStage " + step);
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
@@ -2252,7 +2429,7 @@ for (i = 0; i < coll.length; i++) {
     // stage = 2, 
     function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
 
-        console.log("inside loadStageExperiments");
+        console.log("inside loadStageExperiments: stage=" + stage + " current stage=" + currentStage);
 
         return services.ExperimentSearchService.list({
             limit: 3,
@@ -2261,20 +2438,20 @@ for (i = 0; i < coll.length; i++) {
         }).then(data => {
             console.log("inside loadStageExperiments; stage =" + stage);
             console.log("               stageAppInterfaceId = " + stageAppInterfaceId);
-            const nextStage = stage + 1;
-            $(experimentList).empty();
+            //const nextStage = stage + 1;
+            $("#experiment-list-modal").empty();
             data.results.forEach((exp, index) => {
                 // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
                 // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
                 
-                $(experimentList).append(
+                $("#experiment-list-modal").append(
                     `<tr>
                             <td>${exp.name}</td>
                             <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
                             <td>
-                            <a href="#stage${nextStage}" id="continue_${stage}_${index}">Select</button>
+                            <a href="#stage${currentStage}" id="continue_${index}">Select</button>
                              </td>
                         </tr>`
 
@@ -2290,6 +2467,13 @@ for (i = 0; i < coll.length; i++) {
                             const inputParametersDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === inputParametersDataProductId
                             );
+                            // get the start and end times
+                            const experimentInputs = fullDetails.experiment.experimentInputs;
+                            console.log(experimentInputs);
+                            expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                            expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                            console.log("expStartTime = " + expStartTime);
+                            console.log("expEndTime = " + expEndTime);
 
                             const processDirName = fullDetails.experiment.processes[0].processId;
                             if (
@@ -2298,35 +2482,11 @@ for (i = 0; i < coll.length; i++) {
                             ) {
                                 console.log('here 1112');
                                 //$(`#outdir_${stage}_${index}`).text(processDirName);
-                                $(`#continue_${stage}_${index}`).on("click", function() {
-                                    populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
+                                $(`#continue_${index}`).on("click", function() {
+                                    populateStage(currentStage, exp.experimentId);
                                 });
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-                            }
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value;
-                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
-                            const imageArray = outdirDataProductId.split(',');
-                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
-                            const outdirDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === firstOne
-                            );
-                            // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
-                            // https://gateway.lrose.net/workspace/experiments/
-                            if (
-                                outdirDataProduct &&
-                                outdirDataProduct.downloadURL
-                            ) {
-                                console.log("index=" + index + " here ... Have downloadURL");
-                                console.log(outdirDataProduct.downloadURL);
-                                $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);
-                                // also make a link to the experiment results 
-                                //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
                             }
                         })
-
                 };
             });
         });
