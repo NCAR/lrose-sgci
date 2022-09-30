@@ -1913,7 +1913,35 @@ for (i = 0; i < coll.length; i++) {
 
     const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
 
+    function getAppInterfaceId(stage) {
+        switch (stage) {
+            case 1:
+               return stage1AppInterfaceId;
+            case 2:
+               return stage2AppInterfaceId;
+            case 3:
+               return stage3AppInterfaceId;
+            case 4:
+               return stage4AppInterfaceId;
+            default:
+               assert("Error getAppInterfaceId: Unrecognized stage " + stage);
+        }
+    }
 
+    function getAppDeploymentId(stage) {
+        switch (stage) {
+            case 1:
+               return stage1DeploymentId;
+            case 2:
+               return stage2DeploymentId;
+            case 3:
+               return stage3DeploymentId;
+            case 4:
+               return stage4DeploymentId;
+            default:
+               assert("Error getAppDeploymentId: Unrecognized stage " + stage);
+        }
+    }
 
     function loadExperiments() {
         return services.ExperimentSearchService.list({
@@ -2053,7 +2081,7 @@ for (i = 0; i < coll.length; i++) {
 
                 const processDirName3 = fullDetails.experiment.processes[0].processId;
                 console.log("populateStage: processDirName = " + processDirName3);
-                if (processDirName3 && stageAppInterfaceId && appDeploymentId) 
+                if (processDirName3) 
                 {
                     // update the Run button to use the processDirName  
                     // get the input parameters from the previous PROCESS_DIR
@@ -2069,6 +2097,8 @@ for (i = 0; i < coll.length; i++) {
                     $(`#stage${stage}-radar-name`).text(radar_name);
                     console.log("after formatting time");
                     // processDirName in order to pass it along to the run button.
+                    const stageAppInterfaceId = getAppInterfaceId(stage);
+                    const appDeploymentId = getAppDeploymentId(stage);                    
 
                     $(`#run-button-stage${stage}`).click(function() {
                         //runStage(stage, processDirName3);
@@ -2080,60 +2110,6 @@ for (i = 0; i < coll.length; i++) {
         })
     }
 
-/*
-    function populateStage22(processDirName, inputParametersDownloadURL) {
-        alert(processDirName);
-        //parameter-file-stage2 
-        //     data-source-stage2
-        // update the Run button to use the processDirName  
-        console.log("inside populateStage22");
-        if (
-            processDirName
-        ) {
-            // get the input parameters from the previous PROCESS_DIR
-
-            // populate the input parameters
-
-
-            // HERE working here 9/22/2022
-            setStagePrevious(processDirName);
-            // somehow populate the information in the stage2 window, and also retain the
-            // processDirName in order to pass it along to the run button.
-
-            $("#run-button-stage2").click(function() {
-                runStage2(processDirName);
-            });
-            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-        }
-
-    }
-*/
-
-    function populateStage3(processDirName, inputParametersDownloadURL) {
-        alert(processDirName);
-        //parameter-file-stage2 
-        //     data-source-stage2
-        // update the Run button to use the processDirName  
-        if (
-            processDirName
-        ) {
-            const stage = 3;
-            const param_file = "windy day";
-            const step = "stage3";
-            const data_file_source = 1;
-            const param_file_uri = "";
-            // get the input parameters from the previous PROCESS_DIR
-            console.log("calling setStageTutorial");
-            setStageTutorial(); // stage, param_file);
-            // populate the input parameters
-            $("#run-button-stage3").click(function() {
-                runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
-                //runStage3(processDirName);
-            });
-            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-        }
-
-    }
 
     // But, if the data or time or radar changes, then we need to grab the new input parameters
     // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
@@ -2218,8 +2194,12 @@ for (i = 0; i < coll.length; i++) {
         const data_file_source = $(`#stage${stage}-source`).attr("source");
         const radar_name = $(`#stage${stage}-radar-name`).text();  
         //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
-        const start_time = $(`#stage${stage}-start-time`).val();
-        const end_time =   $(`#stage${stage}-end-time`).val();
+
+        const start_time_rough = "\"" + $(`#stage${stage}-start-time`).val() + "\"";
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time_rough =   "\"" + $(`#stage${stage}-end-time`).val() + "\"";
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");  
+
         console.log("stage params ...");
         console.log(start_time);
         console.log(end_time);
