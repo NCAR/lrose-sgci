@@ -421,6 +421,46 @@ progress:indeterminate {
   height: 30px;
 }
 
+/* for NEXRAD dropdown list */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
 </style>
 </head>
 
@@ -447,17 +487,26 @@ progress:indeterminate {
                 <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
                 <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
 
-                <div>
+                <!-- div>
                   <button class="rectangle-208"  disabled="true" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
                 </div>
                 <div>  
                   <button class="rectangle-208" disabled="true" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
-                </div>
+                </div -->
                 <div>
                       <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
                      <div>
-                       <button id="data-source-tutorial">Tutorial</button>
-                       <button id="data-source-nexrad" disabled="true">NEXRAD</button>
+                        <button id="data-source-tutorial">Tutorial</button>
+                        <div class="dropdown">
+                          <button id="data-source-nexrad" onclick="myFunction()" class="dropbtn">NEXRAD</button>
+                          <!-- button onclick="myFunction()" class="dropbtn">NEXRAD</button -->
+                          <div id="myDropdown" class="dropdown-content">
+                            <a href="javascript:setStage1Radar('KSHV');">KSHV</a>
+                            <a href="javascript:setStage1Radar('KFTG');">KFTG</a>
+                            <a href="javascript:setStage1Radar('KLOT');">KLOT</a>
+                          </div>
+                        </div>
+
                     </div>
                 </div>
                  
@@ -792,7 +841,7 @@ progress:indeterminate {
         </div>
 
         <!-- progress></progress -->
-        <button id="check-status-button" class="btn btn-primary run-button">Stop Status Check</button>          
+        <!-- button id="check-status-button" class="btn btn-primary run-button">Stop Status Check</button  -->          
         <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
         <div style="text-align: center; margin: 30px">
         </div>
@@ -1464,8 +1513,8 @@ for (i = 0; i < coll.length; i++) {
                 // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
                 experiment.experimentInputs[0].value = data_file_source;
                 experiment.experimentInputs[1].value = radar_name;
-                experiment.experimentInputs[2].value = "\"" + start_time + "\""; // TODO: make this 1st parameter
-                experiment.experimentInputs[3].value = "\"" + end_time + "\"";
+                experiment.experimentInputs[2].value = "\"" + start_time +  " 00 " + "\""; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = "\"" + end_time   +  " 00 " +  "\"";
                 experiment.experimentInputs[4].value = param_file;
                 return services.ExperimentService.create({
                     data: experiment
@@ -1583,8 +1632,12 @@ for (i = 0; i < coll.length; i++) {
         $("#experiment-list-modal").empty();
         if (currentStage > 1) {
             console.log("should hide NEXRAD");
-            $("#data-source-nexrad").hide();
-            $("#data-source-tutorial").hide();
+            //$("#data-source-nexrad").hide();
+            var x = document.getElementById("data-source-nexrad");
+            x.style.visibility = "hidden";
+            x = document.getElementById("data-source-tutorial");
+            x.style.visibility = "hidden";
+            //$("#data-source-tutorial").hide();
             $("use-online-data-source").hide();
             $("#get-previous-stage-button").show();            
         }
@@ -1592,7 +1645,12 @@ for (i = 0; i < coll.length; i++) {
         if (currentStage == 1) {
             console.log("currentStage == 1");
             $("#get-previous-stage-button").hide();
-            $("#data-source-nexrad").show();
+            var x = document.getElementById("data-source-nexrad");
+            x.style.visibility = "visible";
+            x = document.getElementById("data-source-tutorial");
+            x.style.visibility = "visible";
+            //$("#data-source-nexrad").show();
+            //$("#data-source-nexrad").display("false");
         }
 
 
@@ -1742,12 +1800,14 @@ for (i = 0; i < coll.length; i++) {
 
     // if selecting Radar as input source, then change to start/end time & radar name
     // also switch the default parameter file to the NEXRAD form 
-    function setStage1Radar() {
+    function setStage1Radar(nexrad_radar_station) {
         // TODO: change the input boxes to time and radar name
+        console.log("setStage1Radar: radar_name = " + nexrad_radar_station);
         $("#stage1-file").hide();
         $("#stage1-source").attr("source", RADAR_ENUM);
         $("#stage1-source").text("NEXRAD");
         $("#stage1-radar-name").show();
+        $("#stage1-radar-name").text(nexrad_radar_station);
         $("#stage1-start-time").show();
         $("#stage1-end-time").show();
         $("#stage1-start-time-label").show();
@@ -2019,9 +2079,9 @@ for (i = 0; i < coll.length; i++) {
                 expEndTime = experimentInputs.find(i => i.name === "end time").value;
                 console.log("expStartTime = " + expStartTime);
                 console.log("expEndTime = " + expEndTime);
-                // TODO: send the start and end time to the continue button? 
-                // or just the experimentId, and then retrieve the info when 
-                // selected?
+                // send the experimentId, to the continue button,
+                // and retrieve the info when needed
+                const radar_name = experimentInputs.find(i => i.name === "radar name").value;
 
                 const processDirName3 = fullDetails.experiment.processes[0].processId;
                 console.log("populateStage2: processDirName = " + processDirName3);
@@ -2041,6 +2101,7 @@ for (i = 0; i < coll.length; i++) {
                     $(`#stage2-end-time`).val(formattedTimeE);
                     // processDirName in order to pass it along to the run button.
                     console.log("done formatting time");
+                    $(`#stage2-radar-name`).text(radar_name);
                     $("#run-button-stage2").click(function() {
                         runStage2(processDirName3);
                     });
@@ -2569,20 +2630,26 @@ for (i = 0; i < coll.length; i++) {
         showOnlineDataSources()
     });
 
-    $("#data-source-nexrad").click(function() {
+    function myFunction() {
         console.log("data-source is nexrad");
-        //setCurrentStage();
-        console.log("current stage = " + currentStage);
-        var appIId = stage2AppInterfaceId;
-        var experimentList = "#experiment-list-modal";
-        switch (currentStage-1) {
-            case 0: 
-                appIId = stage1AppInterfaceId; 
-                break;
-            default:
-        }        
-        setStage1Radar();
-    });
+        var x = document.getElementById("myDropdown");
+        x.classList.toggle("show"); // ("dropdown-content");
+        //setStage1Radar();
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
 
     $("#data-source-tutorial").click(function() {
         console.log("data-source is tutorial");
