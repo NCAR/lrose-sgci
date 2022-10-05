@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% load static %} {% block content %}
+<head>
 <style>
     .active {
         background-color: #4CAF50;
@@ -20,16 +21,50 @@
         /* Active dot */
         /*background-color: rgba(0, 0, 0, .3);*/
         /* Inactive dot */
-        border: 1px solid rgba(0, 0, 0, .3);
+        border: 3px solid rgba(0, 0, 0, .3);
         /* OPTIONAL: Spacing between dots */
         margin: 0 100px;
         padding-left: 10px;
         padding-right: 10px;
     }
+
+    .circleEmpty {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: white;
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(0, 0, 0, .3);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }       
+
+    .circleFilled {
+        /* Rounded border */
+        border-radius: 9999px;
+        height: 60px;
+        width: 60px;
+        /*left: 186px;*/
+        /* Active dot */
+        background-color: rgba(76, 175, 80, 1);
+        /*background-color: rgba(0, 0, 0, .3);*/
+        /* Inactive dot */
+        border: 3px solid rgba(76, 175, 80, 1);
+        /* OPTIONAL: Spacing between dots */
+        margin: 0 100px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }    
     
     .rectangle {
         width: 240px;
-        height: 6px;
+        height: 3px;
         background: #C4C4C4;
         position: fixed;
     }
@@ -46,7 +81,7 @@
     }
     
     aside {
-        width: 10%;
+        width: 30%;
         padding-left: 5px;
         padding-right: 5px;
         margin-left: 5px;
@@ -84,410 +119,898 @@
         border: 3px solid blue;
         float: left;
     }
+
+    div.a {
+        /* top: -50px;
+        float: bottom; */
+    }
+
+    
+    .overflow-y-scroll {
+        /* background-color: lightblue; */
+        height: 400px;
+        overflow-y: scroll;
+        margin: 200px 0 0 0;
+    }
+
+    .workflow-title {
+        position:fixed; 
+        /* text-align: center; */
+
+        margin-top: -45px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 0px;
+        width:  60em;
+    }
+
+    .workflow-header {
+       height: 3px;
+    }
+
+    .step-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+
+        color: #757575;
+    }
+
+    .stage-text {
+        /*font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 29px;
+
+        color: #000000;
+    }
+
+    .hyperlink-text {
+        /* font-family: 'Roboto'; */
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 23px;
+        text-decoration-line: underline;
+
+        color: #1F73D6;
+    }
+
+    table, tr, td {
+         border:none;
+    }
+
+    mylabel {
+    display: block;
+    background: lightgrey;
+    width: 100px;
+    height: 100px;
+    }
+
+    .upload-download-icon {
+        height: 18px; 
+        width: 18px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }
+
+    .help-circle-icon {
+        height: 23px; 
+        width: 23px; 
+        display: inline;
+        /* border: 20px solid #FFFFFF; */
+        margin-left: 18px;
+    }    
+
+    .run-button {
+        background: #04B482;
+        border-radius: 5px;
+        /* transform: matrix(1, 0, 0, -1, 0, 0); */
+        margin-left: 60%;
+        margin-bottom: 10px;
+    }
+
+    .exit-button {
+        background: #575757;
+        border-radius: 5px; 
+        /* transform: matrix(1, 0, 0, -1, 0, 0); */
+        margin-left: 30%;
+        margin-bottom: 10px; 
+
+        /* height: 56px; */
+        width: 207px;
+ /*       left: 616px;
+        top: 3626px;
+        border-radius: 5px;
+*/
+    }
+
+#demo:checked + mylabel {
+    background: blue;
+    color: white;
+}
+
+.info-button {
+    height: 30px; 
+    width: 30px; 
+    display: inline;
+}
+
+/* Style the button that is used to open and close the collapsible content */
+.collapsible {
+  /* background-color: #eee;
+  color: #444; */
+  cursor: pointer;
+  /*
+  padding: 18px;
+  width: 10%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+  */
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .collapsible:hover {
+  /* background-color: #ccc; */
+}
+
+/* Style the collapsible content. Note: hidden by default */
+.content {
+  padding-top: 20px ;
+  padding-right: 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
+
+.collapsible:after {
+  /* content: '\02795';  */ /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: white;
+  float: top;
+  margin-left: 5px;
+}
+
+.active:after {
+  /* content: "\2796"; *//* Unicode character for "minus" sign (-) */
+}
+
+/* for tabs */
+
+/* Style the tab */
+.tab {
+  /* overflow: hidden; */
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  display: inline;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  /* padding: 14px 16px; */
+  transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+/*
+.tab button:hover {
+  background-color: #ddd;
+}
+*/
+
+/* Create an active/current tablink class */
+/*
+.tab button.active {
+  background-color: #ccc;
+}
+*/
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+
+
+/* left-chevron 2 */
+.left-chevron2 {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+/* arrow out of box*/
+.arrow-out-corner-box {
+    /*position: sticky; */
+    width: 15px;
+    height: 15px;
+    left: 0;
+    top: 0;
+    border: none;
+}
+
+/* The start date must be earlier than the end date */
+
+.caution { 
+    /* position: absolute; 
+    width: 253px;
+    height: 14px; */
+    left: 631px;
+    /* top: 1061px; */
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #EB1616;
+}
+
+.analyze-date-time {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    text-align: right;
+
+    color: #000000;
+}
+
+.start-end-date-time {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: left;
+
+    color: #000000;
+}
+
+.data-and-time {
+    border: 1px solid #C4C4C4;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+/* Rectangle 208 for choose data source buttons */  
+.rectangle-208 {
+    /* position: absolute; */
+    width: 207px;
+    height: 33px;
+    left: 85px;
+    top: 218px;
+
+    border: 1px solid #1F73D6;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.done-lime-green {
+    color:  #268541;
+    background-color:  #F2FCF6;
+}
+
+progress {
+  margin: 4px;
+}
+
+progress:indeterminate {
+  width: 50vw;
+  height: 30px;
+}
+
+/* for NEXRAD dropdown list */
+.dropbtn {
+  background-color: #3498DB;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  overflow: auto;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
 </style>
+</head>
+
+
+
 
 <div class="main-content-wrapper">
     <main class="main-content">
 
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" style="text-align: center">Choose data source</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+              </div>
+             
+                <!-- <p>Drop files here <br> or </p> -->
+
+                <!-- Basic Uppy styles -->
+                <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
+                <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
+
+                <!-- div>
+                  <button class="rectangle-208"  disabled="true" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button>
+                </div>
+                <div>  
+                  <button class="rectangle-208" disabled="true" onclick="window.location.href='/workspace/storage';">Select from file manager</button>
+                </div -->
+                <div>
+                      <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                     <div>
+                        <button id="data-source-tutorial">Tutorial</button>
+                        <div class="dropdown">
+                          <button id="data-source-nexrad" onclick="myFunction()" class="dropbtn">NEXRAD</button>
+                          <!-- button onclick="myFunction()" class="dropbtn">NEXRAD</button -->
+                          <div id="myDropdown" class="dropdown-content">
+                            <a href="javascript:setStage1Radar('KSHV');">KSHV</a>
+                            <a href="javascript:setStage1Radar('KFTG');">KFTG</a>
+                            <a href="javascript:setStage1Radar('KLOT');">KLOT</a>
+                          </div>
+                        </div>
+
+                    </div>
+                </div>
+                 
+                <div>
+                  <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
+                        <table class="table" id="previousStageList">
+                            <tbody id="experiment-list-modal">
+                            </tbody>
+                        </table>
+                </div>
+
+                          <!-- grabbed this from the gateway file store page ...   
+                        <div id="user-storage"/>
+                          </div>
+                          <script>
+                            // provide data for initializing api's session.Session
+                            window.AiravataPortalSessionData = {"username": "", "airavataInternalUserId": "", "isGatewayAdmin": true};
+                          </script>
+                          <script type="text/javascript" src="/static/common/dist/js/chunk-vendors.98ccde31.js" ></script>
+                          <script type="text/javascript" src="/static/common/dist/js/app.f16ab7ea.js" ></script>
+                            <script type="text/javascript" src="/static/common/dist/js/notices.f53630b0.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.569d6e6d.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.9bbd477b.js" ></script>
+                        <script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.35b9584d.js" ></script>    
+                          end ... grabbed this from the gateway file store page ...    -->
+                  
+                <div class="modal-footer"> 
+                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                 </div>
+            
+
+            </div> <!-- class modal content -->
+
+          </div>  <!-- class modal dialog -->
+        </div>  <!-- id = myModal -->
+
         <!-- add navigation dots here: use Scrollspy from bootstrap -->
 
-        <!-- class comes from bootstrap -->
-        <div class="container-fluid">
-            <div style="text-align: center">
-                <h1 id="first">Rainfall Estimation</h1>
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-            </div>
-            <div style="text-align: center; margin: 30px; min-width:1080px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <!-- Adding an aside tag to hold the information and logs buttons -->
-            <aside style="display: inline;">
-                <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/info.png' %} alt="info" style="height: 30px; width: 30px; display: inline" />
+    <!-- class comes from bootstrap -->
+    <div class="container-fluid workflow-header" id="dotNav">
+        <div class="workflow-title" > <!-- style="position:fixed; text-align: center"> -->
+            <h1 style="text-align: center">Rainfall Estimation</h1>
+            <a href="url">Learn more </a> | <a href="url">Help </a> 
+        </div>
+        <div style="text-align: center; margin: 30px; min-width:1080px">
+            <!-- Creating the navigation bar with circles -->
+            <nav style="position:fixed; left: -5px">
+                <ul style="list-style-type: none; overflow: hidden; display: inline">
+                    <li id="stage12-rect" class="rectangle" style="left: 196px; top: 20px; position:relative; z-index: -1"></li>
+                    <li id="stage23-rect" class="rectangle" style="left: 440px; top: 16px; position:relative; z-index: -1"></li>
+                    <li id="stage34-rect" class="rectangle" style="left: 640px; top: 13px; position:relative; z-index: -1"></li>
+                </ul>
+
+                <!--
+                <a href="#stage2" class="btn btn-primary circle" role="button" id="" data-bs-toggle="button"></a> 
+                <label class="btn btn-primary circle" for=""></label>
+                -->
+                <!--
+                <input type="checkbox" class="btn-check" name="options" id="btn-check-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined"></label>
+
+                <input type="radio" class="btn-check" name="options" id="option2" autocomplete="off">
+                <label class="btn btn-secondary" for="option2"></label>
+
+                <input type="radio" class="btn-check" name="options" id="option3" autocomplete="off">
+                <label class="btn btn-secondary" for="option3"></label>
+                -->
+                <!-- 
+                <input type="radio" class="btn-check circle" name="options" id="option4" autocomplete="off">
+                <label class="btn btn-secondary" for="option4"></label>
+                -->
+
+
+                <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
+                    <a href="#stage1" <li id="circle-stage1" class="circleFilled" style="display: inline">
+                    </a>
+                    <a id="circle-stage2"  href="#stage2" <li id="circle-stage2"  class="circleEmpty" style="display: inline">
+                       <label for="circle-stage2"></label>
+                    </a>
+                    <a href="#stage3" <li id="circle-stage3" class="circleEmpty" style="display: inline">
+                       <label for="circle-stage3"></label>
+                    </a>
+                    <a href="#stage4" <li id="circle-stage4" class="circleEmpty" style="display: inline">
+                       <label for="circle-stage4"></label>
+                    </a>
+                </ul>
+
+
+                <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
+                    <li style="display: inline; margin: 0 30px;">
+                        <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
                     </li>
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Map Rate to Surface<br>(RadxRate)</p>
+                    </li>
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Quantitative Precipitation <br> Estimation <br>(RadxQpe)</p>
+                    </li>
+                    <li style="display: inline; margin: 0 40px;">
+                        <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
                     </li>
                 </ul>
-            </aside>
-            <div class="card">
-                <!-- <div class="icon-bar"> hello</div> -->
+            </nav>
+        </div>
+    </div> <!-- end container-fluid -->
 
-                <div class="card-header">
-                    Convert Level II Data to CfRadial (RadxConvert)
-                </div>
-                <div class="card-body">
-                    Step 1: Choose data source
-                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
-                    <br>
+    <div class="overflow-y-scroll"  onscroll="scrollFunction()"> <!-- style="margin: 200px 0 0 0; height:  600px; overflow-y: scroll" -->
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
-      Data Sources
-    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
-                                <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage1-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage1-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage1-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage1-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+        <!-- Adding an aside tag to hold the information and logs buttons -->
+        <aside style="display: inline;">
 
+            <!-- Tab links -->
+            <div class="tab">
+              <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
+                  <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
+              </button>
+              <button class="tablinks" onclick="openLog(event, 'StageNLog')">
+                  <img class="log-button" src={% static 'custom_app/icons/log.png' %} />     
+              </button>
+            </div>
+
+            <!-- Tab content -->
+            <div id="RadxConvertInfo" class="tabcontent">
+              <!-- h3>RadxConvertInfo</h3 -->
+              <p>RadxConvert allows you to convert data stored in one format to a different format.</p>
+            </div>
+
+            <div id="StageNLog" class="tabcontent">
+              <!-- h3>StageNLog</h3 -->
+              <button>
+                <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+              </button>
+              <button>
+                <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+              </button>
+                  
+              <p>Log file for most recent run.</p>
+            </div>
+
+                        <!--
+
+                            <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
+                                <li style="display: inline; margin: 0 10px">
+
+                               <input type="image" class="info-button collapsible" src={% static 'custom_app/icons/info.png' %}   />
+                                    </input>
+                                    
+                                    <input type="image" src={% static 'custom_app/icons/info.png' %} class="collapsible info-button" 
+                                            alt="info" /> 
+                                    <div class="content">
+                                      <p>Lorem ipsum...</p>
+                                    </div>
+
+                                    
+                                </li>
+                                <li style="display: inline; margin: 0 10px">
+
+                               <input type="image" class="info-button collapsible" src={% static 'custom_app/icons/log.png' %}   />
+                                    </input>        
+                                                  
+                                    <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
+                                    <div class="content">
+                                      <p>Log file content here ...</p>
+                                    </div>
+
+                                </li>
+                            </ul>
+                        -->
+        </aside>
+
+        <div class="card" id="stage1">
+            <!-- <div class="icon-bar"> hello</div> -->
+
+            <!-- div class="card-header">
+                <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>
+            </div -->
+            <div class="card-body">
+                <table> <!--  class="table" -->
+                  <tr>
+                    <p class="stage-text"> Convert Level II Data to CfRadial (RadxConvert) </p>                       
+                  </tr>
+                  <tr>
+                      <th class="step-text">Step 1 </th>
+                  </tr> 
+                  <tr> 
+                    <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()" data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                    <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon"> </th> 
+                  </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage1-source"></th>
+                    <th class="done-lime-green" id="stage1-radar-name"></th>
+                  </tr>
+                </table>
+                <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
+                <br>
+<!--
+                <div class="input-group mt-3 mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage1-source" data-toggle="dropdown">
+  Data Sources
+</button>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" id="stage1-file-filedir" href="#">File or Directory</a>
+                            <a class="dropdown-item" id="stage1-file-radar" href="#">Radar</a>
+                            <a class="dropdown-item" id="stage1-file-tutorial" href="#">Tutorial</a>
+                        </div>
                     </div>
-                    <div>
+                    <input type="text" class="form-control" uri="888" source=1 id="stage1-file" placeholder="data/directory">
+                    <input type="text" class="form-control" uri="888" source=2 id="stage1-radar-name" placeholder="radar name, e.g. KFTG">
+                    <div class="input-group-prepend" id="stage1-start-time-label">
+                        <span class="input-group-text">start time</span>
                     </div>
-
-
-                    <!--
-  <div class="form-group">
-    <label for="email"></label>
-    <input type="email" class="form-control" value="rainfall/basic/raw/RCWF/20170602/20170602001300.raw" id="stage1-param-file" uri="888">
-  </div>
+                    <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                    <div class="input-group-prepend" id="stage1-end-time-label">
+                        <span class="input-group-text">stop time</span>
+                    </div>
+                    <input type="datetime-local" class="form-control" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                </div>              
 -->
-                    <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
-
-                    <br>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                        </thead>
-                        <tbody id="data-source-list">
-                        </tbody>
-                    </table>
-
-                    Step 2: Setup parameter file
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
+                <!-- NOTE: when setting value, also set the uri; initialize by setting value & uri when document.ready event -->
+                <!-- 
+                <br>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-source-list">
+                    </tbody>
+                </table>
+                -->
+                <table>
+                  <tr>
+                      <th class="step-text">Step 2 </th>
+                  </tr> 
+                  <tr>
+                      <th class="stage-text">Set up parameter file 
+                        <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                      </th>
+                  </tr>
+                <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
                     <div class="form-group">
                         <label for="email"></label>
                         <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col"></th>
-                                <th scope="col"></th>
-                            </tr>
-                            <!-- <a href="url">Upload your parameter file </a> </th> -->
-                        </thead>
-                        <tbody id="parameter-file-list">
-                        </tbody>
-                    </table>
+                -->
+
+                    <tr>
+                        <th> <a href="url" class="hyperlink-text">Use default </a> 
+                        </th>   
+                    </tr>
+                    <tr>                         
+                        <th> <a href="url" class="hyperlink-text">Download template </a> 
+                            <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                        </th>
+                    </tr>
+                    <tr>
+                        <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                            <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                        </th>    
+                    </tr>
+                    <tr>
+                        <th class="done-lime-green" id="stage1-param-file"></th>
+                    </tr>
+                    <tbody id="parameter-file-list">
+                    </tbody>
+                </table>
+                <br>
+                <table>
+                    <tr>
+                      <th class="step-text">Step 3 </th>
+                    </tr> 
+                    <tr>
+                      <th class="stage-text">Select time frame </th>
+                    </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                     <!--   
+                        <div class="form-group">
+                            <label for="email"></label>
+                            <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                        </div>
+                    -->
+
+                    <tr>
+                        <th class="analyze-date-time"> Analyze data from </th>
+                        <th> 
+                           <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-start-time" placeholder="start date time">
+                        </th>
+                        <th class="start-end-date-time"> Start Date and Time </th>
+                    </tr>
+                    <tr>
+                        <th class="analyze-date-time"> to </th>
+                        <th>
+                            <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage1-end-time" placeholder="end date time">
+                        </th>
+                        <th class="start-end-date-time"> End Date and Time </th> 
+                    </tr>
+                    <tr><th>&nbsp;</th> 
+                        <th class="caution"> * The start date must be earlier than the end date </th>
+                         
+                    </tr>
+                    <tbody id="parameter-file-list">
+                    </tbody>
+                </table>                    
+            </div> <!-- card body -->
+        </div> <!-- card stage 1-->
 
 
-                    <!-- <select id="greeting-select"></select>  -->
-                    <button id="run-radxconvert-button" class="btn btn-primary">Run</button>
-                    <!-- <button id="test-variable-button" class="btn btn-primary">Print Var</button> -->
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
 
-                    <!-- for status and image
-                        <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Status</th>
-                                <th scope="col">Result</th>
-                            </tr>
-                        </thead>
-                        <tbody id="stage1-status">
-                        </tbody>
-                    </table>
--->
-                </div>
+
+        <div class="example-one">
+            <!-- <h5>autoProceed is on BEJ</h5> -->
+
+            <!-- Target DOM node #1 -->
+            <div class="for-DragDrop"></div>
+
+            <!-- Progress bar #1 -->
+            <div class="for-ProgressBar"></div>
+
+            <!-- Uploaded files list #1 -->
+            <div class="uploaded-files">
+                <!-- <h5>Uploaded files:</h5> -->
+                <ol></ol>
             </div>
+        </div>
 
-            <!--
-            <div class="card">
-                <div id="demo" class="carousel slide" data-ride="carousel">
-  <-- Indicators
-  
-  <ul class="carousel-indicators">
-    <li data-target="#demo" data-slide-to="0" class="active"></li>
-    <li data-target="#demo" data-slide-to="1"></li>
-    <li data-target="#demo" data-slide-to="2"></li>
-  </ul>
-  
-  <-- The slideshow 
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="la.jpg" alt="Los Angeles" width="1100" height="500">
-    </div>
-    <div class="carousel-item">
-      <img src="chicago.jpg" alt="Chicago" width="1100" height="500">
-    </div>
-    <div class="carousel-item">
-      <img src="ny.jpg" alt="New York" width="1100" height="500">
-    </div>
-  </div>
-  
-  <-- Left and right controls 
-  <a class="carousel-control-prev" href="#demo" data-slide="prev">
-    <span class="carousel-control-prev-icon"></span>
-  </a>
-  <a class="carousel-control-next" href="#demo" data-slide="next">
-    <span class="carousel-control-next-icon"></span>
-  </a>
-</div>
-           </div> <-- card for carousel -->
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Previous Conversions
-                </div>
-                <div class="card-body">
-                    <button id="conversion-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <!-- <th scope="col">Application</th> -->
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                                <th scope="col">Next Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-conversion">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <!-- begin My Storage-->
+        <!-- progress></progress -->
+        <!-- button id="check-status-button" class="btn btn-primary run-button">Stop Status Check</button  -->          
+        <button id="run-radxconvert-button" class="btn btn-primary run-button">Run</button>            
+        <div style="text-align: center; margin: 30px">
+        </div>
 
-            <!--
-            <div class="card" id="stage2optional">
-                <div class="card-header">
-                    Compute Beam Blockage (RadxBeamBlock)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian rate data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>   
-            -->
-            <div style="text-align: center">
-                <h1 id="second">Rainfall Estimation</h1>
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-            </div>
-            <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50;left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+    <!-- begin RadxRate restyle (stage 2) -->
+
+
+            <!-- Adding an aside tag to hold the information and logs buttons -->
             <aside style="display: inline;">
-                <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/info.png' %} alt="info" style="height: 30px; width: 30px; display: inline" />
-                    </li>
-                    <li style="display: inline; margin: 0 10px">
-                        <img src={% static 'custom_app/icons/log.png' %} alt="log" style="height: 30px; width: 30px; display: inline" />
-                    </li>
-                </ul>
-            </aside>
-            <!-- begin RadxRate -->
-            <div class="card" id="stage2">
-                <div class="card-header">
-                    Map Rate to Surface (RadxRate)
+                <!-- Tab links -->
+                <div class="tab">
+                  <button class="tablinks" onclick="openInfo(event, 'RadxConvertInfo')">
+                      <img class="info-button" src={% static 'custom_app/icons/info.png' %} />
+                  </button>
+                  <button class="tablinks" onclick="openLog(event, 'StageNLog')">
+                      <img class="log-button" src={% static 'custom_app/icons/log.png' %} />      
+                  </button>
                 </div>
+
+                <!-- Tab content -->
+                <div id="RadxConvertInfo" class="tabcontent">
+                  <!-- h3>RadxConvertInfo</h3 -->
+                  <p>RadxRate allows you to convert data stored in one format to a different format.</p>
+                </div>
+
+                <div id="StageNLog" class="tabcontent">
+                  <!-- h3>StageNLog</h3 -->
+                  <button>
+                    <img class="left-chevron2" src={% static 'custom_app/icons/double_chevron_down_icon.png' %} />
+                  </button>
+                  <button>
+                    <img class="arrow-out-corner-box" src={% static 'custom_app/icons/box_arrow_up_right_icon.png' %} />
+                  </button>
+                      
+                  <p>Log file for most recent run.</p>
+                </div>
+            </aside>
+
+            <div class="card" id="stage2">
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Map Rate to Surface (RadxRate) </p>
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> 
+                      <tr>
+                          <th> <a href="#" class="hyperlink-text" 
+                            onclick="hideUnavailableDataSources()"  data-toggle="modal" 
+                            data-target="#myModal">Choose data source </a> 
+                            <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                          </th> 
+                      </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage2-source"></th>
+                    <th class="done-lime-green" id="stage2-radar-name"></th>
+                  </tr>
+                  </table>
                     <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage2-source" data-toggle="dropdown">
-      Data Sources
-    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage2-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage2-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage2-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage2-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage2-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage2-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage2-end-time" placeholder="end date time">
-                    </div>
-
-                    Step 2: Setup parameter file
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage2-param-file" uri="888">
-                    </div>
-
-
-                    <!--
-                	
-                	<a href="url">Choose data source </a> <br>
-                	
-                	Set up parameter file <br>
-                	<a href="url">Download template </a> <br>
-                	<a href="url">Upload your parameter file </a> <br>
-                     -->
-                    <button id="run-button-stage2" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Previous Stage2 Experiments
-                </div>
-                <div class="card-body">
-                    <button id="rate-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                                <th scope="col">Next Stage</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-rate">
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage2-param-file"></th>
+                        </tr>                        
+                        <tbody id="parameter-file-list">
                         </tbody>
                     </table>
-                </div>
-            </div>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
 
-            <!-- end RadxRate -->
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage2-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage2-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th> 
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
+
+                </div> <!-- card body -->
+            </div> <!-- card stage 2 -->
+
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+<div class="example-one">
+  <!-- <h5>autoProceed is on BEJ</h5> -->
+
+  <!-- Target DOM node #1 -->
+  <div class="for-DragDrop"></div>
+
+  <!-- Progress bar #1 -->
+  <div class="for-ProgressBar"></div>
+
+  <!-- Uploaded files list #1 -->
+  <div class="uploaded-files">
+    <!-- <h5>Uploaded files:</h5> -->
+    <ol></ol>
+  </div>
+</div>
+            <button id="run-button-stage2" class="btn btn-primary run-button">Run</button>  
+
+    <!-- end RadxRate restyle -->    
+
+
+            <!--
             <div style="text-align: center">
                 <h1 id="third">Rainfall Estimation</h1>
                 <a href="url">Learn more </a> | <a href="url">Help </a>
             </div>
+            -->
             <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50; left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color:white; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
+
             </div>
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
@@ -499,141 +1022,135 @@
                     </li>
                 </ul>
             </aside>
-            <!-- begin RadxQpe -->
+            <!-- begin RadxQpe restyle -->
             <div class="card" id="stage3">
-                <div class="card-header">
-                    Compute Something (RadxQpe)
-                </div>
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Quantitative Precipitation Estimation (RadxQpe) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()"   data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                  <tr>
+                    <th class="done-lime-green" id="stage3-source"></th>
+                    <th class="done-lime-green" id="stage3-radar-name"></th>                  
+                  </tr>
+                  </table>
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage3-source" data-toggle="dropdown">
-                      Data Sources
-                    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage3-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage3-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage3-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage3-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage3-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage3-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage3-end-time" placeholder="end date time">
-                    </div>
-
-                    Step 2: Setup parameter file
-                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
-                    <div class="form-group">
-                        <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage3-param-file" uri="888">
-                    </div>
-
-
-                    <!--
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                     -->
-                    <button id="run-button-stage3" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-            <!-- old code -----
-            <div class="card">
-                <div class="card-header">
-                    Compute Something (RadxQpe)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian rate data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-      end old code  -->
-
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    Previous Stage3 Experiments
-                </div>
-                <div class="card-body">
-                    <button id="qpe-refresh-button" class="btn btn-secondary">Refresh</button>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Creation Time</th>
-                                <!-- <th scope="col">OutDir</th> -->
-                                <th scope="col">View Log</th>
-                                <th scope="col">Images</th>
-                            </tr>
-                        </thead>
-                        <tbody id="experiment-list-qpe">
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage3-param-file"></th>
+                        </tr>
+                        <tbody id="parameter-file-list">
                         </tbody>
                     </table>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
+                    <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
+                 <!--   
+                    <div class="form-group">
+                        <label for="email"></label>
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
+                    </div>
+                -->
+
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
+
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage3-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
+
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage3-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>                    
+
                 </div>
+
             </div>
-            <!-- end RadxQpe -->
-            <div style="text-align: center">
-                <h1 id="fourth">Rainfall Estimation</h1>
-                <a href="url">Learn more </a> | <a href="url">Help </a>
-            </div>
+
+
+        <!-- Basic Uppy styles -->
+<!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+<div class="example-one">
+  <!-- <h5>autoProceed is on BEJ</h5> -->
+
+  <!-- Target DOM node #1 -->
+  <div class="for-DragDrop"></div>
+
+  <!-- Progress bar #1 -->
+  <div class="for-ProgressBar"></div>
+
+  <!-- Uploaded files list #1 -->
+  <div class="uploaded-files">
+    <!-- <h5>Uploaded files:</h5> -->
+    <ol></ol>
+  </div>
+</div>
+
+
+                    <button id="run-button-stage3" class="btn btn-primary run-button">Run</button>            
+
+            <!-- end RadxQpe restyle -->
+
             <div style="text-align: center; margin: 30px">
-                <!-- Creating the navigation bar with circles -->
-                <nav style="position:relative; left: -30px">
-                    <ul style="list-style-type: none; overflow: hidden; display: inline">
-                        <li class="rectangle" style="background-color: #4CAF50; left: 196px; top: 26px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 420px; top: 20px; position:relative; z-index: -1"></li>
-                        <li class="rectangle" style="background-color: #4CAF50; left: 640px; top: 14px; position:relative; z-index: -1"></li>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: inline">
-                        <a href="#first" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#second" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#third" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                        <a href="#fourth" <li class="circle" style="background-color: #4CAF50; display: inline"></li>
-                        </a>
-                    </ul>
-                    <ul style="list-style-type: none; margin: 20px; padding-left: 60px; padding-right: 60px; overflow: hidden; display: flex">
-                        <li style="display: inline; margin: 0 30px;">
-                            <p>Convert Level II Data to <br> CfRadial <br> (RadxConvert)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Map Rate to Surface<br>(RadxRate)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Something <br>(RadxQpe)</p>
-                        </li>
-                        <li style="display: inline; margin: 0 40px;">
-                            <p>Compute Rainfall <br> Accumulation <br>(RateAccum)</p>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
+            </div>            
+ 
             <aside style="display: inline;">
                 <ul style="list-style-type: none; display: flex; overflow: hidden; padding-left: 10px; padding-left: 10px">
                     <li style="display: inline; margin: 0 10px">
@@ -644,156 +1161,144 @@
                     </li>
                 </ul>
             </aside>
-            <!-- begin RateAccum -->
 
+            <!-- begin RateAccum restyle -->
             <div class="card" id="stage4">
-                <div class="card-header">
-                    Compute Rainfall Accumulation (RateAccum)
-                </div>
+                <!-- <div class="icon-bar"> hello</div> -->
+
                 <div class="card-body">
-                    Step 1: Choose data source
+                    <table> <!--  class="table" -->
+                      <tr>
+                        <p class="stage-text"> Compute Rainfall Accumulation (RateAccum) </p>                       
+                      </tr>
+                      <tr>
+                          <th class="step-text">Step 1 </th>
+                      </tr> <th> <a href="#" class="hyperlink-text" 
+                        onclick="hideUnavailableDataSources()"  data-toggle="modal" 
+                        data-target="#myModal">Choose data source </a> 
+                        <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                      </th> </tr>
+                      <tr>
+                        <th class="done-lime-green" id="stage4-source"></th>
+                        <th class="done-lime-green" id="stage4-radar-name"></th>
+                      </tr>
+                    </table>
+                    <!-- <a id="choose-data-source" href="#">Choose data source </a> -->
                     <br>
 
-                    <div class="input-group mt-3 mb-3">
-                        <div class="input-group-prepend">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle" id="stage4-source" data-toggle="dropdown">
-                      Data Sources
-                    </button>
-                            <div class="dropdown-menu">
-                                <a class="dropdown-item" id="stage4-file-filedir" href="#">File or Directory</a>
-                                <a class="dropdown-item" id="stage4-file-tutorial" href="#">Tutorial</a>
-                            </div>
-                        </div>
-                        <input type="text" class="form-control" uri="888" source=1 id="stage4-file" placeholder="data/directory">
-                        <input type="text" class="form-control" uri="888" source=2 id="stage4-radar-name" placeholder="radar name, e.g. KFTG">
-                        <div class="input-group-prepend" id="stage4-start-time-label">
-                            <span class="input-group-text">start time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-start-time" placeholder="start date time">
-                        <div class="input-group-prepend" id="stage4-end-time-label">
-                            <span class="input-group-text">stop time</span>
-                        </div>
-                        <input type="datetime-local" class="form-control" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
-                    </div>
-
-                    Step 2: Setup parameter file
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 2 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Set up parameter file 
+                            <img src={% static 'custom_app/icons/help-circle.png' %} alt="info" class="help-circle-icon" />
+                          </th>
+                      </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Use default </a> 
+                            </th>   
+                        </tr>
+                        <tr>                         
+                            <th> <a href="url" class="hyperlink-text">Download template </a> 
+                                <img src={% static 'custom_app/icons/download_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th> <a href="url" class="hyperlink-text">Upload your parameter file </a> 
+                                <img src={% static 'custom_app/icons/upload_file.png' %} alt="info" class="upload-download-icon" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th class="done-lime-green" id="stage4-param-file"></th>
+                        </tr>
+                        <tbody id="parameter-file-list">
+                        </tbody>
+                    </table>
+                    <br>
+                    <table>
+                      <tr>
+                          <th class="step-text">Step 3 </th>
+                      </tr> 
+                      <tr>
+                          <th class="stage-text">Select time frame
+                          </th>
+                      </tr>
                     <!-- a id="setup-parameter-file" href="#">Setup parameter file </a> -->
-                    <br>
+                 <!--   
                     <div class="form-group">
                         <label for="email"></label>
-                        <input type="email" class="form-control" value="tutorial/basic/params/RadxRate.new" id="stage4-param-file" uri="888">
+                        <input type="email" class="form-control" value="tutorial/basic/params/RadxConvert.new" id="stage1-param-file" uri="888">
                     </div>
+                -->
 
+                        <tr>
+                            <th class="analyze-date-time"> Analyze data from
+                            </th>
 
-                    <!--
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                     -->
-                    <button id="run-button-stage4" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-            <!-- old code ...
-            <div class="card">
-                <div class="card-header">
-                    Compute Rainfall Accumulation (RateAccum)
-                </div>
-                <div class="card-body">
-                    
-                    <a href="url">Choose data source </a> <br>
-                    
-                    Set up parameter file <br>
-                    <a href="url">Download template </a> <br>
-                    <a href="url">Upload your parameter file </a> <br>
-                    Output Data - NetCDF Cartesian accumulated data - view using (CIDD)
-                    <button id="run-button" class="btn btn-primary">Run</button>
-                </div>
-            </div>
-            end old code -->
-            <!-- end RateAccum -->
+                            <th> 
+                               <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage4-start-time" placeholder="start date time">
+                            </th>
+                            <th class="start-end-date-time"> Start Date and Time </th>
+                        </tr>
+                        <tr>
+                            <th class="analyze-date-time"> to 
+                            </th>
 
-            <button id="run-button" class="btn btn-secondary">Exit</button><br><br>
-
-            <!-- begin My Storage-->
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <!-- Displaying a list of recent experiments -->
-            <div class="card">
-                <div class="card-header">
-                    User Storage
-                </div>
-                <div class="card-body">
-                    <!-- button id="refresh-button" class="btn btn-secondary">Refresh</button -->
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">Directory</th>
-                                <th scope="col">URL</th>
-                                <th scope="col">Size</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storage-dir-list">
+                            <th>
+                                <input type="datetime-local" class="form-control date-and-time" uri="888" source=2 id="stage4-end-time" placeholder="end date time">
+                            </th>
+                            <th class="start-end-date-time"> End Date and Time </th> 
+                        </tr>
+                        <tr><th>&nbsp;</th> 
+                            <th class="caution"> * The start date must be earlier than the end date </th>
+                             
+                        </tr>
+                        <tbody id="parameter-file-list">
                         </tbody>
-                    </table>
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">File</th>
-                                <th scope="col">dataProductURI</th>
-                                <th scope="col">Mime Type</th>
-                                <th scope="col">Size</th>
-                            </tr>
-                        </thead>
-                        <tbody id="storage-file-list">
-                        </tbody>
-                    </table>
+                    </table>                    
+
                 </div>
+
             </div>
-            <!-- begin My Storage-->
-            <!-- Adding aside tag to keep cards same width -->
-            <aside style="display: block;">
-                <p></p>
-            </aside>
-            <div class="card">
-                <div class="card-header">
-                    Choose data source
-                </div>
-                <div class="card-body">
-                    <div id="user-storage" />
 
-                </div>
 
-                <script>
-                    // provide data for initializing api's session.Session
-                    window.AiravataPortalSessionData = {
-                        "username": "brenda92",
-                        "airavataInternalUserId": "brenda92@lrose",
-                        "isGatewayAdmin": true
-                    };
-                </script>
-                <!-- script type="text/javascript" src="/static/common/dist/js/chunk-vendors.7db780c7.js" ></script>
-  <script type="text/javascript" src="/static/common/dist/js/app.faa7ad7b.js" ></script>
-  
-    <script type="text/javascript" src="/static/common/dist/js/notices.398e45d2.js" ></script>
-  
-  
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-vendors.e45ba37b.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/chunk-common.18aeeebe.js" ></script>
-<script type="text/javascript" src="/static/django_airavata_workspace/dist/js/user-storage.ecc9856a.js" ></script-->
+            <!-- Basic Uppy styles -->
+            <!-- <link rel="stylesheet" href="/uppy/uppy.min.css"> -->
+
+
+            <div class="example-one">
+              <!-- <h5>autoProceed is on BEJ</h5> -->
+
+              <!-- Target DOM node #1 -->
+              <div class="for-DragDrop"></div>
+
+              <!-- Progress bar #1 -->
+              <div class="for-ProgressBar"></div>
+
+              <!-- Uploaded files list #1 -->
+              <div class="uploaded-files">
+                <!-- <h5>Uploaded files:</h5> -->
+                <ol></ol>
+              </div>
             </div>
-        </div>
 
-        <!-- end My Storage  -->
 
+                    <button id="run-button-stage4" class="btn btn-primary run-button">Run</button>   
+            <!-- end RateAccum restyle -->
+                  
+      </div> <!-- <div class="overflow-y-scroll" -->
+    <!--  <button id="run-button" class="btn btn-secondary">Exit</button><br><br> -->
+
+         <div>
+            <button id="exit-workflow-button" class="btn btn-primary exit-button">Exit</button>  
+        </div>  
+
+   </main>
 </div>
-</main>
-</div>
-{% endblock content %} {% block scripts %}
+{% endblock content %} 
+
+{% block scripts %}
 
 <script src="{% static 'django_airavata_api/dist/airavata-api.js' %}"></script>
 
@@ -809,6 +1314,19 @@
     const TUTORIAL_ENUM = 1;
     const RADAR_ENUM = 2;
     const FILEDIR_ENUM = 3;
+
+    function formatTime(dateString) {
+        console.log("in dateString = " + dateString);
+        yyyy = dateString.substr(1,4);
+        console.log("yyyy = " + yyyy);
+        const MM = dateString.substr(6,2);
+        const dd = dateString.substr(9,2);
+        const hh = dateString.substr(12,2);
+        const mm = dateString.substr(15,2);
+        const df = yyyy.concat("-", MM, "-", dd, "T", hh, ":", mm);
+        console.log("dateString = " + df);
+        return df;
+    }
 
     // https://gateway.lrose.net/api/user-storage/~/garbage_dump/
     function chooseDataSourceFile(path) {
@@ -838,6 +1356,181 @@
             });
         });
     };
+
+
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+
+
+    function loadRadxConversionExperiments() {
+        return services.ExperimentSearchService.list({
+            limit: 3,
+            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
+            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
+        }).then(function (data) {
+            console.log("inside loadRadxConversionExperiments");
+            $("#experiment-list-modal").empty();
+            data.results.forEach(function (exp, index) {
+                $("#experiment-list-modal").append(
+                    `<tr>
+                            <td>${exp.name}</td>
+                            <!-- <td>${exp.executionId}</td> -->
+                            <td>${exp.experimentStatus.name}</td>
+                            <td>${exp.creationTime}</td>
+                            <!-- <td id="outdir_${index}"></td> -->
+                            <td>
+                            <a href="#stage2" id="continue_${index}">Select</button>
+                             </td>
+                        </tr>`
+                );
+                // TODO: the url for continue needs to have the experimentId 
+                //       the url would be the next step card, 
+                // If experiment has finished, load full details, then parse the stdout file
+                // something messed up from here ...
+                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
+                    services.FullExperimentService.retrieve({
+                            lookup: exp.experimentId
+                        }).then(fullDetails => {
+                            console.log('here 1111');
+                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "input_parameters"
+                            ).value;
+                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === inputParametersDataProductId
+                            );
+                            // get the start and end times
+                            const experimentInputs = fullDetails.experiment.experimentInputs;
+                            console.log(experimentInputs);
+                            expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                            expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                            console.log("expStartTime = " + expStartTime);
+                            console.log("expEndTime = " + expEndTime);
+                            // TODO: send the start and end time to the continue button? 
+                            // or just the experimentId, and then retrieve the info when 
+                            // selected?
+
+                            ///const processDirName = fullDetails.experiment.processes[0].processId;
+                            //if (processDirName &&
+                            //    inputParametersDataProduct.downloadURL)
+                            //{
+                                console.log("here 1112: select.onclick(populateStage2(" + exp.experimentId + ")");
+                                //$(`#outdir_${index}`).text(processDirName);
+                                $(`#continue_${index}`).on("click", function() {
+                                    populateStage2(exp.experimentId);
+                                });
+                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            //}
+                            console.log('here 111');
+
+                        });  // fullDetails
+                } // experimentStatus
+                // ... to here 
+            })
+        });
+    };
+
+                                /*  how to find the images ...
+                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
+                                o => o.name === "Images" // TODO: what is the name of the image dir?
+                            ).value;
+                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
+                            const imageArray = outdirDataProductId.split(',');
+                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
+                            const outdirDataProduct = fullDetails.outputDataProducts.find(
+                                dp => dp.productUri === firstOne
+                            );
+                            if (
+                                outdirDataProduct &&
+                                outdirDataProduct.downloadURL
+                            ) {
+                                console.log("index=" + index + " here ... Have downloadURL");
+                                console.log(outdirDataProduct.downloadURL);
+                                $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
+                            }
+                            */
+
+    $("#run-radxconvert-button").click(function (e) {
+        const step = "RadxConvert";
+        const data_file_source = $(`#stage1-source`).attr("source");
+        const radar_name = $(`#stage1-radar-name`).text();
+        console.log("radar_name text = " + $(`#stage1-radar-name`).text());
+        //console.log("radar_name val = " + $(`#stage1-radar-name`).val());
+        const start_time_rough = $(`#stage1-start-time`).val();
+        const end_time_rough =   $(`#stage1-end-time`).val();
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");
+        const param_file = $(`#stage1-param-file`).val();
+        console.log("stage1-RadxConvert params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage1-file`).attr("uri");
+        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
+        const param_file_uri = $(`#stage1-param-file`).attr("uri");
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage1AppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+
+        // TODO: get the id of the RadxConvert_display application
+        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = stage1DeploymentId;
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + step;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                experiment.experimentInputs[0].value = data_file_source;
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = "\"" + start_time +  " 00 " + "\""; // TODO: make this 1st parameter
+                experiment.experimentInputs[3].value = "\"" + end_time   +  " 00 " +  "\"";
+                experiment.experimentInputs[4].value = param_file;
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                theExperimentId = exp.experimentId;
+                console.log("theExperimentId=" + theExperimentId);
+                // start checkStatus timer 
+                // this is not working; generates syntax error unexpected token 'Promise'
+                //myVar = setInterval(checkStatus(theExperimentId), 10000);  
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            }).catch(console.log);
+        return 0;
+    });
 
     function chooseDataSourceDate() {
         console.log("inside chooseDataSource");
@@ -884,6 +1577,86 @@
         );
     };
 
+
+    function generateDataSources() {
+        console.log("inside generateDataSources currentStage=" + currentStage);
+        // setCurrentStage();
+               // <!-- <p>Drop files here <br> or </p> -->
+
+               // <!-- Basic Uppy styles -->
+               // <!-- link rel="stylesheet" href="/uppy/core/dist/style.min.css" -->        
+               // <!-- <link rel="stylesheet" href="/uppy/drag-drop/dist/style.min.css"> -->
+        $("#chooseDataSourceTable").empty();
+        $("#chooseDataSourceTable").append(        
+                `<tr><td>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Upload from your desktop</button></td>
+                </tr>
+                <tr><td>
+                  <button class="rectangle-208" onclick="window.location.href='/workspace/storage';">Select from file manager</button><td>
+                </tr>`);
+
+        $("#chooseDataSourceTable").append( 
+                `<tr><td>
+                  <button class="rectangle-208" id="use-online-data-source">Use online data source</button>
+                  <!-- TODO: on click, show table with selectable options as buttons/clickable labels -->
+                  <table class="table"> 
+                    <tbody id="onlineDataSources">
+                    <tr>
+                      <td><button id="data-source-tutorial">Tutorial</button></td>`);
+        if (currentStage == 1) {
+            $("#chooseDataSourceTable").append( 
+                    `<td><button id="data-source-nexrad" >NEXRAD</button></td>`);
+        }
+        $("#chooseDataSourceTable").append( 
+                        `</tr> 
+                    </tbody>
+                  </table>
+                  </td>
+                </tr>`);
+        if (currentStage > 1) {
+            $("#chooseDataSourceTable").append( 
+                `<tr><td>
+                  <button class="rectangle-208" id="get-previous-stage-button">Continue previous stage</button>
+                    <table class="table" id="previousStageList">
+                        <tbody id="experiment-list-modal">
+                        </tbody>
+                    </table>
+                  </td>
+                </tr>`
+                );
+        }
+    }
+
+    function hideUnavailableDataSources() {
+        console.log("inside hideUnavailableDataSources currentStage=" + currentStage);
+        $("#experiment-list-modal").empty();
+        if (currentStage > 1) {
+            console.log("should hide NEXRAD");
+            //$("#data-source-nexrad").hide();
+            var x = document.getElementById("data-source-nexrad");
+            x.style.visibility = "hidden";
+            x = document.getElementById("data-source-tutorial");
+            x.style.visibility = "hidden";
+            //$("#data-source-tutorial").hide();
+            $("use-online-data-source").hide();
+            $("#get-previous-stage-button").show();            
+        }
+
+        if (currentStage == 1) {
+            console.log("currentStage == 1");
+            $("#get-previous-stage-button").hide();
+            var x = document.getElementById("data-source-nexrad");
+            x.style.visibility = "visible";
+            x = document.getElementById("data-source-tutorial");
+            x.style.visibility = "visible";
+            //$("#data-source-nexrad").show();
+            //$("#data-source-nexrad").display("false");
+        }
+
+
+        
+    }
+
     function printArgs() {
         stage1_input_uri = "beautiful";
         console.log(stage1_input_uri);
@@ -908,6 +1681,82 @@
         });
     });
 
+    var labelID;
+
+    $('label').click(function() {
+       labelID = $(this).attr('for');
+       $('#'+labelID).trigger('click');
+     });
+
+    $('document').ready(function() {
+        $("#option4").click(function() {
+            document.getElementById("option4").style.backgroundColor = "lightblue";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage1").click(function() {
+            //document.getElementById("circle-stage2").style.backgroundColor = "white";
+            //document.getElementById("circle-stage2").style.border = "3px solid #4CAF50";
+            document.getElementById("circle-stage2").className = "circleEmpty";
+            document.getElementById("stage12-rect").style.backgroundColor = "#C4C4C4";
+            document.getElementById("circle-stage3").className = "circleEmpty";
+            document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage2").click(function() {
+            //document.getElementById("circle-stage2").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage2").className = "circleFilled";
+
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleEmpty";
+            document.getElementById("stage23-rect").style.backgroundColor = "#C4C4C4";  
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage3").click(function() {
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
+            document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";      
+            document.getElementById("circle-stage4").className = "circleEmpty";
+            document.getElementById("stage34-rect").style.backgroundColor = "#C4C4C4";      
+        });
+    });
+
+    $('document').ready(function() {
+        $("#circle-stage4").click(function() {
+            document.getElementById("circle-stage2").className = "circleFilled";
+            document.getElementById("stage12-rect").style.backgroundColor = "#4CAF50";
+            document.getElementById("circle-stage3").className = "circleFilled";
+            document.getElementById("stage23-rect").style.backgroundColor = "#4CAF50";  
+            document.getElementById("circle-stage4").className = "circleFilled";
+            document.getElementById("stage34-rect").style.backgroundColor = "#4CAF50";
+        });
+    });
+
+            
+
+    // may not need this ...
+    $('document').ready(function() {
+        $("#stage2-circle").click(function() {
+            console.log("circle clicked!");
+                document.getElementById("stage2-circle").style.backgroundColor = "lightblue";
+                //document.getElementById("stage2-circle").setAttribute("style", "background-color:pink; //display: inline");
+                //$(event.delegateTarget).css("background-color", "pink");
+
+               //});
+               return false;
+        });
+    });
+
     const default_stage1_data_file_uri = "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
     const default_stage1_param_file_uri = "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
 
@@ -917,11 +1766,12 @@
     function setStage1Tutorial() {
         // TODO: change the "Data Sources" to be "Tutorial"; set attr("source") on stage1 "Data Sources" button NOT the stage1-file id.
         // TODO: make the radar, start, end times non-editable when tutorial is the data source.
+
         $("#stage1-file").hide();
         $("#stage1-source").attr("source", TUTORIAL_ENUM);
         $("#stage1-source").text("Tutorial");
         $("#stage1-radar-name").show();
-        $("#stage1-radar-name").val("RCWF");
+        $("#stage1-radar-name").text("RCWF");
         $("#stage1-start-time").show();
         $("#stage1-start-time").val(tutorial_start_date);
         $("#stage1-end-time").show();
@@ -929,6 +1779,8 @@
         $("#stage1-start-time-label").show();
         $("#stage1-end-time-label").show();
         $("#stage1-param-file").val("tutorial/basic/params/RadxConvert.new");
+        $("#stage1-param-file").text("RadxConvert.new");
+        console.log("inside setStage1Tutorial ... radar-name = " + $("#stage1-radar-name").text());
     }
 
     function setStage1File() {
@@ -948,12 +1800,14 @@
 
     // if selecting Radar as input source, then change to start/end time & radar name
     // also switch the default parameter file to the NEXRAD form 
-    function setStage1Radar() {
+    function setStage1Radar(nexrad_radar_station) {
         // TODO: change the input boxes to time and radar name
+        console.log("setStage1Radar: radar_name = " + nexrad_radar_station);
         $("#stage1-file").hide();
         $("#stage1-source").attr("source", RADAR_ENUM);
-        $("#stage1-source").text("Radar");
+        $("#stage1-source").text("NEXRAD");
         $("#stage1-radar-name").show();
+        $("#stage1-radar-name").text(nexrad_radar_station);
         $("#stage1-start-time").show();
         $("#stage1-end-time").show();
         $("#stage1-start-time-label").show();
@@ -966,7 +1820,7 @@
         $("#stage2-source").attr("source", TUTORIAL_ENUM);
         $("#stage2-source").text("Tutorial");
         $("#stage2-radar-name").show();
-        $("#stage2-radar-name").val("RCWF");
+        $("#stage2-radar-name").text("RCWF");
         $("#stage2-start-time").show();
         $("#stage2-start-time").val(tutorial_start_date);
         $("#stage2-end-time").show();
@@ -982,19 +1836,40 @@
         // $(`#stage1-file`).attr("uri")
     };
 
-    function setStageTutorial(stage, param_file) {
+    function setStageTutorial() {
+        stage = currentStage;
         $(`#stage${stage}-file`).hide();
         $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
         $(`#stage${stage}-source`).text("Tutorial");
         $(`#stage${stage}-radar-name`).show();
-        $(`#stage${stage}-radar-name`).val("RCWF");
+        $(`#stage${stage}-radar-name`).text("RCWF");
         $(`#stage${stage}-start-time`).show();
         $(`#stage${stage}-start-time`).val(tutorial_start_date);
         $(`#stage${stage}-end-time`).show();
         $(`#stage${stage}-end-time`).val(tutorial_end_date);
         $(`#stage${stage}-start-time-label`).show();
         $(`#stage${stage}-end-time-label`).show();
-        $(`#stage${stage}-param-file`).val(param_file); // "tutorial/basic/params/RadxRate.new");  
+        basedir = "tutorial/basic/params/";
+        switch(stage) {
+            case 1: 
+              param_file = "RadxConvert.new";
+              break;
+            case 2: 
+              param_file = "RadxRate.new";
+              break;
+            case 3: 
+              param_file = "RadxQpe.new";
+              break;
+            case 4: 
+              param_file = "RateAccum.new";
+              break;
+            default:
+              // TODO report error
+              console.log("error, unknown stage -- cannot determine param_file");
+        }
+        $(`#stage${stage}-param-file`).val(basedir + param_file); // "tutorial/basic/params/RadxRate.new");  
+        console.log("setting stage " + stage + " param-file to " + param_file);
+        $(`#stage${stage}-param-file`).text(param_file);
 
         //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
         //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
@@ -1002,6 +1877,54 @@
         //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
         // $(`#stage1-file`).attr("uri")
     };
+
+
+
+    function setStagePrevious(processDirName) {
+        stage = currentStage;
+        // TODO: get the start and end times
+        $(`#stage${stage}-file`).hide();
+        $(`#stage${stage}-source`).attr("source", TUTORIAL_ENUM);
+        $(`#stage${stage}-source`).text(processDirName);
+        $(`#stage${stage}-radar-name`).show();
+        //$(`#stage${stage}-radar-name`).text("RCWF");
+        $(`#stage${stage}-start-time`).show();
+        //$(`#stage${stage}-start-time`).val(tutorial_start_date);
+        $(`#stage${stage}-end-time`).show();
+        //$(`#stage${stage}-end-time`).val(tutorial_end_date);
+        $(`#stage${stage}-start-time-label`).show();
+        $(`#stage${stage}-end-time-label`).show();
+        basedir = "tutorial/basic/params/";
+        switch(stage) {
+            case 1: 
+              param_file = "RadxConvert.new";
+              break;
+            case 2: 
+              param_file = "RadxRate.new";
+              break;
+            case 3: 
+              param_file = "RadxQpe.new";
+              break;
+            case 4: 
+              param_file = "RateAccum.new";
+              break;
+            default:
+              // TODO report error
+              console.log("error, unknown stage -- cannot determine param_file");
+        }
+        $(`#stage${stage}-param-file`).val(basedir + param_file); // "tutorial/basic/params/RadxRate.new");  
+        console.log("setting stage " + stage + " param-file to " + param_file);
+        $(`#stage${stage}-param-file`).text(param_file);
+
+        //$("#stage2-file").val("tutorial/basic/convert/RCWF/20170602/20170602001300.nc");  
+        //$("#stage2-file").attr("source", TUTORIAL_ENUM); 
+        //$("#stage2-param-file").val("tutorial/basic/params/RadxRate.new");  
+        //$("#stage1-param-file").attr("uri", default_stage1_param_file_uri);        
+        // $(`#stage1-file`).attr("uri")
+    };
+
+
+
 
     $(document).ready(function() {
         setStage1Tutorial()
@@ -1019,6 +1942,7 @@
 
     $(document).ready(function() {
         $("#stage1-file-tutorial").click(function() {
+            console.log("setting stage1 tutorial");
             setStage1Tutorial()
         });
         $("#stage1-file-radar").click(function() {
@@ -1035,12 +1959,49 @@
     //      "nexrad_display_4837fe51-7c52-426e-963d-f2c32d699947"; 
 
 
-    const stage1AppInterfaceId = "RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+    // these have been updated to JS2
+    const stage1AppInterfaceId = "precip_stage1_7183856e-2450-4416-84bd-a72dde6ca525";
     const stage2AppInterfaceId = "precip_stage2_0e0c14cb-d094-4e13-a633-4d4248058b7c";
     const stage3AppInterfaceId = "precip_stage3_5f6aee08-4c60-4592-ab52-23b467aa31c6";
-    const stage4AppInterfaceId = "precip_stage4_";
+    const stage4AppInterfaceId = "precip_stage4_d146ed4c-5bca-4ca5-80b6-49fbbd9f6e8f";
 
 
+    const stage1DeploymentId = "149.165.152.168_precip_stage1_0e49e868-5e04-48a1-8505-3ec1ca1d0c5a";
+    const stage2DeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+    const stage3DeploymentId = "149.165.152.168_precip_stage3_b8f88098-0b3b-4c48-857c-1766609d1138";
+    const stage4DeploymentId = "149.165.152.168_precip_stage4_545cba6a-ed32-40f3-8a1a-7c2c210b64b5";
+
+    const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+
+    function getAppInterfaceId(stage) {
+        switch (stage) {
+            case 1:
+               return stage1AppInterfaceId;
+            case 2:
+               return stage2AppInterfaceId;
+            case 3:
+               return stage3AppInterfaceId;
+            case 4:
+               return stage4AppInterfaceId;
+            default:
+               assert("Error getAppInterfaceId: Unrecognized stage " + stage);
+        }
+    }
+
+    function getAppDeploymentId(stage) {
+        switch (stage) {
+            case 1:
+               return stage1DeploymentId;
+            case 2:
+               return stage2DeploymentId;
+            case 3:
+               return stage3DeploymentId;
+            case 4:
+               return stage4DeploymentId;
+            default:
+               assert("Error getAppDeploymentId: Unrecognized stage " + stage);
+        }
+    }
 
     function loadExperiments() {
         return services.ExperimentSearchService.list({
@@ -1094,55 +2055,276 @@
     //loadExperiments();
     //$("#refresh-button").click(loadExperiments);
 
-    function populateStage2(processDirName, inputParametersDownloadURL) {
-        alert(processDirName);
-        //parameter-file-stage2 
-        //     data-source-stage2
-        // update the Run button to use the processDirName  
-        if (
-            processDirName
-        ) {
-            // get the input parameters from the previous PROCESS_DIR
+    // the argument is just the experimentId, and then look things up as needed
+    function populateStage2(previousExperimentId) {
+        // processDirName, inputParametersDownloadURL) {
+        alert(previousExperimentId);
 
-            // populate the input parameters
-            $("#run-button-stage2").click(function() {
-                runStage2(processDirName);
-            });
+        console.log("entering populateStage2: previousExperimentId=" + previousExperimentId);
+
+        services.FullExperimentService.retrieve({
+                lookup: previousExperimentId
+            }).then(fullDetails => {
+                console.log('here pe111');
+                const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                    o => o.name === "input_parameters"
+                ).value;
+                const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                    dp => dp.productUri === inputParametersDataProductId
+                );
+                // get the start and end times
+                const experimentInputs = fullDetails.experiment.experimentInputs;
+                console.log(experimentInputs);
+                expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                console.log("expStartTime = " + expStartTime);
+                console.log("expEndTime = " + expEndTime);
+                // send the experimentId, to the continue button,
+                // and retrieve the info when needed
+                const radar_name = experimentInputs.find(i => i.name === "radar name").value;
+
+                const processDirName3 = fullDetails.experiment.processes[0].processId;
+                console.log("populateStage2: processDirName = " + processDirName3);
+                if (processDirName3) 
+                {
+                    // update the Run button to use the processDirName  
+                    // get the input parameters from the previous PROCESS_DIR
+                    // populate the input parameters
+
+                    // HERE working here 9/22/2022
+                    setStagePrevious(processDirName3);
+                    // somehow populate the information in the stage2 window, and also retain the
+                    const formattedTime = formatTime(expStartTime);
+                    console.log("formattedTime9 = " + formattedTime);
+                    $(`#stage2-start-time`).val(formattedTime);
+                    const formattedTimeE = formatTime(expEndTime);
+                    $(`#stage2-end-time`).val(formattedTimeE);
+                    // processDirName in order to pass it along to the run button.
+                    console.log("done formatting time");
+                    $(`#stage2-radar-name`).text(radar_name);
+                    $("#run-button-stage2").click(function() {
+                        runStage2(processDirName3);
+                    });
+                }
             //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-        }
-
+        })
     }
 
-    function populateStage3(processDirName, inputParametersDownloadURL) {
-        alert(processDirName);
-        //parameter-file-stage2 
-        //     data-source-stage2
-        // update the Run button to use the processDirName  
-        if (
-            processDirName
-        ) {
-            const stage = 3;
-            const param_file = "windy day";
-            const step = "stage3";
-            const data_file_source = 1;
-            const param_file_uri = "";
-            // get the input parameters from the previous PROCESS_DIR
-            console.log("calling setStageTutorial");
-            setStageTutorial(stage, param_file);
-            // populate the input parameters
-            $("#run-button-stage3").click(function() {
-                runStage(processDirName, step, data_file_source, param_file_uri, stage3AppInterfaceId);
-                //runStage3(processDirName);
-            });
-            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
-        }
 
+    // the argument is just the experimentId, and then look things up as needed
+    function populateStage(stage, previousExperimentId) {
+
+        alert(previousExperimentId);
+
+        console.log("entering populateStage: stage=" + stage + " previousExperimentId=" + previousExperimentId);
+
+        services.FullExperimentService.retrieve({
+                lookup: previousExperimentId
+            }).then(fullDetails => {
+                console.log('here ps111');
+                const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
+                    o => o.name === "input_parameters"
+                ).value;
+                const inputParametersDataProduct = fullDetails.outputDataProducts.find(
+                    dp => dp.productUri === inputParametersDataProductId
+                );
+                // get the start and end times
+                const experimentInputs = fullDetails.experiment.experimentInputs;
+                console.log(experimentInputs);
+                const expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                const expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                console.log("expStartTime = " + expStartTime);
+                console.log("expEndTime = " + expEndTime);
+                const radar_name = experimentInputs.find(i => i.name === "radar name").value;
+                // TODO: send the start and end time to the continue button? 
+                // or just the experimentId, and then retrieve the info when 
+                // selected?
+
+                const processDirName3 = fullDetails.experiment.processes[0].processId;
+                console.log("populateStage: processDirName = " + processDirName3);
+                if (processDirName3) 
+                {
+                    // update the Run button to use the processDirName  
+                    // get the input parameters from the previous PROCESS_DIR
+                    // populate the input parameters
+
+                    setStagePrevious(processDirName3);
+                    // somehow populate the information in the stage2 window, and also retain the
+                    console.log("before formatting time; expStartTime = " + expStartTime);
+                    const formattedTime = formatTime(expStartTime);
+                    $(`#stage${stage}-start-time`).val(formattedTime);
+                    const formattedTimeX = formatTime(expEndTime);
+                    $(`#stage${stage}-end-time`).val(formattedTimeX);
+                    $(`#stage${stage}-radar-name`).text(radar_name);
+                    console.log("after formatting time");
+                    // processDirName in order to pass it along to the run button.
+                    const stageAppInterfaceId = getAppInterfaceId(stage);
+                    const appDeploymentId = getAppDeploymentId(stage);                    
+
+                    $(`#run-button-stage${stage}`).click(function() {
+                        //runStage(stage, processDirName3);
+                        runStage(stage, processDirName3, stageAppInterfaceId,
+      appDeploymentId);  // <<=== 9/26/2022 here, need stageAppInterfaceId, and appDeploymentId for stage
+                    });
+                }
+            //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+        })
     }
+
 
     // But, if the data or time or radar changes, then we need to grab the new input parameters
     // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
-    function runStage2(processDirName) {
+    function runStage2(processDirName) {   /// <<=== this is used 
         console.log('entering runStage2');
+        console.log('processDirName = ' + processDirName);
+        const data_file_source = $(`#stage2-source`).attr("source");
+        const radar_name = $(`#stage2-radar-name`).text();  
+        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
+        const start_time_rough = "\"" + $(`#stage2-start-time`).val() + "\"";
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time_rough =   "\"" + $(`#stage2-end-time`).val() + "\"";
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");        
+        console.log("stage2-RadxRate params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage2-file`).attr("uri");
+        const param_file = $(`#stage2-param-file`).val();
+
+        console.log("param_file: " + param_file);
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stage2AppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+        const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + currentStage;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                //console.log("data_file_source = " + data_file_source);
+                //experiment.experimentInputs[0].value = data_file_source;
+                console.log("aaa");
+                experiment.experimentInputs[0].value = processDirName;
+                console.log("bbb");
+                experiment.experimentInputs[1].value = radar_name;
+                experiment.experimentInputs[2].value = start_time;
+                experiment.experimentInputs[3].value = end_time;                
+                experiment.experimentInputs[4].value = param_file;
+                console.log("ccc");
+                //experiment.experimentInputs[3].value = start_time; // TODO: make this 1st parameter
+                //console.log("ddd");
+                //experiment.experimentInputs[4].value = end_time;
+                console.log("before experiment create");
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                console.log("before experiment launch");
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
+    }
+
+        // But, if the data or time or radar changes, then we need to grab the new input parameters
+    // Actually, the radar name cannot change at this point.  The radar name can only be set at stage1.
+    function runStage(stage, processDirName, stageAppInterfaceId,
+      appDeploymentId) {   /// <<=== this is used 
+        console.log('entering runStage stage=' + stage);
+        console.log('processDirName = ' + processDirName);
+        const data_file_source = $(`#stage${stage}-source`).attr("source");
+        const radar_name = $(`#stage${stage}-radar-name`).text();  
+        //  UPDATE THESE VALUES THROUGH MODAL; dynamically generate modal based on the stage (e.g. no previous stages, when stage == 1; no NEXRAD when stage > 1)
+
+        const start_time_rough = "\"" + $(`#stage${stage}-start-time`).val() + "\"";
+        const start_time = start_time_rough.replace(/[T:-]/g, " ");
+        const end_time_rough =   "\"" + $(`#stage${stage}-end-time`).val() + "\"";
+        const end_time = end_time_rough.replace(/[T:-]/g, " ");  
+
+        console.log("stage params ...");
+        console.log(start_time);
+        console.log(end_time);
+        console.log("data_file_source: " + data_file_source);
+        console.log("radar name: " + radar_name);
+        const data_file_uri = $(`#stage${stage}-file`).attr("uri");
+        const param_file = $(`#stage${stage}-param-file`).val();
+
+        console.log("param_file: " + param_file);
+        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
+            lookup: stageAppInterfaceId
+        });
+
+        console.log("loadAppInterface = " + loadAppInterface);
+    //  ==>>  const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+        const loadQueues = services.ApplicationDeploymentService.getQueues({
+            lookup: appDeploymentId
+        });
+
+        //const resourceHostId = "149.165.152.168_8cef6d9d-dfa5-454a-9ee0-ac74c601b85d";
+        const queueName = "cloud";
+        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
+        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
+        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
+            .then(([appInterface, workspacePrefs, queues]) => {
+                const experiment = appInterface.createExperiment();
+                experiment.experimentName = "workflow " + currentStage;
+                experiment.projectId = workspacePrefs.most_recent_project_id;
+                const cloudQueue = queues.find(q => q.queueName === queueName);
+                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
+                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
+                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
+                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
+                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
+                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
+                // Copy the selected greeting to the value of the first input
+                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
+                console.log("data_file_source = " + data_file_source);
+                experiment.experimentInputs[0].value = processDirName;
+                console.log("aaa2");
+                experiment.experimentInputs[1].value = radar_name;
+                // TODO: make sure start and end times have quotes ("") around them!!
+                experiment.experimentInputs[2].value = start_time;
+                experiment.experimentInputs[3].value = end_time;
+                console.log("bbb2");
+                experiment.experimentInputs[4].value = param_file;
+                console.log("ccc2");
+                //experiment.experimentInputs[3].value = start_time; // TODO: make this 1st parameter
+                //console.log("ddd");
+                //experiment.experimentInputs[4].value = end_time;
+                console.log("before experiment create");
+                return services.ExperimentService.create({
+                    data: experiment
+                });
+            }).then(exp => {
+                console.log("before experiment launch");
+                return services.ExperimentService.launch({
+                    lookup: exp.experimentId
+                });
+            })
+    }
+
+
+    function runStage2Old(processDirName) {    
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
         // then when "Run" is clicked, send the processDirName as argument.
@@ -1161,20 +2343,20 @@
             lookup: stage2AppInterfaceId
         });
         // TODO: get the id of the RadxConvert_display application
-        //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "149.165.152.168_RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
         Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
             .then(([appInterface, workspacePrefs, queues]) => {
                 const experiment = appInterface.createExperiment();
-                experiment.experimentName = "precip " + step;
+                experiment.experimentName = "precip " + currentStage;
                 experiment.projectId = workspacePrefs.most_recent_project_id;
                 const cloudQueue = queues.find(q => q.queueName === queueName);
                 experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
@@ -1204,7 +2386,7 @@
     // TODO: maybe this could be a function ...
     // args processDirName, step = "stage2", data_file_source, param_file_uri, stageXAppInterfaceId 
     // TODO: if there are no changes to the input parameters, then we can just run the stage with the processDirName
-    function runStage(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
+    function runStageOld(processDirName, step, data_file_source, param_file_uri, stageXAppInterfaceId) {
         console.log("entering runStage " + step);
         // TODO: populate the inputs to the next stage with the info from the processDirName,
         // or maybe the experiementID??
@@ -1223,12 +2405,12 @@
         const loadAppInterface = services.ApplicationInterfaceService.retrieve({
             lookup: stageXAppInterfaceId
         });
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
+        const appDeploymentId = "149.165.152.168_RadxConvert_display_c814c263-ab5d-4e97-b10f-3a5295420487";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -1261,218 +2443,64 @@
                 });
             })
     };
+ 
 
-    function some_function(processDirName) {
-        return new Promise(function(resolve, reject) {
-            let x = 0;
 
-            if (x == 0) {
-                resolve(alert(processDirName));
-            } else {
-                reject(alert("It broke"));
-            }
-        });
-    };
 
-    function loadRadxConversionExperiments() {
-        return services.ExperimentSearchService.list({
-            limit: 3,
-            [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
-            [models.ExperimentSearchFields.APPLICATION_ID.name]: stage1AppInterfaceId
-        }).then(data => {
-            $("#experiment-list-conversion").empty();
-            data.results.forEach((exp, index) => {
-                $("#experiment-list-conversion").append(
-                    `<tr>
-                            <td>${exp.name}</td>
-                            <!-- <td>${exp.executionId}</td> -->
-                            <td>${exp.experimentStatus.name}</td>
-                            <td>${exp.creationTime}</td>
-                            <!-- <td id="outdir_${index}"></td> -->
-                            <td id="log_${index}">
-                            <a href="url">view log file </a> </td>
-                            <td id="image3_${index}">
-                            <a href="/workspace/experiments/${exp.experimentId}"> 
-                              <img id="image_${index}" src="" alt="No image" width="100" height="100"> </td>
-                            </a>
-                            <td>
-                            <a href="#stage2" id="continue_${index}">Continue</button>
-                             </td>
-                        </tr>`
-
-                    // <a href="#stage2">continue next step </a>
-
-                    // <a rel="nofollow" href="http"
-                    //    <a rel="${exp.processDirName}" href="#stage2">continue next step </a> </td>
-
-                );
-                // TODO: the url for continue needs to have the experimentId 
-                //       the url would be the next step card, 
-                // If experiment has finished, load full details, then parse the stdout file
-                if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
-                    services.FullExperimentService.retrieve({
-                            lookup: exp.experimentId
+    function checkStatus(experimentId) {
+        return  services.FullExperimentService.retrieve({
+                            lookup: theExperimentId
                         })
-                        //.then(fullDetails => {
-                        //    console.log('here 11');
-                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                        //        o => o.name === "Output-Dir"
-                        //    ).value;  
-                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
-                        //        dp => dp.productUri === stdoutDataProductId
-                        //    );
-                        //    if (
-                        //        stdoutDataProduct &&
-                        //        stdoutDataProduct.downloadURL
-                        //    ) {
-                        //        console.log('here 12');
-                        //        return stdoutDataProductId.name;
-                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                        //        //    credentials: "same-origin"
-                        //        //}).then(result => result.text());
-                        //    }
-                        //})
                         .then(fullDetails => {
-                            console.log('here 1111');
-                            const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "input_parameters"
-                            ).value;
-                            const inputParametersDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === inputParametersDataProductId
-                            );
-
-                            const processDirName = fullDetails.experiment.processes[0].processId;
-                            if (
-                                processDirName &&
-                                inputParametersDataProduct.downloadURL
-                            ) {
-                                console.log('here 1112');
-                                //$(`#outdir_${index}`).text(processDirName);
-                                $(`#continue_${index}`).on("click", function() {
-                                    populateStage2(processDirName, inputParametersDataProduct.downloadURL);
-                                });
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
+                            console.log('here 1122');
+                            console.log("experimentStatusName=" + fullDetails.experimentStatusName);
+                            if (fullDetails.experimentStatusName === models.ExperimentState.COMPLETED) {
+                                console.log("DONE");
+                                // stop the progress bar
+                                clearInterval(myVar);
+                                // report DONE
+                                // display an image from the results
+                                return;
                             }
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value;
-                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
-                            const imageArray = outdirDataProductId.split(',');
-                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
-                            const outdirDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === firstOne
-                            );
-                            if (
-                                outdirDataProduct &&
-                                outdirDataProduct.downloadURL
-                            ) {
-                                console.log("index=" + index + " here ... Have downloadURL");
-                                console.log(outdirDataProduct.downloadURL);
-                                $(`#image_${index}`).attr('src', outdirDataProduct.downloadURL); // .show();
-
-                                //        return stdoutDataProductId.name;
-                                //return fetch(outdirDataProduct.downloadURL, {
-                                //    credentials: "same-origin"
-                                //}).then(result => result.text());   
-                            }
-                            //                        })
-                            //                        .then(text => {
-                            //                                console.log('here 112');
-                            //                                //console.log(text);
-                            //                        //        $(`#outdir_${index}`).text(outdirDataProductId);
-                            //                                const testOutputProductId = "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1";
-                            //                               //const imgsrc = "data:image/png;base64," + text; // btoa(String.fromCharCode.apply(null, text);
-                            //                               if (text) {
-                            //
-                            //                                  console.log("index=" + index + " if (text) is true, setting the image src");
-                            //
-                            //                                  //$(`#image_${index}`).attr('src', text); // .show();
-                            //                                } else {
-                            //                                    console.log("if (text) is false");
-                            //                                }
-                            //                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                            //                        //        //    credentials: "same-origin"
-                            //                        //        //}).then(result => result.text());
                         });
-                    //})
-                    //.then(fullDetails => {
-
-                    //});
-                    // .catch(alert("Problem fetching previous experiments")); 
-                    //.then(text => {
-                    //    //$(`#continue_${index}`).text(text);
-                    //    $(`#continue_${index}`).click(function() {
-                    ////       alert(exp.processes.processId);
-                    //        alert(exp.experimentId);
-                    //    })
-                    //});
-                }
-            });
-        });
     }
+    
 
     // TODO: args stage2AppInterfaceId, experiment-list
     // stage = 2, 
     function loadStageExperiments(stage, stageAppInterfaceId, experimentList) {
+
+        console.log("inside loadStageExperiments: stage=" + stage + " current stage=" + currentStage);
+
         return services.ExperimentSearchService.list({
             limit: 3,
             [models.ExperimentSearchFields.USER_NAME.name]: session.Session.username,
             [models.ExperimentSearchFields.APPLICATION_ID.name]: stageAppInterfaceId
         }).then(data => {
             console.log("inside loadStageExperiments; stage =" + stage);
-            const nextStage = stage + 1;
-            $(experimentList).empty();
+            console.log("               stageAppInterfaceId = " + stageAppInterfaceId);
+            //const nextStage = stage + 1;
+            $("#experiment-list-modal").empty();
             data.results.forEach((exp, index) => {
                 // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
                 // https://gateway.lrose.net/workspace/experiments/${exp.experimentId}
-                $(experimentList).append(
+                
+                $("#experiment-list-modal").append(
                     `<tr>
                             <td>${exp.name}</td>
                             <!-- <td>${exp.executionId}</td> -->
                             <td>${exp.experimentStatus.name}</td>
                             <td>${exp.creationTime}</td>
-                            <!-- <td id="outdir_${stage}_${index}"></td> -->
-                            <td id="log_${stage}_${index}">
-                            <a href="url">view log file </a> </td>
-                            <td id="image3_${index}">
-                            <a href="/workspace/experiments/${exp.experimentId}"> 
-                              <img id="image_${stage}_${index}" src="" alt="No image" width="100" height="100"> 
-                            </a>
-                            </td>
                             <td>
-                            <a href="#stage${nextStage}" id="continue_${stage}_${index}">Continue</button>
+                            <a href="#stage${currentStage}" id="continue_${index}">Select</button>
                              </td>
                         </tr>`
 
                 );
-                // TODO: the url for continue needs to have the experimentId 
-                //       the url would be the next step card, 
-                // If experiment has finished, load full details, then parse the stdout file
                 if (exp.experimentStatus === models.ExperimentState.COMPLETED) {
                     services.FullExperimentService.retrieve({
                             lookup: exp.experimentId
-                        })
-                        //.then(fullDetails => {
-                        //    console.log('here 11');
-                        //    const stdoutDataProductId = fullDetails.experiment.experimentOutputs.find(
-                        //        o => o.name === "Output-Dir"
-                        //    ).value;  
-                        //    const stdoutDataProduct = fullDetails.outputDataProducts.find(
-                        //        dp => dp.productUri === stdoutDataProductId
-                        //    );
-                        //    if (
-                        //        stdoutDataProduct &&
-                        //        stdoutDataProduct.downloadURL
-                        //    ) {
-                        //        console.log('here 12');
-                        //        return stdoutDataProductId.name;
-                        //        //return fetch(stdoutDataProduct.downloadURL, {
-                        //        //    credentials: "same-origin"
-                        //        //}).then(result => result.text());
-                        //    }
-                        //})
-                        .then(fullDetails => {
+                        }).then(fullDetails => {
                             console.log('here 1111');
                             const inputParametersDataProductId = fullDetails.experiment.experimentOutputs.find(
                                 o => o.name === "input_parameters"
@@ -1480,6 +2508,13 @@
                             const inputParametersDataProduct = fullDetails.outputDataProducts.find(
                                 dp => dp.productUri === inputParametersDataProductId
                             );
+                            // get the start and end times
+                            const experimentInputs = fullDetails.experiment.experimentInputs;
+                            console.log(experimentInputs);
+                            expStartTime = experimentInputs.find(i => i.name === "start time").value;
+                            expEndTime = experimentInputs.find(i => i.name === "end time").value;
+                            console.log("expStartTime = " + expStartTime);
+                            console.log("expEndTime = " + expEndTime);
 
                             const processDirName = fullDetails.experiment.processes[0].processId;
                             if (
@@ -1488,40 +2523,138 @@
                             ) {
                                 console.log('here 1112');
                                 //$(`#outdir_${stage}_${index}`).text(processDirName);
-                                $(`#continue_${stage}_${index}`).on("click", function() {
-                                    populateStage3(processDirName); // , inputParametersDataProduct.downloadURL);
+                                $(`#continue_${index}`).on("click", function() {
+                                    populateStage(currentStage, exp.experimentId);
                                 });
-                                //$(`#continue_${index}`).on("click", function() { alert(processDirName);});
                             }
-                            console.log('here 111');
-                            const outdirDataProductId = fullDetails.experiment.experimentOutputs.find(
-                                o => o.name === "Images" // TODO: what is the name of the image dir?
-                            ).value;
-                            // TODO: need to parse the outdirDataProductId because it is a comma separated list
-                            const imageArray = outdirDataProductId.split(',');
-                            const firstOne = imageArray[0]; // "airavata-dp://14be7773-e2f5-4e1b-8349-75bb6f674af1"; // outdirDataProductId[0];
-                            const outdirDataProduct = fullDetails.outputDataProducts.find(
-                                dp => dp.productUri === firstOne
-                            );
-                            // https://gateway.lrose.net/workspace/experiments/precip_stage2_c751c5da-e7b9-4a03-94ff-98195299e170/
-                            // https://gateway.lrose.net/workspace/experiments/
-                            if (
-                                outdirDataProduct &&
-                                outdirDataProduct.downloadURL
-                            ) {
-                                console.log("index=" + index + " here ... Have downloadURL");
-                                console.log(outdirDataProduct.downloadURL);
-                                $(`#image_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);
-                                // also make a link to the experiment results 
-                                //$(`#exp_link_${stage}_${index}`).attr('src', outdirDataProduct.downloadURL);                   
-                            }
-                        });
-                }
+                        })
+                };
             });
         });
     }
 
+    
+    function showOnlineDataSources() {
+        console.log("inside showOnlineDataSources");
+        $(previousStageList).hide();
+        //$(onlineDataSources).show();
+    } 
+
+    function showPreviousStages() {
+        console.log("inside showPreviousStagess");
+        $(previousStageList).show();
+        //$(onlineDataSources).hide();
+    } 
+
+// WORKING HERE ...
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+      //console.log("inside scrollFunction ");
+        var offset = $('#dotNav').offset().top;
+        //offset += $('dotNav').height();
+        //console.log("offset=" + offset);
+        var sec1 = $('#stage1').offset().top + offset;
+        var sec2 = $('#stage2').offset().top + offset;
+        var sec3 = $('#stage3').offset().top + offset;
+        var sec4 = $('#stage4').offset().top + offset;   
+         
+        //console.log("sec1="+sec1 + " sec2="+sec2 + " sec3="+sec3 + " sec4="+sec4);  
+
+        //console.log("windowscroll="+c.scrollTop());
+        currentStage = 1;
+        $("#circle-stage1").click();
+        if (sec1 < 0) {
+          currentStage += 1;
+          $("#circle-stage2").click();
+        }
+        if (sec2 < 0) {
+          currentStage += 1;
+          $("#circle-stage3").click();
+        }
+        if (sec3 < 0) {
+          currentStage += 1;
+          $("#circle-stage4").click();
+        }
+        //if (sec4 < 0) {
+        //  currentStage += 1;
+        //}
+        console.log("setting stage = " + currentStage);
+
+     // if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+     //   document.getElementById("navbar").style.top = "0";
+     // } else {
+     //   document.getElementById("navbar").style.top = "-50px";
+     // }
+    }
+// end WORKING HERE
+    var currentStage = 1;
+
+
     //$("#continue_*").click(???)
+
+    $("#get-previous-stage-button").click(function() {
+        console.log("inside get-previous-stage-button click");
+        showPreviousStages();
+        //setCurrentStage();
+        console.log("current stage = " + currentStage);
+        var appIId = stage2AppInterfaceId;
+        var experimentList = "#experiment-list-modal";
+        switch (currentStage-1) {
+            case 0: 
+                appIId = stage1AppInterfaceId; 
+                break;
+            case 1: 
+                appIId = stage1AppInterfaceId; 
+                //experimentList = "#experiment-list-conversion";
+                break;
+            case 2: 
+                appIId = stage2AppInterfaceId; 
+                //experimentList = "#experiment-list-rate";
+                break;
+            case 3: 
+                appIId = stage3AppInterfaceId; 
+                //experimentList = "#experiment-list-qpe";
+                break;
+            default:     
+                console.log("get-previous-stage-button unexpected currentStage-1 = " + currentStage-1);                               
+        }
+        if (currentStage == 2) {
+            loadRadxConversionExperiments();
+        } else {
+            loadStageExperiments(currentStage-1, appIId, "#experiment-list-modal");
+        }
+    });
+
+    $("#use-online-data-source").click(function() {
+        showOnlineDataSources()
+    });
+
+    function myFunction() {
+        console.log("data-source is nexrad");
+        var x = document.getElementById("myDropdown");
+        x.classList.toggle("show"); // ("dropdown-content");
+        //setStage1Radar();
+    }
+
+    // Close the dropdown if the user clicks outside of it
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+
+    $("#data-source-tutorial").click(function() {
+        console.log("data-source is tutorial");
+        setStageTutorial();
+    });
 
     //loadRadxConversionExperiments();
     $("#conversion-refresh-button").click(loadRadxConversionExperiments);
@@ -1540,71 +2673,23 @@
         console.log($(`#stage1-file`).attr("uri"));
     });
 
-    $("#run-radxconvert-button").click(e => {
-        const step = "RadxConvert"; // $("#greeting-select").val();
-        //const data_file_uri = "\"2020 09 29 12 00 00\"";
-        //const param_file_uri = "\"2020 09 29 12 10 00\"";
-        const data_file_source = $(`#stage1-source`).attr("source");
-        const radar_name = $(`#stage1-radar-name`).val();
-        const start_time = $(`#stage1-start-time`).val();
-        const end_time = $(`#stage1-end-time`).val();
-        console.log("data_file_source: " + data_file_source);
-        console.log("radar name: " + radar_name);
-        console.log("start time: " + start_time);
-        console.log("end time: " + end_time);
-        const data_file_uri = $(`#stage1-file`).attr("uri");
-        // "airavata-dp://bc297ca4-5d28-4f84-9647-08ab1af9dd64";
-        const param_file_uri = $(`#stage1-param-file`).attr("uri")
-            // "airavata-dp://42d4e0c2-3969-4d69-a735-0bc0d7caca52";
-            //const radar_name = "KFTG";
-            // We need the app interface to be the same, so we can retrieve all related experiements;
-            // We will need to send different parameters based on the data_file_source
+    var theExperimentId = "something";
+    var myVar; // setInterval(checkStatus(theExperimentId), ); 
 
-        const loadAppInterface = services.ApplicationInterfaceService.retrieve({
-            lookup: stage1AppInterfaceId
-        });
+    $("#check-status-button").click(function() {
+      //checkStatus(theExperimentId)
+      clearInterval(myVar);
+      // TODO: does experiment.launch return the experimentId?????
+    }); 
 
-        // TODO: get the id of the RadxConvert_display application
-        //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_RadxConvert_display_dbba2d50-4949-40f1-a0eb-fca71df8ec37";
-        const loadQueues = services.ApplicationDeploymentService.getQueues({
-            lookup: appDeploymentId
-        });
+//switch from run-button-stage2 to runStage
+//does precip_stage2 need a processDir???? only for continuation, right?
+//well, we need the location of the results from stage1.  Hmmm. how to get this when it is 
+//tutorial??? Q: Do we have intermediate data for the tutorial?  If not, then 
+// we must use the previous stage results and remove tutorial for stage > 1.
+//Need prior stage results, or use the tutorial???
+//Right. prior results gives us the uri for the input data directory
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
-        const queueName = "cloud";
-        const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
-        const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
-        Promise.all([loadAppInterface, loadWorkspacePrefs, loadQueues])
-            .then(([appInterface, workspacePrefs, queues]) => {
-                const experiment = appInterface.createExperiment();
-                experiment.experimentName = "workflow " + step;
-                experiment.projectId = workspacePrefs.most_recent_project_id;
-                const cloudQueue = queues.find(q => q.queueName === queueName);
-                experiment.userConfigurationData.groupResourceProfileId = groupResourceProfileId;
-                experiment.userConfigurationData.computationalResourceScheduling.resourceHostId = resourceHostId;
-                experiment.userConfigurationData.computationalResourceScheduling.totalCPUCount = cloudQueue.defaultCPUCount;
-                experiment.userConfigurationData.computationalResourceScheduling.nodeCount = cloudQueue.defaultNodeCount;
-                experiment.userConfigurationData.computationalResourceScheduling.wallTimeLimit = cloudQueue.defaultWalltime;
-                experiment.userConfigurationData.computationalResourceScheduling.queueName = queueName;
-                // Copy the selected greeting to the value of the first input
-                // TODO: send args based on data_file_source; select stage1AppInterfaceId based on data_file_source
-                experiment.experimentInputs[0].value = data_file_source;
-                experiment.experimentInputs[1].value = radar_name;
-                experiment.experimentInputs[2].value = start_time; // TODO: make this 1st parameter
-                experiment.experimentInputs[3].value = end_time;
-                //            experiment.experimentInputs[2].value = param_file_uri; // TODO: make this 1st parameter
-
-
-                return services.ExperimentService.create({
-                    data: experiment
-                });
-            }).then(exp => {
-                return services.ExperimentService.launch({
-                    lookup: exp.experimentId
-                });
-            })
-    });
 
 
     // TODO: this may not be used???
@@ -1619,13 +2704,13 @@
             lookup: stage2AppInterfaceId
         });
         // TODO: get the id of the RadxConvert_display application
-        //const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
+        //const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "149.165.152.168_precip_stage2_3f37c217-4a4e-4031-871f-13a054123c26";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -1665,12 +2750,12 @@
             lookup: stage1AppInterfaceId
         });
 
-        const appDeploymentId = "lrose-vc.jetstream-cloud.org_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
+        const appDeploymentId = "149.165.152.168_nexrad_display_a6ceaf23-4a54-4f03-9c69-bdd0a8dcf21d";
         const loadQueues = services.ApplicationDeploymentService.getQueues({
             lookup: appDeploymentId
         });
 
-        const resourceHostId = "lrose-vc.jetstream-cloud.org_d785f302-592b-45e7-9907-c06b31631592";
+        //const resourceHostId = "149.165.152.168_d785f302-592b-45e7-9907-c06b31631592";
         const queueName = "cloud";
         const groupResourceProfileId = "621cdb88-33b4-47ee-953d-ee31d9cd2012";
         const loadWorkspacePrefs = services.WorkspacePreferencesService.get();
@@ -1700,6 +2785,94 @@
                 });
             })
     });
+
+
+
+function openInfo(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+function openLog(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+
+//
+//const Uppy = require('@uppy/core')
+//const DragDrop = require('@uppy/drag-drop')
+//const ProgressBar = require('@uppy/progress-bar')
+//const Tus = require('@uppy/tus')
+
+// Function for displaying uploaded files
+const onUploadSuccess = (elForUploadedFiles) => (file, response) => {
+  const url = response.uploadURL
+  const fileName = file.name
+
+  const li = document.createElement('li')
+  const a = document.createElement('a')
+  a.href = url
+  a.target = '_blank'
+  a.appendChild(document.createTextNode(fileName))
+  li.appendChild(a)
+
+  document.querySelector(elForUploadedFiles).appendChild(li)
+}
+/*
+const uppyOne = new Uppy({ debug: true, autoProceed: true })
+uppyOne
+  .use(DragDrop, { target: '.example-one .for-DragDrop' })
+  .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+  .use(ProgressBar, { target: '.example-one .for-ProgressBar', hideAfterFinish: false })
+  .on('upload-success', onUploadSuccess('.example-one .uploaded-files ol'))
+
+const uppyTwo = new Uppy({ debug: true, autoProceed: false })
+uppyTwo
+  .use(DragDrop, { target: '.example-two .for-DragDrop' })
+  .use(Tus, { endpoint: 'https://tusd.tusdemo.net/files/' })
+  .use(ProgressBar, { target: '.example-two .for-ProgressBar', hideAfterFinish: false })
+  .on('upload-success', onUploadSuccess('.example-two .uploaded-files ol'))
+
+const uploadBtn = document.querySelector('.example-two button.upload-button')
+uploadBtn.addEventListener('click', () => {
+  uppyTwo.upload()
+})
+
+*/
 </script>
+
 
 {% endblock scripts %}
